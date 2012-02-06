@@ -4,6 +4,11 @@ Espoir
 Under Construction
 
 
+開発環境
+Development environment
+
+Microsoft Visual C++ 2008 Express Edition
+
 必要なライブラリ
 Necessary libraries
 
@@ -26,3 +31,4 @@ Copyright (c) 2012, Volvic Geyser
 Twitter: http://twitter.com/romost
 
 License: The BSD 2-Clause License
+License.txt
