@@ -1,7 +1,7 @@
 Espoir
 
 »ì“r’†‚È3D‚ÌƒQ[ƒ€
-Under Construction
+Under construction, this is a 3D game.
 
 
 ŠJ”­ŠÂ‹«

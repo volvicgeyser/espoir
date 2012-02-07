@@ -3,12 +3,20 @@
 
 namespace espoir{
 
+	
+GameMain::GameMain(SPDXInfo info){
+	this->dinfo_ = info;
+}
+
 //ゲームの描画
 void GameMain::Render(){
-	//ここに描画を書く
+	
 }
 
 //ゲームのアップデート処理
 void GameMain::Update(){
+	
 }
+
+
 }

@@ -1,46 +1,53 @@
 #pragma once
+#include"form.h"
+#include"GameMain.h"
+#include"GraphicInfo.h"
+
+//DirectXの初期化をするクラス
+
+
 namespace espoir{
-	//typedef std::basic_string<TCHAR, std::char_traits<TCHAR>, std::allocator<TCHAR>> String;
 
+class Form;
+	
+LRESULT CALLBACK DWndProc(HWND, UINT, WPARAM, LPARAM);
 
-	
-	LRESULT CALLBACK DWndProc(HWND, UINT, WPARAM, LPARAM);
-	
+//Formのスマートポインタ版
+SP_TDEF(Form);
+
+SP_TDEF(GameMain);
+SP_TDEF(GraphicInfo);
+SP_TDEF(DXInfo);
 
 //DirectXの初期化をするクラス
 class DDevice{
 private:
-	//コンストラクタの実行禁止
-	DDevice(){}
-
-	//コピーコンストラクタ禁止
-	DDevice(const DDevice& p){}
 	
 	//Direct3D
-	static ComPtr<IDirect3D9>::type mDirect3D;
-
-
-	//static ::_com_ptr_t<::_com_IIID<IDirect3D9, &__uuidof(IDirect3D9)>>   mDirect3D;
-	//static ::_com_ptr_t<::_com_IIID<IDirect3DDevice9, &__uuidof(IDirect3DDevice9)>> mD3Device;
-
-
-
+	ComPtr<IDirect3D9>::type direct3D_;
 
 	//デバイス
-	static ComPtr<IDirect3DDevice9>::type mD3Device;
+	ComPtr<IDirect3DDevice9>::type d3Device_;
 	
-	//メインウィンドウのウィンドウハンドル
-	static HWND hWnd;
+	//Direct3D, デバイス
+	//SPGrahpicInfo ginfo_;
+
+	//DirectXのメインになるフォームウィンドウ
+	SPForm form_;
+
+	SPGameMain gm_;
+	
+
 public:
 
 	//ウィンドウハンドルの設定
-	static void SetHWND(HWND hWnd);
+	//void SetHWND(HWND hWnd);
 
 	//DirectXの初期化
-	static bool Init();
+	bool Init();
 
 	//DiretXのメインループ
-	static void DMainLoop();
+	void DMainLoop();
 };
 
 

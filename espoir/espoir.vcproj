@@ -185,10 +185,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\espoir.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\form.cpp"
 				>
 			</File>
@@ -197,15 +193,15 @@
 				>
 			</File>
 			<File
-				RelativePath=".\GameMain.h"
+				RelativePath=".\Graphic.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\main.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\point.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\showError.cpp"
 				>
 			</File>
 			<File
@@ -239,6 +235,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\config.h"
+				>
+			</File>
+			<File
 				RelativePath=".\controlInfo.h"
 				>
 			</File>
@@ -251,11 +251,31 @@
 				>
 			</File>
 			<File
-				RelativePath=".\espoir.h"
+				RelativePath=".\DXInfo.h"
+				>
+			</File>
+			<File
+				RelativePath=".\FontInfo.h"
 				>
 			</File>
 			<File
 				RelativePath=".\form.h"
+				>
+			</File>
+			<File
+				RelativePath=".\GameInfo.h"
+				>
+			</File>
+			<File
+				RelativePath=".\GameMain.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Graphic.h"
+				>
+			</File>
+			<File
+				RelativePath=".\GraphicInfo.h"
 				>
 			</File>
 			<File
@@ -264,6 +284,10 @@
 			</File>
 			<File
 				RelativePath=".\macro.h"
+				>
+			</File>
+			<File
+				RelativePath=".\main.h"
 				>
 			</File>
 			<File
@@ -276,10 +300,6 @@
 			</File>
 			<File
 				RelativePath=".\Resource.h"
-				>
-			</File>
-			<File
-				RelativePath=".\showError.h"
 				>
 			</File>
 			<File

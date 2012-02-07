@@ -1,5 +1,7 @@
 #pragma once
 
+//２次元平面図上の位置を表すポイントクラス
+
 template <class T>
 struct Point_t{
 	T x;

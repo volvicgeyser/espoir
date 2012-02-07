@@ -2,27 +2,29 @@
 #include"stdafx.h"
 #include"DDevice.h"
 #include"debug.h"
+
 #include"Resource.h"
-ComPtr<IDirect3D9>::type espoir::DDevice::mDirect3D;
-//::_com_ptr_t<::_com_IIID<IDirect3D9, &__uuidof(IDirect3D9)>>  espoir::DDevice::mDirect3D;
-ComPtr<IDirect3DDevice9>::type espoir::DDevice::mD3Device;
-//::_com_ptr_t<::_com_IIID<IDirect3DDevice9, &__uuidof(IDirect3DDevice9)>> espoir::DDevice::mD3Device;
 
-HWND espoir::DDevice::hWnd = NULL;
+namespace espoir{
+
+//ComPtr<IDirect3D9>::type DDevice::direct3D_;
+//ComPtr<IDirect3DDevice9>::type DDevice::d3Device_;
+//SPForm DDevice::form_;
+//HWND espoir::DDevice::hWnd_ = NULL;
 
 
 
-void espoir::DDevice::SetHWND(HWND hWnd){
+//void espoir::DDevice::SetHWND(HWND hWnd){
 
 	//設定しようとしたウィンドウハンドルがNULLかどうか
-	if(hWnd == NULL){
-		DOut dout;
-		dout << _T("Hwnd is null") << std::endl;
-	}
+//	if(hWnd == NULL){
+//		DOut dout;
+//		dout << _T("Hwnd is null") << std::endl;
+//	}
 
 	//ウィンドウハンドルの設定
-	DDevice::hWnd = hWnd;
-}
+	//this->hWnd_ = hWnd;
+//}
 bool espoir::DDevice::Init(){
 		//戻り値　初期化に成功した=true : 失敗=false
 		bool result = true;
@@ -31,7 +33,7 @@ bool espoir::DDevice::Init(){
 		HRESULT err_code;
 
 		//IDirect3Dオブジェクトインスタンスの取得
-		mDirect3D.Attach( Direct3DCreate9(D3D_SDK_VERSION) );
+		direct3D_.Attach( Direct3DCreate9(D3D_SDK_VERSION) );
 
 
 		::D3DPRESENT_PARAMETERS d3dpp;
@@ -41,8 +43,8 @@ bool espoir::DDevice::Init(){
 		::D3DDISPLAYMODE d3ddm;
 		ZeroMemory(&d3ddm, sizeof(d3ddm));
 
-		//ディスレプイモードの取得
-		err_code = mDirect3D->GetAdapterDisplayMode(D3DADAPTER_DEFAULT, &d3ddm);
+		//ディスプレイモードの取得
+		err_code = direct3D_->GetAdapterDisplayMode(D3DADAPTER_DEFAULT, &d3ddm);
 
 		//ディスプレイモード取得時のエラーチェック
 		if(FAILED(err_code)){
@@ -54,71 +56,14 @@ bool espoir::DDevice::Init(){
 		d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
 		d3dpp.Windowed = TRUE;
 
-
-		//インスタンスハンドルの取得
-		HINSTANCE hInst = GetModuleHandle(NULL);
-
-		//インスタンスハンドル取得時のエラーチェック
-		if(!hInst){
-			DOut dout;
-			dout << _T("インスタンスハンドルの取得に失敗しました error: code") << std::endl;
-			dout << GetLastError() << std::endl;
-		}
-
-
-		//ウィンドウクラス名とウィンドウのタイトル名
-		String dClass = _T("espoir");
-		String title = _T("Directx espoir");
-		
-		
-		//ウィンドウクラスの登録
-		WNDCLASSEX wcex;
-		ZeroMemory(&wcex, sizeof(wcex));
-		wcex.cbSize = sizeof(WNDCLASSEX);
-
-		wcex.style			= CS_HREDRAW | CS_VREDRAW;
-		wcex.lpfnWndProc	= espoir::DWndProc;
-		wcex.cbClsExtra		= 0;
-		wcex.cbWndExtra		= 0;
-		wcex.hInstance		= hInst;
-		wcex.hIcon			= LoadIcon(hInst, MAKEINTRESOURCE(IDI_ESPOIR));
-		wcex.hCursor		= LoadCursor(NULL, IDC_ARROW);
-		wcex.hbrBackground	= (HBRUSH)(COLOR_WINDOW+1);
-		wcex.lpszMenuName	= MAKEINTRESOURCE(IDC_ESPOIR);
-		wcex.lpszClassName	= dClass.c_str();
-		wcex.hIconSm		= LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
-
-		ATOM atom = RegisterClassEx(&wcex);
-
-
-		//プログラム起動時のオプションで指定されたウィンドウの状態を取得
-		STARTUPINFO Info;
-		GetStartupInfo(&Info);
-		int nCmdShow = Info.wShowWindow;
-
-
-		//メインウィンドウの生成
-		hWnd = CreateWindow(dClass.c_str() , title.c_str(), WS_OVERLAPPEDWINDOW,
-		CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, NULL, NULL, hInst, NULL);
-		
-		//コマンドラインの取得
-		LPTSTR cmd = GetCommandLine();
-
-		ShowWindow(hWnd, nCmdShow);
-		UpdateWindow(hWnd);
-
-		//メインウィンドウ生成時のエラーチェック
-		if(!hWnd){
-			DOut dout;
-			dout << _T("DirectX、Windowの生成に失敗しました") << std::endl;
-			dout << GetLastError() << std::endl;
-		}
+		this->form_.reset(new Form(DirectX));
+		this->form_->Show();
 
 		//HEL(ソフトウェアエミュレーション)でデバイス生成
 		HRESULT hResult;
-		hResult = mDirect3D->CreateDevice(
-			D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd,
-			D3DCREATE_SOFTWARE_VERTEXPROCESSING, &d3dpp, &mD3Device);
+		hResult = direct3D_->CreateDevice(
+			D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, this->form_->GetHandle(),
+			D3DCREATE_SOFTWARE_VERTEXPROCESSING, &d3dpp, &d3Device_);
 		
 		//デバイス生成時のエラーチェック
 		if(FAILED(hResult))
@@ -139,30 +84,45 @@ bool espoir::DDevice::Init(){
 		}
 
 		//DirectXの初期化に失敗していたらfalseを返す
-		if(espoir::DDevice::mDirect3D == 0)
+		if(espoir::DDevice::direct3D_ == 0)
 			result = false;
+
+
+		//Grahpcsの初期化
+
+		SPGraphicInfo gInfo(new GraphicInfo());
+		gInfo->d3Device = this->d3Device_;
+		gInfo->direct3D = this->direct3D_;
+
+		SPDXInfo dxInfo(new DXInfo);
+		if(dxInfo->g.get() == NULL)
+			dxInfo->g.reset(new Graphic(gInfo));
+
+		//GameWindowの初期化
+		if(this->gm_.get() == NULL)
+			this->gm_.reset(new GameMain(dxInfo));
 
 		return result;
 }
 
-LRESULT CALLBACK espoir::DWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam){
-	switch(message){
-
+//LRESULT CALLBACK espoir::DWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam){
+//	switch(message){
+//
 		//ウィンドウが破棄された
-		case WM_DESTROY:
-			PostQuitMessage(0);
-			break;
+//		case WM_DESTROY:
+//			PostQuitMessage(0);
+//			break;
 
 		//ウィンドウが再描画された
-		case WM_PAINT:
+//		case WM_PAINT:
 		
-			break;
-		default:
-			return DefWindowProc(hWnd, message, wParam, lParam);
-			break;
-	}
-	return 0;
-}
+//			break;
+//		default:
+//			return DefWindowProc(hWnd, message, wParam, lParam);
+//			break;
+//	}
+//	return 0;
+//}
 
 void espoir::DDevice::DMainLoop(){
 	
@@ -175,13 +135,41 @@ void espoir::DDevice::DMainLoop(){
 	//アクセラレータ（ショートカットキー）テーブルを取得
 	HACCEL hAccelTable = LoadAccelerators(hInst, MAKEINTRESOURCE(IDC_ESPOIR));
 
-	// メイン メッセージ ループ:
-	while (GetMessage(&msg, NULL, 0, 0))
-	{
-		if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
-		{
-			TranslateMessage(&msg);
-			DispatchMessage(&msg);
+	while(TRUE){
+		if(PeekMessage(&msg, NULL, 0, 0, PM_NOREMOVE)){
+			if(!GetMessage(&msg, NULL, 0, 0))
+				break;
+			if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
+			{
+				TranslateMessage(&msg);
+				DispatchMessage(&msg);
+			}
+		}
+		else{
+			if(this->gm_ != NULL){
+				this->gm_->Render();
+				this->gm_->Update();
+			}
+			else{
+				DOut dout;
+				dout << _T("GameMainが初期化されていません") << " at: " << __LINE__ << " " << __FILE__ << std::endl;
+			}
 		}
 	}
+	// メイン メッセージ ループ:
+	//while (GetMessage(&msg, NULL, 0, 0))
+	//{
+	//	if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
+	//	{
+	//		TranslateMessage(&msg);
+	//		DispatchMessage(&msg);
+	//	}
+	//}
+}
+
+
+
+
+
+
 }

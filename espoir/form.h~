@@ -1,14 +1,12 @@
 #pragma once
 #include"IClonable.h"
+#include"IForm.h"
 #include<windef.h>
-
 namespace espoir{
 
 struct ControlInfo;
 class Form;
 
-//Aboutダイアログ
-INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam);
 
 //ウィンドウの種類
 enum WindowType{
@@ -32,18 +30,11 @@ private:
 	//現在生成されているフォームの数
 	static unsigned int form_n_;
 	
+	
 
 	//ゲームメイン画面のウィンドウプロシージャ
 	static LRESULT CALLBACK DbgWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 	static LRESULT CALLBACK DXWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
-
-	//static INT_PTR CALLBACK About(HWND, UINT, WPARAM, LPARAM);
-
-	//デバッグウィンドウ用のインスタンスハンドル
-	static HINSTANCE dbgWndHInst_;
-
-	//インスタンスハンドル
-	static HINSTANCE hInst_;
 
 	//ウィンドウの生成
 	void CreateWnd();
@@ -68,10 +59,7 @@ public:
 	SPControlInfo GetInfo();
 
 	//タイトルの設定
-	//void SetText(String text);
-
-	//ウィンドウハンドルを取得
-	HWND GetHandle();
+	void SetText(String text);
 
 	//フォームを表示する
 	void Show();

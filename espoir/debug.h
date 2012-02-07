@@ -17,10 +17,14 @@ public:
 class DOut : public Ostream {
 private:
 	DStreamBuf* m_StmBuf;
+
 public:
 	DOut() : Ostream(m_StmBuf = new DStreamBuf){};
 	~DOut();
 	
 };
+
+void ShowError(String str);
+void ShowError(String str, String line);
 
 }

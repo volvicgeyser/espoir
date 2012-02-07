@@ -10,9 +10,16 @@ namespace espoir{
 	
 struct ControlInfo
 {
+
+	//ControlInfoスマポ化
+	SP_TDEF(ControlInfo);
+
 	//コンストラクタ
 	ControlInfo(void);
 
+
+	//インスタンスハンドル
+	HINSTANCE hInst;
 	//オブジェクトのウィンドウハンドル
 	HWND hWnd;
 
@@ -25,13 +32,13 @@ struct ControlInfo
 	//デスクトップ上の配置
 	//Point desktopLocation;
 
-	std::vector<boost::shared_ptr<ControlInfo>> child;
-	boost::shared_ptr<ControlInfo> parent;
+	std::vector<SPControlInfo> child;
+	SPControlInfo parent;
 	bool IsShowIcon;
 	bool IsShowInTaskbar;
 	Rect windowRect;
 	String text;
-	std::vector<boost::shared_ptr<ControlInfo>> controls;
+	std::vector<SPControlInfo> controls;
 	bool visible;
 };
 

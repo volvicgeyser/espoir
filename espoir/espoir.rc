@@ -72,8 +72,8 @@ CAPTION "ÉoÅ[ÉWÉáÉìèÓïÒ espoir"
 FONT 9, "MS UI Gothic"
 BEGIN
     ICON            IDR_MAINFRAME,IDC_STATIC,14,14,21,20
-    LTEXT           "espoir, Version 1.0",IDC_STATIC,42,14,114,8,SS_NOPREFIX
-    LTEXT           "Copyright (C) 2012",IDC_STATIC,42,26,114,8
+    LTEXT           "espoir, Version 0.04",IDC_STATIC,42,14,114,8,SS_NOPREFIX
+    LTEXT           "Copyright (C) 2012, Volvic Geyser",IDC_STATIC,42,26,114,8
     DEFPUSHBUTTON   "OK",IDOK,113,41,50,14,WS_GROUP
 END
 
@@ -132,7 +132,7 @@ END
 STRINGTABLE
 BEGIN
    IDC_ESPOIR   "DUMMY_ESPOIR"
-   IDS_APP_TITLE       "espoir"
+//   IDS_APP_TITLE       "espoir"
 END
 
 #endif

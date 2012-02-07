@@ -39,6 +39,9 @@
 #include <boost/lexical_cast.hpp>
 #include <boost/array.hpp>
 #include <boost/utility.hpp>
+#include<boost/function.hpp>
+#include<boost/bind.hpp>
+#include<boost/signals2.hpp>
 //#include <boost/format.hpp>
 #include <d3d9.h>
 #include <boost/preprocessor.hpp>
@@ -49,6 +52,7 @@
 #include"point.h"
 #include"rect.h"
 #include"typedef.h"
+#include"config.h"
 
 
 
