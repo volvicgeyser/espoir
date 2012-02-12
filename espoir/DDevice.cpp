@@ -7,24 +7,6 @@
 
 namespace espoir{
 
-//ComPtr<IDirect3D9>::type DDevice::direct3D_;
-//ComPtr<IDirect3DDevice9>::type DDevice::d3Device_;
-//SPForm DDevice::form_;
-//HWND espoir::DDevice::hWnd_ = NULL;
-
-
-
-//void espoir::DDevice::SetHWND(HWND hWnd){
-
-	//設定しようとしたウィンドウハンドルがNULLかどうか
-//	if(hWnd == NULL){
-//		DOut dout;
-//		dout << _T("Hwnd is null") << std::endl;
-//	}
-
-	//ウィンドウハンドルの設定
-	//this->hWnd_ = hWnd;
-//}
 bool espoir::DDevice::Init(){
 		//戻り値　初期化に成功した=true : 失敗=false
 		bool result = true;
@@ -105,25 +87,6 @@ bool espoir::DDevice::Init(){
 		return result;
 }
 
-//LRESULT CALLBACK espoir::DWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam){
-//	switch(message){
-//
-		//ウィンドウが破棄された
-//		case WM_DESTROY:
-//			PostQuitMessage(0);
-//			break;
-
-		//ウィンドウが再描画された
-//		case WM_PAINT:
-		
-//			break;
-//		default:
-//			return DefWindowProc(hWnd, message, wParam, lParam);
-//			break;
-//	}
-//	return 0;
-//}
-
 void espoir::DDevice::DMainLoop(){
 	
 	//メッセージ
@@ -156,15 +119,7 @@ void espoir::DDevice::DMainLoop(){
 			}
 		}
 	}
-	// メイン メッセージ ループ:
-	//while (GetMessage(&msg, NULL, 0, 0))
-	//{
-	//	if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
-	//	{
-	//		TranslateMessage(&msg);
-	//		DispatchMessage(&msg);
-	//	}
-	//}
+
 }
 
 
