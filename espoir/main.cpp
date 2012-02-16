@@ -15,41 +15,29 @@
 #endif
 
 
+
 int APIENTRY _tWinMain(HINSTANCE hInstance,
                      HINSTANCE hPrevInstance,
                      LPTSTR    lpCmdLine,
                      int       nCmdShow)
 {
-	OutputDebugString(_T("\n\n\n"));
-	OutputDebugString(_T("☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆\n"));
-	OutputDebugString(_T("☆☆☆☆☆☆☆☆☆☆　　S T A R T！　！　　　　　☆☆☆☆☆☆☆☆☆☆☆\n"));
-	OutputDebugString(_T("☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆☆\n"));
-	OutputDebugString(_T("\n\n\n"));
+	using namespace espoir;
+	using namespace std;
 
-
+	//Start!!
+	ShowStart();
 
 	//警告抑制
 	UNREFERENCED_PARAMETER(hPrevInstance);
 	UNREFERENCED_PARAMETER(lpCmdLine);
 
-	//メッセージ（未使用）
-	MSG msg;
 
-	//アクセラレータ（ショートカットキー）のテーブル（未使用）
-	HACCEL hAccelTable;
-
-	//警告抑制
-	UNREFERENCED_PARAMETER(hAccelTable);
-	UNREFERENCED_PARAMETER(msg);
-
-	using namespace espoir;
-	using namespace std;
 
 	SP_TDEF(Form);
 	SP_TDEF(DDevice);
 
 	//プログラム終了直前、メモリリークチェック
-	_CrtSetDbgFlag ( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF );
+	CheckMemoryLeaks();
 
 #ifdef USE_DX_DBG_WND
 	SPForm f(new Form(DbgWnd));

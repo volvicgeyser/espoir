@@ -10,6 +10,10 @@ private:
 	SPGraphicInfo gInfo_;
 public:
 	Graphic(SPGraphicInfo gInfo);
+
+	//テキストメッセージの表示
+	void DrawString(String text);
+
 	~Graphic(void);
 };
 

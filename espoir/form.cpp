@@ -54,8 +54,8 @@ Form::~Form(){
 void Form::InitFormInfo(){
 	//ƒtƒH[ƒ€î•ñ‚Ì‰Šú‰»
 	if(this->info_.get() != NULL){
-		DOut() << "pointer is not null" << std::endl;
-		throw std::runtime_error("point is not null");
+		const String str = _T("pointer is not null");
+		DOut() << str << std::endl;
 	}
 	this->info_.reset(new ControlInfo);
 	

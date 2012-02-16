@@ -24,7 +24,7 @@ public:
 	
 };
 
-void ShowError(String str);
-void ShowError(String str, String line);
+void ShowError(const String str);
+void ShowError(const String str, const String line);
 
 }

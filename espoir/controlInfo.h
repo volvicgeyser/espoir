@@ -17,7 +17,6 @@ struct ControlInfo
 	//コンストラクタ
 	ControlInfo(void);
 
-
 	//インスタンスハンドル
 	HINSTANCE hInst;
 	//オブジェクトのウィンドウハンドル
