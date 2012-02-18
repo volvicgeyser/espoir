@@ -16,8 +16,10 @@ public:
 //Visual Studioの「出力」に出力される
 class DOut : public Ostream {
 private:
+	//DStreamBuf* m_StmBuf;
 	DStreamBuf stmBuf_;
 public:
+	//DOut() : Ostream(m_StmBuf = new DStreamBuf){};
 	DOut() : Ostream(&stmBuf_){}
 	virtual ~DOut();
 	
