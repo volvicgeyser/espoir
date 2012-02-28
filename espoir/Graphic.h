@@ -13,7 +13,7 @@ public:
 
 	//テキストメッセージの表示
 	void DrawString(String text);
-
+	void DrawCircle(Rect rect);
 	~Graphic(void);
 };
 

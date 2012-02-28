@@ -20,9 +20,10 @@ SP_TDEF(GraphicInfo);
 SP_TDEF(DXInfo);
 
 //DirectXの初期化をするクラス
+
+//<summary>DDeviceコメント</summary>
 class DDevice{
 private:
-	
 	//Direct3D
 	ComPtr<IDirect3D9>::type direct3D_;
 

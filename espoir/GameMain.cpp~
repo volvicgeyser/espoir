@@ -20,7 +20,7 @@ void GameMain::Render(){
 		this->dinfo_->g->DrawCircle(rect);
 	else{
 		DOut dout;
-		dout << _T("graphic‚ªNULL‚Å‚· ") << DSTM << std::endl;
+		dout << "graphic‚ªNULL‚Å‚· " << __FILE__ << std::endl;
 	}
 }
 

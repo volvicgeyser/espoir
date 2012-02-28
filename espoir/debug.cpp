@@ -24,9 +24,6 @@ espoir::DOut::~DOut(){
 }
 
 
-
-
-
 //エラー用のダイアログ表示関数
 void ShowError(const String str)
 {

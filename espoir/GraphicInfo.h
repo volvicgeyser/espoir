@@ -8,7 +8,10 @@ struct GraphicInfo{
 	//デバイス
 	ComPtr<IDirect3DDevice9>::type d3Device;
 
+	//バックバッファサーフェス
+	ComPtr<IDirect3DSurface9>::type backBuf;
+
 	//DiretcXのウィンドウハンドル
-	HWND hWnd;
+	//HWND hWnd;
 };
 }

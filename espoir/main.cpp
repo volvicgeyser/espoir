@@ -8,13 +8,12 @@
 #include "color.h"
 #include "Form.h"
 #include "controlInfo.h"
+#include "Console.h"
 
 #ifdef OLD_CODE
 	#define COLOR_TESTING
 	#define POINT_TESTING
 #endif
-
-
 
 int APIENTRY _tWinMain(HINSTANCE hInstance,
                      HINSTANCE hPrevInstance,
@@ -24,14 +23,20 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	using namespace espoir;
 	using namespace std;
 
+
+	//コンソール
+	//Console c;
+
+
+	//googleテスト初期化
+	//::testing::InitGoogleTest(&nCmdShow, (TCHAR**)lpCmdLine);
+
 	//Start!!
 	ShowStart();
 
 	//警告抑制
 	UNREFERENCED_PARAMETER(hPrevInstance);
 	UNREFERENCED_PARAMETER(lpCmdLine);
-
-
 
 	SP_TDEF(Form);
 	SP_TDEF(DDevice);
@@ -65,4 +70,6 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 
 	//DirectXのメインループ
 	device->DMainLoop();
+
+	//system("pause");
 }

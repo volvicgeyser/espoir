@@ -9,6 +9,9 @@
 #define SP_TDEF(name) typedef SP(name) BOOST_PP_CAT(SP, name);
 
 
+//ファイル名＆行番号表示マクロ
+#define DSTM _T(" File: ") <<  __FILE__ << _T("Line: ") << __LINE__
+
 //ループマクロ(i版)
 #define loop_i(n, statement) \
 	for(int i = 0; i < n; i++){\

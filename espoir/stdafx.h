@@ -46,6 +46,8 @@
 //#include <boost/format.hpp>
 #include <d3d9.h>
 #include <boost/preprocessor.hpp>
+#include <boost/scope_exit.hpp>
+#include <gtest/gtest.h>
 
 //マクロ集
 #include"macro.h"
@@ -54,7 +56,6 @@
 #include"rect.h"
 #include"typedef.h"
 #include"config.h"
-
 
 
 //実行時型生成

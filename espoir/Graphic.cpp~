@@ -11,11 +11,13 @@ Graphic::Graphic(SPGraphicInfo gInfo)
 
 	//BackBufferSurfaceÇÃèâä˙âª
 	if(this->gInfo_->backBuf == NULL){
+		//const HRESULT hr = this->gInfo_->d3Device->GetBackBuffer(
+	//		0, 0, D3DBACKBUFFER_TYPE_MONO, &this->gInfo_->backBuf);
 		const HRESULT hr = this->gInfo_->d3Device->GetBackBuffer(
-			0, 0, D3DBACKBUFFER_TYPE_MONO, &this->gInfo_->backBuf);
+			0, 0,  D3DFMT_R5G6B5, &this->gInfo_->backBuf);
 		if(FAILED(hr)){
 			DOut dout;
-			dout << _T("BackBufferÇÃèâä˙âªÇ…é∏îsÇµÇ‹ÇµÇΩ ") << DSTM << std::endl;
+			dout << _T("BackBufferÇÃèâä˙âªÇ…é∏îsÇµÇ‹ÇµÇΩ ") << _T("File: ")<<__FILE__ << _T(" Line: ")<<__LINE__ << std::endl;
 		}
 	}
 }
@@ -33,24 +35,17 @@ void Graphic::DrawCircle(Rect rect)
 
 	if(this->gInfo_->backBuf != NULL){
 		const HRESULT hr = this->gInfo_->backBuf->GetDC(&hDC);
-
-		//ê≥ÇµÇ≠DCéÊìæÇ≈Ç´ÇΩÇ©test
+		
+		//ê≥ÇµÇ≠ï`âÊÇ≥ÇÍÇƒÇ¢ÇÈÇ©Ç«Ç§Ç©test
 		EXPECT_HRESULT_SUCCEEDED(hr);
 
-		if(hr == S_OK){
-			const BOOL rEllipse = Ellipse(hDC, rect.x, rect.y, rect.h, rect.w);
-			//const DWORD err = GetLastError();
-			//DOut dout;
-			//dout << _T("Error: ") << err << _T("ellipse") << DSTM << std::endl;
-			EXPECT_NE(rEllipse, FALSE);
- 			this->gInfo_->backBuf->ReleaseDC(hDC);
-			DOut dout;
-			this->gInfo_->d3Device->Present(NULL, NULL, NULL, NULL);
+		if(SUCCEEDED(hr)){
+			Ellipse(hDC, rect.x, rect.y, rect.h, rect.w);
+			this->gInfo_->backBuf->ReleaseDC(hDC);
 		}
 		else{
 			DOut dout;
-			dout << _T("Error: ") << hr << _T(" â~ÇÃï`âÊÇ…é∏îsÇµÇ‹ÇµÇΩ ") << DSTM << std::endl;
-
+			dout << _T("Error: ") << hr << _T(" â~ÇÃï`âÊÇ…é∏îsÇµÇ‹ÇµÇΩ ") << _T("File: ")<<__FILE__ << _T(" Line: ")<<__LINE__ << std::endl;
 			//å^É`ÉFÉbÉNÉeÉXÉg
 			typedef ::testing::Types<long> testTypes;
 			TYPED_TEST_CASE(getdc_result_test, testTypes);
@@ -68,7 +63,7 @@ void Graphic::DrawCircle(Rect rect)
 	}
 	else{
 		DOut dout;
-		dout << _T("backBufÇ™èâä˙âªÇ≥ÇÍÇƒÇ¢Ç‹ÇπÇÒ ") << DSTM << std::endl;
+		dout << _T("backBufÇ™èâä˙âªÇ≥ÇÍÇƒÇ¢Ç‹ÇπÇÒ ") << __FILE__ << std::endl;
 	}
 }
 

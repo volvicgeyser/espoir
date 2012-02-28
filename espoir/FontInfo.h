@@ -7,7 +7,6 @@ namespace espoir{
 //フォントの情報構造体
 struct FontInfo{
 
-
 	//DirectXデバイス
 	LPDIRECT3DDEVICE9 pDevice;
 

@@ -32,10 +32,13 @@ bool espoir::DDevice::Init(){
 			espoir::DOut dout;
 			dout << _T("GetAdapterDisplayModeが失敗しました") << std::endl;
 		}
-		d3dpp.BackBufferFormat = D3DFMT_UNKNOWN;//d3ddm.Format;
+		d3dpp.BackBufferFormat =  d3ddm.Format;//D3DFMT_R5G6B5;//D3DFMT_UNKNOWN;//d3ddm.Format;
 		d3dpp.BackBufferCount = 1;
 		d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
 		d3dpp.Windowed = TRUE;
+
+		//アプリケーションがバックバッファを直接ロック
+		d3dpp.Flags = D3DPRESENTFLAG_LOCKABLE_BACKBUFFER;
 
 		this->form_ = SPForm(new Form(DirectX));
 		this->form_->Show();
@@ -44,7 +47,9 @@ bool espoir::DDevice::Init(){
 		HRESULT hResult;
 		hResult = direct3D_->CreateDevice(
 			D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, this->form_->GetHandle(),
+
 			D3DCREATE_SOFTWARE_VERTEXPROCESSING, &d3dpp, &d3Device_);
+					//D3DPRESENTFLAG_LOCKABLE_BACKBUFFER, &d3dpp, &d3Device_);
 		
 		//デバイス生成時のエラーチェック
 		if(FAILED(hResult))
@@ -113,7 +118,7 @@ void espoir::DDevice::DMainLoop(){
 			}
 			else{
 				DOut dout;
-				dout << _T("GameMainが初期化されていません") << " at: " << __LINE__ << " " << __FILE__ << std::endl;
+				dout << _T("GameMainが初期化されていません") << DSTM << std::endl;
 			}
 		}
 	}
