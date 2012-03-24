@@ -430,6 +430,14 @@
 				>
 			</File>
 		</Filter>
+		<Filter
+			Name="テストコード"
+			>
+			<File
+				RelativePath=".\Singleton_test.h"
+				>
+			</File>
+		</Filter>
 		<File
 			RelativePath=".\ReadMe.txt"
 			>

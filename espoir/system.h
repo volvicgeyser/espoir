@@ -15,23 +15,25 @@ public:
 };
 
 
+//シングルスレッド
 class SingletonSingleThread{};
 
+//テンプレートなSingleton
 template <class ObjType, 
 		 template <class> class CreationPolicy = DefaultSingletonCreation, 
 		 class ThreadPolicy = SingletonSingleThread
 		>
 class Singleton{
-
 SP_TDEF(ObjType)
-	
 public:
-	SPObjType object_;
-	SPObjType operator->() {return this->GetInst();}
-	SPObjType GetInst(){
-		if(this->object_.get() == NULL)
-			object_ = CreationPolicy::create();	
-		return this->object_;
+	
+	//static SPObjType operator->() {return getInst();}
+	static SPObjType getInst(){
+		//同じ型なら一度だけ生成
+		static SPObjType object_;
+		if(object_.get() == NULL)
+			object_ = CreationPolicy<ObjType>::create();	
+		return object_;
 	}
 };
 

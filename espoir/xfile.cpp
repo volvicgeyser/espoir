@@ -13,5 +13,6 @@ namespace espoir{
 			DOut dout;
 			dout << _T("無効なファイルパスです") << model.c_str() <<DSTM << std::endl;
 		}
+		//D3DXLoadMeshFromX(model, D3DXMESH_SYSTEMMEM, 
 	}
 }

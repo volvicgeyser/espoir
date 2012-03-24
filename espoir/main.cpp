@@ -10,11 +10,14 @@
 #include "controlInfo.h"
 #include "Console.h"
 #include "xfile.h"
+#include "system.h"
+#include "Singleton_test.h"
 #ifdef OLD_CODE
 	#define COLOR_TESTING
 	#define POINT_TESTING
 #endif
 
+//Xファイル読み込みのテスト
 TEST(xfile1, xifle1){
 	using namespace espoir;
 	XFile x(_T(""));
