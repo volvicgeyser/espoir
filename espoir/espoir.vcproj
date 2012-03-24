@@ -298,6 +298,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\singleton.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\xfile.cpp"
 				>
 			</File>
@@ -381,6 +385,10 @@
 			</File>
 			<File
 				RelativePath=".\Resource.h"
+				>
+			</File>
+			<File
+				RelativePath=".\singleton.h"
 				>
 			</File>
 			<File

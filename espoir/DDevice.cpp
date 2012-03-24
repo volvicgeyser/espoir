@@ -28,7 +28,7 @@ bool espoir::DDevice::Init(){
 		::D3DPRESENT_PARAMETERS d3dpp;
 		ZeroMemory(&d3dpp, sizeof(d3dpp));
 		
-		//ディスレプイモード構造体
+		//ディスプレイモード構造体
 		::D3DDISPLAYMODE d3ddm;
 		ZeroMemory(&d3ddm, sizeof(d3ddm));
 

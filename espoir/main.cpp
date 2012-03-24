@@ -10,7 +10,7 @@
 #include "controlInfo.h"
 #include "Console.h"
 #include "xfile.h"
-#include "system.h"
+#include "singleton.h"
 #include "Singleton_test.h"
 #ifdef OLD_CODE
 	#define COLOR_TESTING
@@ -18,6 +18,7 @@
 #endif
 
 //Xファイル読み込みのテスト
+//デバッグ出力にエラーがでるはず
 TEST(xfile1, xifle1){
 	using namespace espoir;
 	XFile x(_T(""));
@@ -74,11 +75,10 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 #endif
 
 	//DirectX初期化
-	SPDDevice device( new DDevice() );
-	device->Init();
+	Singleton<DDevice>::getInst()->Init();
 
 	//DirectXのメインループ
-	device->DMainLoop();
+	Singleton<DDevice>::getInst()->DMainLoop();
 
 	//system("pause");
 	return RUN_ALL_TESTS();
