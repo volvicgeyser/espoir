@@ -47,7 +47,8 @@
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
-				UsePrecompiledHeader="2"
+				UsePrecompiledHeader="1"
+				PrecompiledHeaderThrough="stdafx.h"
 				GenerateXMLDocumentationFiles="false"
 				WarningLevel="3"
 				DebugInformationFormat="4"
@@ -64,7 +65,6 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/Zm153"
-				AdditionalDependencies="d3dx9.lib d3d9.lib dxerr.lib dxguid.lib winmm.lib comctl32.lib comsupp.lib gtestd.lib gtest_maind.lib"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -121,9 +121,10 @@
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
-				RuntimeLibrary="2"
+				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="true"
-				UsePrecompiledHeader="2"
+				UsePrecompiledHeader="0"
+				PrecompiledHeaderThrough="stdafx.h"
 				GenerateXMLDocumentationFiles="false"
 				WarningLevel="3"
 				DebugInformationFormat="3"
@@ -140,7 +141,6 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/Zm153"
-				AdditionalDependencies="d3dx9.lib d3d9.lib dxerr.lib dxguid.lib winmm.lib comctl32.lib comsupp.lib"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -202,7 +202,8 @@
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
 				DisableLanguageExtensions="false"
-				UsePrecompiledHeader="2"
+				UsePrecompiledHeader="1"
+				PrecompiledHeaderThrough="stdafx.h"
 				GenerateXMLDocumentationFiles="false"
 				WarningLevel="3"
 				WarnAsError="true"
@@ -220,7 +221,6 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/Zm153"
-				AdditionalDependencies="d3dx9.lib d3d9.lib dxerr.lib dxguid.lib winmm.lib comctl32.lib comsupp.lib"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -286,6 +286,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\intrusive_func.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\main.cpp"
 				>
 			</File>
@@ -294,32 +298,8 @@
 				>
 			</File>
 			<File
-				RelativePath=".\stdafx.cpp"
+				RelativePath=".\xfile.cpp"
 				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug Restrict|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"
-					/>
-				</FileConfiguration>
 			</File>
 		</Filter>
 		<Filter
@@ -384,6 +364,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\intrusive_func.h"
+				>
+			</File>
+			<File
 				RelativePath=".\macro.h"
 				>
 			</File>
@@ -396,15 +380,15 @@
 				>
 			</File>
 			<File
-				RelativePath=".\rect.h"
-				>
-			</File>
-			<File
 				RelativePath=".\Resource.h"
 				>
 			</File>
 			<File
-				RelativePath=".\stdafx.h"
+				RelativePath=".\system.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\system.h"
 				>
 			</File>
 			<File
@@ -413,6 +397,10 @@
 			</File>
 			<File
 				RelativePath=".\typedef.h"
+				>
+			</File>
+			<File
+				RelativePath=".\xfile.h"
 				>
 			</File>
 		</Filter>
@@ -431,6 +419,14 @@
 			</File>
 			<File
 				RelativePath=".\small.ico"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="プリコンパイル"
+			>
+			<File
+				RelativePath=".\stdafx.h"
 				>
 			</File>
 		</Filter>

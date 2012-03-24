@@ -2,6 +2,7 @@
 #include"form.h"
 #include"GameMain.h"
 #include"GraphicInfo.h"
+#include"intrusive_func.h"
 
 //DirectXの初期化をするクラス
 
@@ -25,11 +26,13 @@ SP_TDEF(DXInfo);
 class DDevice{
 private:
 	//Direct3D
-	ComPtr<IDirect3D9>::type direct3D_;
+	//ComPtr<IDirect3D9>::type direct3D_;
+	boost::intrusive_ptr<IDirect3D9> direct3D_;
 
 	//デバイス
-	ComPtr<IDirect3DDevice9>::type d3Device_;
-	
+	//ComPtr<IDirect3DDevice9>::type d3Device_;
+	boost::intrusive_ptr<IDirect3DDevice9> d3Device_;
+
 	//Direct3D, デバイス
 	//SPGrahpicInfo ginfo_;
 

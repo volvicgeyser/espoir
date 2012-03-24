@@ -35,7 +35,7 @@ struct ControlInfo
 	SPControlInfo parent;
 	bool IsShowIcon;
 	bool IsShowInTaskbar;
-	Rect windowRect;
+	RECT windowRect;
 	String text;
 	std::vector<SPControlInfo> controls;
 	bool visible;

@@ -9,11 +9,16 @@
 #include "Form.h"
 #include "controlInfo.h"
 #include "Console.h"
-
+#include "xfile.h"
 #ifdef OLD_CODE
 	#define COLOR_TESTING
 	#define POINT_TESTING
 #endif
+
+TEST(xfile1, xifle1){
+	using namespace espoir;
+	XFile x(_T(""));
+}
 
 int APIENTRY _tWinMain(HINSTANCE hInstance,
                      HINSTANCE hPrevInstance,
@@ -27,9 +32,10 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	//コンソール
 	//Console c;
 
-
 	//googleテスト初期化
-	//::testing::InitGoogleTest(&nCmdShow, (TCHAR**)lpCmdLine);
+	int argc = 0;
+	char** argv=0;
+	::testing::InitGoogleTest(&argc, argv);
 
 	//Start!!
 	ShowStart();
@@ -72,4 +78,5 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	device->DMainLoop();
 
 	//system("pause");
+	return RUN_ALL_TESTS();
 }

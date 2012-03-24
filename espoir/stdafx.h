@@ -24,6 +24,8 @@
 #include<vector>
 #include <comip.h>
 
+#include <shlwapi.h>
+
 //例外のエラーとか
 #include <stdexcept>
 
@@ -31,8 +33,10 @@
 #include <crtdbg.h>
 
 #include<boost/unordered_map.hpp>
+#include<boost/intrusive_ptr.hpp>
 #include<boost/shared_ptr.hpp>
 #include<boost/scoped_ptr.hpp>
+#include<boost/static_assert.hpp>
 #include<boost/function.hpp>
 
 #include <boost/fusion/container/vector.hpp>
@@ -45,23 +49,51 @@
 #include<boost/signals2.hpp>
 //#include <boost/format.hpp>
 #include <d3d9.h>
+#include<d3dx9.h>
 #include <boost/preprocessor.hpp>
 #include <boost/scope_exit.hpp>
 #include <gtest/gtest.h>
+
+//演算子のオーバーロード
+#include<boost/operators.hpp>
 
 //マクロ集
 #include"macro.h"
 
 #include"point.h"
-#include"rect.h"
+//#include"rect.h"
 #include"typedef.h"
 #include"config.h"
 
+//Microsoft Visual C++向け
+#if defined(_MSC_VER)
+#pragma comment(lib, "shlwapi.lib")
+#pragma comment(lib, "d3d9.lib")
+#pragma comment(lib, "d3dx9.lib")
+#pragma comment(lib, "dxerr.lib")
+#pragma comment(lib, "winmm.lib")
+#pragma comment(lib, "comctl32.lib")
+#pragma comment(lib, "dxgi.lib")
+#pragma comment(lib, "dxguid.lib")
+#ifdef NDEBUG
+	#pragma comment(lib, "gtest.lib")
+	#pragma comment(lib, "gtest_main.lib")
+#else
+	#pragma comment(lib, "gtestd.lib")
+	#pragma comment(lib, "gtest_maind.lib")
+#endif
+#endif
 
-//実行時型生成
-template <typename T> struct ComPtr{
-	typedef ::_com_ptr_t<::_com_IIID< T , &__uuidof( T )>> type;
-};
+
+
+//実行時Comptr型生成
+//template <typename T> struct ComPtr{
+//    typedef ::_com_ptr_t<::_com_IIID< T , &__uuidof( T )>> type;
+//};
+
+
+
+
 
 
 

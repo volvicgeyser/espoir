@@ -14,8 +14,16 @@ bool espoir::DDevice::Init(){
 		//DirectXの関数を実行時に発生したエラーコード
 		HRESULT err_code;
 
+
+		if(this->direct3D_.get() != NULL){
+			DOut dout;
+			dout << _T("Direct3Dは既に初期化されています") << DSTM << std::endl;
+		}
+
 		//IDirect3Dオブジェクトインスタンスの取得
-		direct3D_.Attach( Direct3DCreate9(D3D_SDK_VERSION) );
+		//direct3D_.Attach( Direct3DCreate9(D3D_SDK_VERSION) );
+
+		this->direct3D_ = boost::intrusive_ptr<IDirect3D9>( Direct3DCreate9(D3D_SDK_VERSION), false);
 
 		::D3DPRESENT_PARAMETERS d3dpp;
 		ZeroMemory(&d3dpp, sizeof(d3dpp));
@@ -40,17 +48,24 @@ bool espoir::DDevice::Init(){
 		//アプリケーションがバックバッファを直接ロック
 		d3dpp.Flags = D3DPRESENTFLAG_LOCKABLE_BACKBUFFER;
 
+		//DirectXのメインウィンドウを生成
 		this->form_ = SPForm(new Form(DirectX));
 		this->form_->Show();
+
+
+
+		IDirect3DDevice9* tmp_d3Device = NULL;
 
 		//HEL(ソフトウェアエミュレーション)でデバイス生成
 		HRESULT hResult;
 		hResult = direct3D_->CreateDevice(
 			D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, this->form_->GetHandle(),
 
-			D3DCREATE_SOFTWARE_VERTEXPROCESSING, &d3dpp, &d3Device_);
+			D3DCREATE_SOFTWARE_VERTEXPROCESSING, &d3dpp, &tmp_d3Device);
 					//D3DPRESENTFLAG_LOCKABLE_BACKBUFFER, &d3dpp, &d3Device_);
 		
+		this->d3Device_ = boost::intrusive_ptr<IDirect3DDevice9>(tmp_d3Device, false);
+
 		//デバイス生成時のエラーチェック
 		if(FAILED(hResult))
 		{

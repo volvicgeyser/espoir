@@ -10,11 +10,11 @@ GameMain::GameMain(SPDXInfo info){
 
 //ƒQ[ƒ€‚Ì•`‰æ
 void GameMain::Render(){
-	Rect rect;
-	rect.h = 100;
-	rect.w = 100;
-	rect.x = 50;
-	rect.y = 50;
+	RECT rect;
+	rect.left = 50;
+	rect.top = 50;
+	rect.right = 100;
+	rect.bottom = 100;
 	
 	if(this->dinfo_->g != NULL)
 		this->dinfo_->g->DrawCircle(rect);
