@@ -10,7 +10,7 @@ namespace espoir{
 void Form::InitTitle(){
 	
 	//クラス名とタイトル
-	if(this->info_.get() == NULL){
+	if(this->info_ == NULL){
 		DOut dout;
 		dout	<< "info is null"  << " at: "<<__LINE__ << std::endl;
 	}
@@ -53,7 +53,7 @@ Form::~Form(){
 
 void Form::InitFormInfo(){
 	//フォーム情報の初期化
-	if(this->info_.get() != NULL){
+	if(this->info_ != NULL){
 		const String str = _T("pointer is not null");
 		DOut() << str << std::endl;
 	}

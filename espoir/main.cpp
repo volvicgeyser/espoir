@@ -49,10 +49,11 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	UNREFERENCED_PARAMETER(lpCmdLine);
 
 	SP_TDEF(Form);
-	SP_TDEF(DDevice);
+	//SP_TDEF(DDevice);
 
 	//プログラム終了直前、メモリリークチェック
 	CheckMemoryLeaks();
+
 
 #ifdef USE_DX_DBG_WND
 	SPForm f(new Form(DbgWnd));
@@ -75,10 +76,10 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 #endif
 
 	//DirectX初期化
-	Singleton<DDevice>::getInst()->Init();
+	SPSingleton<DDevice>::GetInst()->Init();
 
 	//DirectXのメインループ
-	Singleton<DDevice>::getInst()->DMainLoop();
+	SPSingleton<DDevice>::GetInst()->DMainLoop();
 
 	//system("pause");
 	return RUN_ALL_TESTS();

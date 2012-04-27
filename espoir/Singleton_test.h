@@ -23,22 +23,38 @@ class TestClass2{};
 TEST(singleton_test, operator_test){
 	using namespace espoir;
 
-	EXPECT_EQ(Singleton<TestClass>::getInst()->x_, 0);
-	EXPECT_EQ(Singleton<TestClass>::getInst()->y_, 1);
+	EXPECT_EQ(SPSingleton<TestClass>::GetInst()->x_, 0);
+	EXPECT_EQ(SPSingleton<TestClass>::GetInst()->y_, 1);
 }
 
 
 //typedefしてみる
 TEST(singleton_test, Disable_constructor_test1){
 	using namespace espoir;
-	typedef Singleton<TestClass> TestHolder;
+	typedef SPSingleton<TestClass> TestHolder;
 	
-	TestHolder::getInst();
-	TestHolder::getInst();
+	TestHolder::GetInst();
+	TestHolder::GetInst();
 
 //    １度しか呼び出されていないはず
-	EXPECT_EQ(TestHolder::getInst()->getCount(), 1);
+	EXPECT_EQ(TestHolder::GetInst()->getCount(), 1);
 
 
 }
+
+//スコープのテスト
+TEST(singleton_test, Disable_scope_test1){
+	using namespace espoir;
+	typedef SPSingleton<TestClass> TestHolder;
+	for(int i = 0; i < 10; i++)
+	{
+		TestHolder::GetInst();
+	}
+	TestHolder::GetInst();
+
+	//１度しか呼び出されていないはず
+	EXPECT_EQ(TestHolder::GetInst()->getCount(), 1);
+}
+
+
 }

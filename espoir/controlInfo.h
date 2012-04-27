@@ -31,13 +31,13 @@ struct ControlInfo
 	//デスクトップ上の配置
 	//Point desktopLocation;
 
-	std::vector<SPControlInfo> child;
-	SPControlInfo parent;
+	//std::vector<SPControlInfo> child;
+	//SPControlInfo parent;
 	bool IsShowIcon;
 	bool IsShowInTaskbar;
 	RECT windowRect;
 	String text;
-	std::vector<SPControlInfo> controls;
+	//std::vector<SPControlInfo> controls;
 	bool visible;
 };
 

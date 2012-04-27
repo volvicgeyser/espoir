@@ -5,9 +5,12 @@
 
 #pragma once
 
+
 #include "targetver.h"
 
 #define WIN32_LEAN_AND_MEAN             // Windows ヘッダーから使用されていない部分を除外します。
+#define D3D_DEBUG_INFO				//ウォッチウィンドウからDirect3Dのデバッグ情報の詳細が見れるようにします。
+
 // Windows ヘッダー ファイル:
 #include <windows.h>
 
@@ -87,6 +90,7 @@
 
 
 //実行時Comptr型生成
+
 //template <typename T> struct ComPtr{
 //    typedef ::_com_ptr_t<::_com_IIID< T , &__uuidof( T )>> type;
 //};

@@ -65,6 +65,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/Zm153"
+				AdditionalDependencies="comsuppwd.lib"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -141,6 +142,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/Zm153"
+				AdditionalDependencies="comsuppw.lib"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -258,6 +260,10 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\ComPtr.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Console.cpp"
 				>
 			</File>
@@ -271,6 +277,18 @@
 			</File>
 			<File
 				RelativePath=".\debug.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DX3D9Creation.h"
+				>
+			</File>
+			<File
+				RelativePath=".\DXDeviceCreation.h"
+				>
+			</File>
+			<File
+				RelativePath=".\DXFormCreation.h"
 				>
 			</File>
 			<File

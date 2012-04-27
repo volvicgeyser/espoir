@@ -27,7 +27,7 @@ class DDevice{
 private:
 	//Direct3D
 	//ComPtr<IDirect3D9>::type direct3D_;
-	boost::intrusive_ptr<IDirect3D9> direct3D_;
+	//boost::intrusive_ptr<IDirect3D9> direct3D_;
 
 	//デバイス
 	//ComPtr<IDirect3DDevice9>::type d3Device_;
@@ -37,7 +37,7 @@ private:
 	//SPGrahpicInfo ginfo_;
 
 	//DirectXのメインになるフォームウィンドウ
-	SPForm form_;
+	//SPForm form_;
 
 	SPGameMain gm_;
 	
