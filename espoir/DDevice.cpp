@@ -2,18 +2,14 @@
 #include"stdafx.h"
 #include"DDevice.h"
 #include"debug.h"
-#include"singleton.h"
+//#include"singleton.h"
 #include"Resource.h"
-#include"DXFormCreation.h"
-#include"DX3D9Creation.h"
-#include"DXDeviceCreation.h"
+//#include"DXFormCreation.h"
+//#include"DX3D9Creation.h"
+//#include"DXDeviceCreation.h"
+#include"system.h"
 namespace espoir{
 
-	namespace sys{
-		typedef SPSingleton<espoir::Form, DXFormCreation> Form;
-		typedef SPSingleton<IDirect3D9, DX3D9Creation, ComPtr> Direct3D;
-		//typedef SPSingleton<IDirect3D9, DX3D9Creation, boost::intrusive_ptr> Direct3D;
-	}
 }
 
 bool espoir::DDevice::Init(){

@@ -2,16 +2,11 @@
 
 //#include "system.h"
 //#include"form.h"
-#include"DXFormCreation.h"
-#include"DX3D9Creation.h"
-#include"Singleton.h"
+//#include"DXFormCreation.h"
+//#include"DX3D9Creation.h"
+//#include"Singleton.h"
+#include"system.h"
 namespace espoir{
-
-	namespace sys{
-		//typedef SPSingleton<IDirect3D9, DX3D9Creation, boost::intrusive_ptr> Direct3D;
-		typedef SPSingleton<IDirect3D9, DX3D9Creation, ComPtr> Direct3D;
-		typedef SPSingleton<Form, DXFormCreation> Form;
-	}
 
 //デバイス生成時のエラーチェック
 static inline void CheckDeviceErr(const HRESULT hResult){

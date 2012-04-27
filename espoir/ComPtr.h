@@ -24,9 +24,6 @@ public:
 	bool operator!=(const SPObjType spObj){
 		return this->spObj_ != this->spObj_;
 	}
-	void swap(this_type& comPtr){
-		boost::swap(this->spObj_, comPtr);
-	}
 	template <class Y>
 	ComPtr& operator=(const ComPtr<Y>& comPtr){
 		//BOOST_ASSERT(comPtr.spObj_ != NULL);
