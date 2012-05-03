@@ -13,8 +13,8 @@ inline void ShowStart(){
 }
 
 inline void CheckMemoryLeaks(){
+	OutputDebugString(_T("終了間際にメモリリークのチェックが行われます\n"));
 	_CrtSetDbgFlag ( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF );
-	//_CrtSetBreakAlloc( 2910 );
 }
 
 }

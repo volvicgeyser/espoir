@@ -25,12 +25,12 @@ espoir::DOut::~DOut(){
 
 
 //エラー用のダイアログ表示関数
-void ShowError(const String str)
+void ShowError(const String& str)
 {
 		MessageBox(NULL, str.c_str(),  _T(""), MB_OK || MB_ICONEXCLAMATION);
 }
 
-void ShowError(const String str, const String line){
+void ShowError(const String& str, const String& line){
 	const String s= str + line;
 	MessageBox(NULL, s.c_str(), _T(""), MB_OK || MB_ICONEXCLAMATION);
 }

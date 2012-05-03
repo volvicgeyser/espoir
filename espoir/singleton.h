@@ -1,5 +1,6 @@
 #pragma once
 #include"macro.h"
+#include"new.h"
 
 namespace espoir{
 
@@ -10,7 +11,7 @@ class SPDefaultSingletonCreation{
 SP_TDEF(ObjType)
 public:
 	static SPObjType Create(){
-		return SPObjType(new ObjType);
+		return SPObjType(new_<ObjType>());
 	}
 };
 
@@ -24,6 +25,7 @@ public:
 		return SPObjType(obj);
 	}
 };
+
 
 
 //テンプレートなSingleton

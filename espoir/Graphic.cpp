@@ -2,14 +2,14 @@
 #include "Graphic.h"
 #include "debug.h"
 #include "intrusive_func.h"
-#include "Singleton.h"
-#include "DXDeviceCreation.h"
-
+//#include "Singleton.h"
+//#include "DXDeviceCreation.h"
+#include "system.h"
 namespace espoir{
 
-	namespace sys{
-		typedef SPSingleton<IDirect3DDevice9, DXDeviceCreation, boost::intrusive_ptr> Device;
-	}
+	//namespace sys{
+	//	typedef SPSingleton<IDirect3DDevice9, DXDeviceCreation, boost::intrusive_ptr> Device;
+	//}
 Graphic::Graphic(SPGraphicInfo gInfo)
 {
 	if(gInfo_ == NULL)
@@ -36,7 +36,6 @@ Graphic::Graphic(SPGraphicInfo gInfo)
 		DOut dout;
 		dout << _T("BackBufferの初期化に失敗しました ") << DSTM << std::endl;
 	}
-	
 }
 
 
@@ -45,9 +44,6 @@ void Graphic::DrawCircle(RECT rect)
 	//if(!this->gInfo_->d3Device) return;
 	HDC hDC;
 	//const HRESULT hrClear = this->gInfo_->d3Device->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(100, 100, 50), 1.0f, 0);
-	const HRESULT hrClear = sys::Device::GetInst()->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(100, 100, 50), 1.0f, 0);
-	//正しく画面クリアされたかどうかtest
-	EXPECT_HRESULT_SUCCEEDED(hrClear);
 
 	if(this->gInfo_->backBuf != NULL){
 		const HRESULT hr = this->gInfo_->backBuf->GetDC(&hDC);
@@ -64,11 +60,6 @@ void Graphic::DrawCircle(RECT rect)
 			EXPECT_NE(rEllipse, FALSE);
  			
 			this->gInfo_->backBuf->ReleaseDC(hDC);
-			DOut dout;
-
-			//次のバッファのコンテンツをプレゼンテーション
-			//this->gInfo_->d3Device->Present(NULL, NULL, NULL, NULL);
-			sys::Device::GetInst()->Present(NULL, NULL, NULL, NULL);
 		}
 		else{
 			DOut dout;

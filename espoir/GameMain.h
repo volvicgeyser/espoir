@@ -9,6 +9,7 @@ namespace espoir{
 	public:
 		GameMain(SPDXInfo info);
 		void Render();
+		void Render3D();
 		void Update();
 	};
 

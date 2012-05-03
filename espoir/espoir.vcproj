@@ -300,6 +300,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\gametime.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Graphic.cpp"
 				>
 			</File>
@@ -309,6 +313,10 @@
 			</File>
 			<File
 				RelativePath=".\main.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\new.cpp"
 				>
 			</File>
 			<File
@@ -329,6 +337,14 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
+			<File
+				RelativePath=".\3ddata.h"
+				>
+			</File>
+			<File
+				RelativePath=".\cast.h"
+				>
+			</File>
 			<File
 				RelativePath=".\color.h"
 				>
@@ -398,6 +414,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\new.h"
+				>
+			</File>
+			<File
 				RelativePath=".\point.h"
 				>
 			</File>
@@ -459,6 +479,18 @@
 		<Filter
 			Name="テストコード"
 			>
+			<File
+				RelativePath=".\cast_test.h"
+				>
+			</File>
+			<File
+				RelativePath=".\gametime_test.h"
+				>
+			</File>
+			<File
+				RelativePath=".\new_test.h"
+				>
+			</File>
 			<File
 				RelativePath=".\Singleton_test.h"
 				>

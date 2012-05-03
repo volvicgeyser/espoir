@@ -34,10 +34,10 @@ public:
 
 	static SPObjType Create(){
 		//Direct3Dê∂ê¨
-		IDirect3D9* tmp = Direct3DCreate9(D3D_SDK_VERSION);
+		const IDirect3D9* tmp = Direct3DCreate9(D3D_SDK_VERSION);
 		if(!tmp)
 			throw std::runtime_error("Direct3DÇÃèâä˙âªÇ…é∏îsÇµÇ‹ÇµÇΩ");
-		SPObjType obj(tmp, false);
+		const SPObjType obj(tmp, false);
 		return obj;
 	}
 private:

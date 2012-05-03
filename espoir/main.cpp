@@ -11,7 +11,17 @@
 #include "Console.h"
 #include "xfile.h"
 #include "singleton.h"
-#include "Singleton_test.h"
+#include "cast.h"
+#include "new.h"
+#include "system.h"
+
+#ifdef _DEBUG
+	#include "Singleton_test.h"
+	#include "gametime_test.h"
+	#include "cast_test.h"
+	#include "new_test.h"
+#endif
+
 #ifdef OLD_CODE
 	#define COLOR_TESTING
 	#define POINT_TESTING
@@ -33,6 +43,9 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	using namespace std;
 
 
+	//ゲーム開始直後からGameTimeのコンストラクタ呼び出しで初期化する
+	sys::Time::GetInst();
+	
 	//コンソール
 	//Console c;
 

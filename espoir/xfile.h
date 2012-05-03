@@ -4,10 +4,12 @@
 namespace espoir{
 	//Xファイルの管理を行うクラス
 class XFile{
-private:
-	//boost::intrusive_ptr<IDirect3D9> direct3D_;
-	
 public:
-	XFile(const String model);
+	XFile(const String& model);
+private:
+	std::vector<D3DMATERIAL9> meshMaterials_;
+	std::vector<LPDIRECT3DTEXTURE9> textures_;
+	DWORD numMaterials_;
 };
+
 }

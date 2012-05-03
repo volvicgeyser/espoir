@@ -6,6 +6,7 @@
 //#include"DX3D9Creation.h"
 //#include"Singleton.h"
 #include"system.h"
+#include"debug.h"
 namespace espoir{
 
 //デバイス生成時のエラーチェック
@@ -31,7 +32,8 @@ static inline void CheckDeviceErr(const HRESULT hResult){
 
 template <class ObjType>
 class DXDeviceCreation{
-typedef boost::intrusive_ptr<ObjType> SPObjType;
+//typedef boost::intrusive_ptr<ObjType> SPObjType;
+typedef ComPtr<ObjType> SPObjType;
 public:
 	static SPObjType Create(){
 
@@ -67,15 +69,11 @@ public:
 		const HRESULT hResult = sys::Direct3D::GetInst()->CreateDevice(
 			D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, sys::Form::GetInst()->GetHandle(),
 		D3DCREATE_SOFTWARE_VERTEXPROCESSING, &d3dpp, &tmp_d3Device);
-		//SPObjType obj(new ObjType());
-		
-		SPObjType obj;
-
-
-		obj = SPObjType(tmp_d3Device, false);
 
 		//デバイス生成時のエラーチェック
 		CheckDeviceErr(hResult);
+
+		const SPObjType obj = SPObjType(tmp_d3Device);
 
 		return obj;
 	}

@@ -56,8 +56,16 @@ public:
 			throw std::runtime_error("ComPtr‚Ì’†g‚ªNULL‚Å‚·");
 		return this->spObj_;
 	}
+	
+	
+	SPObjType& GetRef(){
+		if(!this->spObj_)
+			throw std::runtime_error("ComPtr‚Ì’†g‚ªNULL‚Å‚·");
+		return this->spObj_;
+	}
 private:
 	SPObjType spObj_;
+	SPObjType& operator&(){}
 };
 
 }

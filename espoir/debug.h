@@ -23,7 +23,7 @@ public:
 	
 };
 
-void ShowError(const String str);
-void ShowError(const String str, const String line);
+void ShowError(const String& str);
+void ShowError(const String& str, const String& line);
 
 }

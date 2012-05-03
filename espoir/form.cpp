@@ -54,8 +54,7 @@ Form::~Form(){
 void Form::InitFormInfo(){
 	//フォーム情報の初期化
 	if(this->info_ != NULL){
-		const String str = _T("pointer is not null");
-		DOut() << str << std::endl;
+		throw std::runtime_error("ポインタがNULLではありません、既に初期化されている可能性があります");
 	}
 	this->info_.reset(new ControlInfo);
 	
@@ -121,6 +120,7 @@ Form::Form(WindowType wt)
 	
 }
 
+//フォームの情報を取得
 SPControlInfo Form::GetInfo(){
 	return this->info_;
 }
@@ -177,7 +177,6 @@ LRESULT CALLBACK Form::DbgWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lPa
 				100, 50, 200, 150, hWnd, (HMENU)1, ((LPCREATESTRUCT)(lParam))->hInstance, NULL);
 			break;
 		case WM_CLOSE:
-
 			//非表示にするだけ
 			ShowWindow(hWnd, SW_HIDE);
 

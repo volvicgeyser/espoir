@@ -35,12 +35,16 @@
 //メモリリーク検出
 #include <crtdbg.h>
 
+#include <boost/range/algorithm/for_each.hpp>
 #include<boost/unordered_map.hpp>
 #include<boost/intrusive_ptr.hpp>
 #include<boost/shared_ptr.hpp>
+#include<boost/make_shared.hpp>
+#include<boost/shared_array.hpp>
 #include<boost/scoped_ptr.hpp>
 #include<boost/static_assert.hpp>
 #include<boost/function.hpp>
+#include <boost/foreach.hpp>
 
 #include <boost/fusion/container/vector.hpp>
 #include <boost/fusion/algorithm.hpp>
@@ -56,6 +60,9 @@
 #include <boost/preprocessor.hpp>
 #include <boost/scope_exit.hpp>
 #include <gtest/gtest.h>
+
+//メタ系
+#include <boost/function_types/result_type.hpp>
 
 //演算子のオーバーロード
 #include<boost/operators.hpp>
