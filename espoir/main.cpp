@@ -29,9 +29,9 @@
 
 //Xファイル読み込みのテスト
 //デバッグ出力にエラーがでるはず
-TEST(xfile1, xifle1){
+TEST(xfile1, Disable_xfile1){
 	using namespace espoir;
-	XFile x(_T(""));
+	XFile::Load(_T(""));
 }
 
 int APIENTRY _tWinMain(HINSTANCE hInstance,

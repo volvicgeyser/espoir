@@ -54,7 +54,7 @@
 #include<boost/function.hpp>
 #include<boost/bind.hpp>
 #include<boost/signals2.hpp>
-//#include <boost/format.hpp>
+#include <boost/format.hpp>
 #include <d3d9.h>
 #include<d3dx9.h>
 #include <boost/preprocessor.hpp>

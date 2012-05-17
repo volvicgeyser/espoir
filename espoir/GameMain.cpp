@@ -6,10 +6,13 @@
 namespace espoir{
 
 
+//ƒQ[ƒ€“à—e‚Ì‰Šú‰»ˆ—
 GameMain::GameMain(SPDXInfo info){
 	this->dinfo_ = info;
 
-	XFile(_T("../../x/kabotha_sensi.x"));
+	//LoadModels
+	SPSingleton<std::vector<boost::shared_ptr<XFileData>> >::GetInst()->push_back(XFile::Load(_T("../../x/kabotha_sensi.x"))); 
+
 }
 
 //ƒQ[ƒ€‚Ì•`‰æ
