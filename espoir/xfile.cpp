@@ -12,6 +12,7 @@ namespace espoir{
 			throw std::runtime_error("modelの文字列が空っぽです");
 		}
 		if(!PathFileExists(model.c_str())){
+
 			//エラー文字列の長さ
 			const unsigned int length = 256;
 			boost::array<TCHAR, length> path;
@@ -68,7 +69,9 @@ namespace espoir{
 				lstrlenA(materials[i].pTextureFilename) > 0)
 			{
 
+				//Xファイルが置かれているディレクトリ
 				std::string texturePath("../../x/");
+
 				const std::string filename = materials[i].pTextureFilename;
 				texturePath = texturePath + filename;
 				//ここでもマルチバイト文字対応の関数を使う

@@ -5,14 +5,10 @@
 #include"system.h"
 namespace espoir{
 
-
 //ゲーム内容の初期化処理
 GameMain::GameMain(SPDXInfo info){
 	this->dinfo_ = info;
-
-	//LoadModels
-	SPSingleton<std::vector<boost::shared_ptr<XFileData>> >::GetInst()->push_back(XFile::Load(_T("../../x/kabotha_sensi.x"))); 
-
+	sys::Models::GetInst()->push_back(SPXFileData(XFile::Load(_T("../../x/kabotha_sensi.x"))));
 }
 
 //ゲームの描画
@@ -38,6 +34,12 @@ void GameMain::Render(){
 		D3DXMatrixPerspectiveFovLH(&proj, D3DX_PI/ 4,1.0f,1.0f,100.0f);
 		sys::Device::GetInst()->SetTransform(D3DTS_PROJECTION, &proj);
 
+		struct DrawModelFunctor{
+			void operator()(SPXFileData& model){
+			}
+		};
+//        for(){
+//        }
 		//for(DWORD i = 0; i < numMaterials; i++){
 			//sys::Device::GetInst()->SetMaterial( // マテリアル);
 			//sys::Device::GetInst()->SetTexture( //テクスチャ);
