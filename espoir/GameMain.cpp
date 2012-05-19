@@ -20,9 +20,12 @@ void GameMain::Render(){
 	//描画開始
 	const HRESULT hrClear = sys::Device::GetInst()->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(100, 100, 50), 1.0f, 0);
 	
+	//正しく画面クリアされたかどうかtest
+	EXPECT_HRESULT_SUCCEEDED(hrClear);
 
 	//3Dの描画
 	if(SUCCEEDED(sys::Device::GetInst()->BeginScene())){
+		
 		//描画環境の設定
 		D3DXMATRIXA16 world;
 		D3DXMatrixRotationY(&world, sys::Time::GetInst()->GetTimeApp() / 1000.0f);
@@ -77,7 +80,9 @@ void GameMain::Render(){
 			//メッシュのドローサブセット
 			
 		//}
-		sys::Device::GetInst()->EndScene();
+		
+		//描画終了関数を呼び出すと共に成功したかどうかテスト
+		EXPECT_HRESULT_SUCCEEDED(sys::Device::GetInst()->EndScene());
 
 	}
 	else
@@ -85,10 +90,9 @@ void GameMain::Render(){
 		throw std::runtime_error("3Dの描画に失敗しました");
 	}
 	
-	//正しく画面クリアされたかどうかtest
-	EXPECT_HRESULT_SUCCEEDED(hrClear);
 
-	//left top right bottom
+
+	//円のサイズ left top right bottom
 	const RECT rect = {50, 50, 100, 100};
 
 	//円を描画

@@ -53,7 +53,7 @@ namespace espoir{
 		}
 
 		//マテリアルの取得
-		D3DXMATERIAL* materials = cast<D3DXMATERIAL*>(buf->GetBufferPointer());
+		const D3DXMATERIAL* materials = cast<D3DXMATERIAL*>(buf->GetBufferPointer());
 		if(!materials)
 			throw std::runtime_error("マテリアルの取得に失敗しました");
 
@@ -70,7 +70,13 @@ namespace espoir{
 				std::string texturePath("../../x/");
 
 				const std::string filename = materials[i].pTextureFilename;
+				if(filename.empty()){
+					throw std::runtime_error("テクスチャファイル名が空です");
+				}
 				texturePath = texturePath + filename;
+				if(!PathFileExistsA(texturePath.c_str())){
+					throw std::runtime_error("テクスチャファイルが存在しません");
+				}
 				//ここでもマルチバイト文字対応の関数を使う
 				if(FAILED(D3DXCreateTextureFromFileA(sys::Device::GetInst().GetRef(),
 					texturePath.c_str(), &xData->textures_[i])))

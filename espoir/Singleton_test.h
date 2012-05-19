@@ -56,5 +56,4 @@ TEST(singleton_test, Disable_scope_test1){
 	EXPECT_EQ(TestHolder::GetInst()->getCount(), 1);
 }
 
-
 }
