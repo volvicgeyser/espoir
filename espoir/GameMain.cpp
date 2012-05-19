@@ -25,7 +25,7 @@ void GameMain::Render(){
 	if(SUCCEEDED(sys::Device::GetInst()->BeginScene())){
 		//描画環境の設定
 		D3DXMATRIXA16 world;
-		D3DXMatrixRotationY(&world, sys::Time::GetInst()->GetStartTime() / 1000.0f);
+		D3DXMatrixRotationY(&world, sys::Time::GetInst()->GetTimeApp() / 1000.0f);
 		sys::Device::GetInst()->SetTransform(D3DTS_WORLD, &world);
 		D3DXVECTOR3 vEyePt(0.0f, 3.0f, -5.0f);
 		D3DXVECTOR3 vLookatPt(0.0f, 0.0f, 0.0f);
@@ -36,6 +36,7 @@ void GameMain::Render(){
 		D3DXMATRIXA16 proj;
 		D3DXMatrixPerspectiveFovLH(&proj, D3DX_PI/ 4,1.0f,1.0f,100.0f);
 		sys::Device::GetInst()->SetTransform(D3DTS_PROJECTION, &proj);
+		
 
 		//モデルを描画する関数オブジェクト
 		//tuple<XFileのデータ(SmartPtr), ループカウンタ>

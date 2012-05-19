@@ -29,7 +29,7 @@ public:
 	}
 
 	// アプリケーションを開始してからの時間を取得
-	RealType GetStartTime() {
+	RealType GetTimeApp() {
 		return GetTickCount() - this->startTime_;
 	}
 

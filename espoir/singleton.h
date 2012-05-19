@@ -75,6 +75,7 @@ public:
         static ObjType* object;
         if(!object){
             object = CreationPolicy<ObjType>::Create();
+			BOOST_ASSERT(object);
         }
         return object; 
     }
