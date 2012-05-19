@@ -6,7 +6,4 @@ namespace espoir{
 	Console::Console(){
 		AllocConsole();
 	}
-	Console::~Console(){
-		FreeConsole();
-	}
 }

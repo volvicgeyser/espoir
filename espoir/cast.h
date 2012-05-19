@@ -4,6 +4,7 @@ namespace espoir{
 
 //型変換を許さない
 //※if文のオーバーヘッドを伴う動的なチェック
+//typeidが同じでも同じ型であることは保証されないことに注意
 template<class To, class From>
 inline To type_check(const From& f){
 	if(typeid(From) != typeid(To))

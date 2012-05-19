@@ -16,8 +16,14 @@ namespace espoir{
 		typedef SPSingleton<IDirect3D9, DX3D9Creation, ComPtr> Direct3D;
 		typedef SPSingleton<IDirect3DDevice9, DXDeviceCreation, ComPtr> Device;
 		typedef SPSingleton<Form, DXFormCreation> Form;
-		typedef SPSingleton<XFileArray> Models;
-		typedef SPSingleton<GameTime<> > Time;
+
+		typedef Singleton<GameTime<> > Time;
+		typedef Singleton<XFileArray> Models;
+		//typedef Singleton<DOut> DOut;
+	}
+	namespace debug{
+		//typedef Singleton<DOut> Dout;
+		//extern DOut dout;
 	}
 
 }

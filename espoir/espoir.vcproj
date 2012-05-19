@@ -338,10 +338,6 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\3ddata.h"
-				>
-			</File>
-			<File
 				RelativePath=".\cast.h"
 				>
 			</File>

@@ -41,12 +41,11 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	using namespace espoir;
 	using namespace std;
 
-
 	//ゲーム開始直後からGameTimeのコンストラクタ呼び出しで初期化する
 	sys::Time::GetInst();
 	
 	//コンソール
-	//Console c;
+	//boost::shared_ptr<Console> c(new Console(), ConsoleDeleter());
 
 	//googleテスト初期化
 	int argc = 0;

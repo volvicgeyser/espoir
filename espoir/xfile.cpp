@@ -24,14 +24,11 @@ namespace espoir{
 //            DOut dout;
 //            dout << str << model.c_str() << _T("カレントディレクトリ:") << path << DSTM << std::endl;
 			throw std::runtime_error(str.str().c_str());
-#if NDEBUG
-			ShowError(str);
-#endif
 		}
 		LPD3DXBUFFER buf = NULL;
 
 		//メッシュ
-		LPD3DXMESH mesh = NULL;
+		//LPD3DXMESH mesh = NULL;
 
 
 		//3DData構造体
@@ -40,7 +37,7 @@ namespace espoir{
 		xData->numMaterials_ = 0L;
 		
 		const HRESULT hResult = D3DXLoadMeshFromX(model.c_str(), D3DXMESH_SYSTEMMEM, sys::Device::GetInst().GetRef(), NULL,
-			&buf, NULL, &xData->numMaterials_, &mesh);
+			&buf, NULL, &xData->numMaterials_, &xData->mesh_);
 
 		//エラー処理
 		if(FAILED(hResult)){

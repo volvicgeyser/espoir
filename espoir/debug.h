@@ -20,7 +20,6 @@ private:
 public:
 	DOut() : Ostream(&stmBuf_){}
 	virtual ~DOut();
-	
 };
 
 void ShowError(const String& str);

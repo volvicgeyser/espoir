@@ -16,15 +16,15 @@ public:
 };
 
 //静的に生成
-template <class ObjType>
-class SPSingletonStaticCreation{
-SP_TDEF(ObjType)
-public:
-	static SPObjType Create(){
-		static ObjType obj;
-		return SPObjType(obj);
-	}
-};
+//template <class ObjType>
+//class SPSingletonStaticCreation{
+//SP_TDEF(ObjType)
+//public:
+//    static SPObjType Create(){
+//        static ObjType obj;
+//        return SPObjType(obj);
+//    }
+//};
 
 
 
@@ -38,17 +38,10 @@ class SPSingleton : boost::noncopyable{
 //SP_TDEF(ObjType)
 typedef SmartPtr<ObjType> SPObjType;
 public:
-
-	//typedef SPObjType CreationPolicy<ObjType>::SPObjType;
-	//static SPObjType operator->() {return getInst();}
-
 	static SPObjType GetInst(){
 		//同じ型なら一度だけ生成
 		static SPObjType object_;
 		if(object_ == NULL){
-			//const SPObjType tmp(CreationPolicy<ObjType>::Create());	
-			//if(tmp == NULL)
-			//	throw std::runtime_error("正しくオブジェクトが生成できていません");
 			object_ = CreationPolicy<ObjType>::Create();
 		}
 		return object_;
@@ -56,6 +49,37 @@ public:
 };
 
 
+
+//静的に生成
+template<class ObjType>
+class DefaultSingletonCreation{
+public:
+	static ObjType* Create(){
+		static ObjType obj;
+		return &obj;
+	}
+};
+
+template<class ObjType>
+class DefaultLifeTimePolicy{
+};
+
+template<
+	class ObjType,
+	template<class> class CreationPolicy = DefaultSingletonCreation,
+	template<class> class LifeTimePolicy = DefaultLifeTimePolicy 
+>
+class Singleton{
+public:
+    static ObjType* GetInst(){
+        static ObjType* object;
+        if(!object){
+            object = CreationPolicy<ObjType>::Create();
+        }
+        return object; 
+    }
+
+};
 
 
 

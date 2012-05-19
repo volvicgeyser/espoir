@@ -7,6 +7,7 @@ namespace espoir{
 struct XFileData{
 	std::vector<D3DMATERIAL9> meshMaterials_;
 	std::vector<LPDIRECT3DTEXTURE9> textures_;
+	LPD3DXMESH mesh_;
 	DWORD numMaterials_;
 };
 
@@ -14,7 +15,6 @@ struct XFileData{
 class XFile{
 public:
 SP_TDEF(XFileData)
-//    XFile(const String& model);
 	static SPXFileData Load(const String& model);
 };
 

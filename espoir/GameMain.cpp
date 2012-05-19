@@ -14,6 +14,9 @@ GameMain::GameMain(SPDXInfo info){
 //ゲームの描画
 void GameMain::Render(){
 	
+	BOOST_ASSERT(this->dinfo_);
+	BOOST_ASSERT(this->dinfo_->g);
+
 	//描画開始
 	const HRESULT hrClear = sys::Device::GetInst()->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(100, 100, 50), 1.0f, 0);
 	
@@ -34,10 +37,37 @@ void GameMain::Render(){
 		D3DXMatrixPerspectiveFovLH(&proj, D3DX_PI/ 4,1.0f,1.0f,100.0f);
 		sys::Device::GetInst()->SetTransform(D3DTS_PROJECTION, &proj);
 
-		struct DrawModelFunctor{
-			void operator()(SPXFileData& model){
-			}
-		};
+		//モデルを描画する関数オブジェクト
+		//tuple<XFileのデータ(SmartPtr), ループカウンタ>
+        struct DrawModelFunctor{
+			void operator()(boost::tuples::tuple<SPXFileData, int> t){
+
+				//i番目の要素
+				SPXFileData xData;
+
+				//ループカウンタi
+				int i;
+
+				boost::tie(xData, i) = t;
+
+				BOOST_ASSERT(xData.get());
+
+                sys::Device::GetInst()->SetMaterial( &xData->meshMaterials_[i] );
+                sys::Device::GetInst()->SetTexture( 0, xData->textures_[i] );
+
+                //ループ回数が必要…
+                xData->mesh_->DrawSubset(i);
+            }
+        };
+
+		//描画
+		boost::for_each(
+            boost::combine(
+				*sys::Models::GetInst(), 
+				boost::counting_range(0, static_cast<int>(sys::Models::GetInst()->size() ) )
+			),
+		DrawModelFunctor() );
+
 //        for(){
 //        }
 		//for(DWORD i = 0; i < numMaterials; i++){
@@ -49,6 +79,10 @@ void GameMain::Render(){
 		sys::Device::GetInst()->EndScene();
 
 	}
+	else
+	{
+		throw std::runtime_error("3Dの描画に失敗しました");
+	}
 	
 	//正しく画面クリアされたかどうかtest
 	EXPECT_HRESULT_SUCCEEDED(hrClear);
@@ -56,12 +90,8 @@ void GameMain::Render(){
 	//left top right bottom
 	const RECT rect = {50, 50, 100, 100};
 
-	if(this->dinfo_->g != NULL)
-		this->dinfo_->g->DrawCircle(rect);
-	else{
-		DOut dout;
-		dout << _T("graphicがNULLです ") << DSTM << std::endl;
-	}
+	//円を描画
+	this->dinfo_->g->DrawCircle(rect);
 
 	//次のバッファのコンテンツをプレゼンテーション
 	sys::Device::GetInst()->Present(NULL, NULL, NULL, NULL);

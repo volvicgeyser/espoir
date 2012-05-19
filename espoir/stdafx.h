@@ -61,6 +61,10 @@
 #include <boost/scope_exit.hpp>
 #include <gtest/gtest.h>
 
+//for_eachで２つのコンテナから順番に取り出していったり
+#include<boost/range/combine.hpp>
+#include<boost/range/counting_range.hpp>
+
 //メタ系
 #include <boost/function_types/result_type.hpp>
 

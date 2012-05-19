@@ -5,6 +5,15 @@ namespace espoir{
 	private:
 	public:
 		Console();
-		virtual ~Console();
+	};
+
+	struct ConsoleDeleter{
+		template<class T>
+		void operator()(T* ptr){
+			BOOST_ASSERT(ptr);
+			FreeConsole();
+			delete ptr;
+			ptr = NULL;
+		}
 	};
 }
