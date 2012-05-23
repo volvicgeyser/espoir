@@ -370,6 +370,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Factory.h"
+				>
+			</File>
+			<File
 				RelativePath=".\FontInfo.h"
 				>
 			</File>
@@ -439,6 +443,10 @@
 			</File>
 			<File
 				RelativePath=".\typedef.h"
+				>
+			</File>
+			<File
+				RelativePath=".\vertex.h"
 				>
 			</File>
 			<File

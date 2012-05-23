@@ -15,7 +15,10 @@ public:
 	void DrawString(String text);
 
 	//‰~‚Ì•`‰æ
-	void DrawCircle(RECT rect);
+	void DrawCircle(const RECT& rect);
+
+	//ŽlŠpŒ`‚Ì•`‰æ
+	void DrawRect(const RECT& rect);
 
 
 	~Graphic(void);

@@ -3,7 +3,9 @@
 #include"debug.h"
 #include"xfile.h"
 #include"system.h"
+
 namespace espoir{
+
 
 //ゲーム内容の初期化処理
 GameMain::GameMain(SPDXInfo info){
@@ -59,7 +61,6 @@ void GameMain::Render(){
                 sys::Device::GetInst()->SetMaterial( &xData->meshMaterials_[i] );
                 sys::Device::GetInst()->SetTexture( 0, xData->textures_[i] );
 
-                //ループ回数が必要…
                 xData->mesh_->DrawSubset(i);
             }
         };
@@ -72,15 +73,24 @@ void GameMain::Render(){
 			),
 		DrawModelFunctor() );
 
-//        for(){
-//        }
-		//for(DWORD i = 0; i < numMaterials; i++){
-			//sys::Device::GetInst()->SetMaterial( // マテリアル);
-			//sys::Device::GetInst()->SetTexture( //テクスチャ);
-			//メッシュのドローサブセット
-			
-		//}
 		
+		//四角形のサイズ
+		const RECT rect2 = {200, 200, 250, 250};
+		const RECT rect3 = {2, 2, 4, 4};
+		const RECT rect4 = {0,0, 1000, 1000};
+		const RECT rect5 = {100, 100 ,50, 50};
+		const RECT rect6 = {100,100,150,150};
+		const RECT rect7 = {50, 50, 100, 100};
+
+
+		//四角形の描画テスト
+		this->dinfo_->g->DrawRect(rect2);
+		this->dinfo_->g->DrawRect(rect3);
+		this->dinfo_->g->DrawRect(rect4);
+		this->dinfo_->g->DrawRect(rect5);
+		this->dinfo_->g->DrawRect(rect6);
+		this->dinfo_->g->DrawRect(rect7);
+
 		//描画終了関数を呼び出すと共に成功したかどうかテスト
 		EXPECT_HRESULT_SUCCEEDED(sys::Device::GetInst()->EndScene());
 
@@ -90,16 +100,42 @@ void GameMain::Render(){
 		throw std::runtime_error("3Dの描画に失敗しました");
 	}
 	
-
-
 	//円のサイズ left top right bottom
-	const RECT rect = {50, 50, 100, 100};
+	const RECT circle_rect1 = {100, 100, 150, 150};
+	const RECT circle_rect2 = {10, 10, 15, 15};
+	const RECT circle_rect3 = {50, 50, 51, 51};
+	const RECT circle_rect4 = {0, 0, 1, 1};
+	const RECT circle_rect5 = {1000, 1000, 1500, 1500};
 
 	//円を描画
-	this->dinfo_->g->DrawCircle(rect);
+//    this->dinfo_->g->DrawCircle(circle_rect1);
+//    this->dinfo_->g->DrawCircle(circle_rect2);
+//    this->dinfo_->g->DrawCircle(circle_rect3);
+//    this->dinfo_->g->DrawCircle(circle_rect4);
+//    this->dinfo_->g->DrawCircle(circle_rect5);
+
+	const RECT rect2 = {200, 200, 250, 250};
+	const RECT rect3 = {2, 2, 4, 4};
+	const RECT rect4 = {0,0, 1000, 1000};
+	const RECT rect5 = {100, 100 ,50, 50};
+	const RECT rect6 = {100,100,150,150};
+	const RECT rect7 = {50, 50, 100, 100};
+
+
+	//ここでも四角形を描画してみる
+//    this->dinfo_->g->DrawRect(rect2);
+//    this->dinfo_->g->DrawRect(rect3);
+//    this->dinfo_->g->DrawRect(rect4);
+//    this->dinfo_->g->DrawRect(rect5);
+//    this->dinfo_->g->DrawRect(rect6);
+//    this->dinfo_->g->DrawRect(rect7);
+
 
 	//次のバッファのコンテンツをプレゼンテーション
 	sys::Device::GetInst()->Present(NULL, NULL, NULL, NULL);
+}
+
+void GameMain::Render3D(){
 }
 
 //ゲームのアップデート処理

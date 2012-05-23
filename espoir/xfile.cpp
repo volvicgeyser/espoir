@@ -32,10 +32,11 @@ namespace espoir{
 
 
 		//3DData構造体
-		SPXFileData xData(new XFileData);
+		SPXFileData xData(new_<XFileData>());
 		//メッシュマテリアルの数
 		xData->numMaterials_ = 0L;
 		
+		//Xファイルの読み出し
 		const HRESULT hResult = D3DXLoadMeshFromX(model.c_str(), D3DXMESH_SYSTEMMEM, sys::Device::GetInst().GetRef(), NULL,
 			&buf, NULL, &xData->numMaterials_, &xData->mesh_);
 

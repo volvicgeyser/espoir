@@ -9,18 +9,7 @@ namespace espoir{
 
 void Form::InitTitle(){
 	
-	//クラス名とタイトル
-	if(this->info_ == NULL){
-		DOut dout;
-		dout	<< "info is null"  << " at: "<<__LINE__ << std::endl;
-	}
-	//String title = _T("Form");
-
-	//フォームの連番を何番かあら始めるか
-	//const int start_at = 1;
-
-	//title.append(boost::lexical_cast<String>(form_n_ + start_at));
-
+	BOOST_ASSERT(this->info_);
 
 	const String dxTitle = _T("espoir");
 	const String dbgTitle = _T("debug window");
@@ -42,9 +31,9 @@ void Form::CreateWnd(){
 		CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, NULL, NULL, this->info_->hInst, NULL);
 	
 	//エラーがあれば出力
-	DOut dout;
-	if(GetLastError() != 0)
-		dout << GetLastError() << "at: "<<__LINE__ << std::endl;
+	if(GetLastError() != 0){
+		throw std::runtime_error("エラー");
+	}
 
 }
 
@@ -56,12 +45,11 @@ void Form::InitFormInfo(){
 	if(this->info_ != NULL){
 		throw std::runtime_error("ポインタがNULLではありません、既に初期化されている可能性があります");
 	}
-	this->info_.reset(new ControlInfo);
-	
+
+	this->info_ = boost::make_shared<ControlInfo>();
+
 	//タイトルの初期化
 	InitTitle();
-	
-	//this->info_->text = _T("Form");
 }
 
 void Form::RgWndClass(){

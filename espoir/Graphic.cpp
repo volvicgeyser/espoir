@@ -5,6 +5,8 @@
 //#include "Singleton.h"
 //#include "DXDeviceCreation.h"
 #include "system.h"
+#include "vertex.h"
+
 namespace espoir{
 
 Graphic::Graphic(SPGraphicInfo gInfo)
@@ -34,7 +36,7 @@ Graphic::Graphic(SPGraphicInfo gInfo)
 }
 
 
-void Graphic::DrawCircle(RECT rect)
+void Graphic::DrawCircle(const RECT& rect)
 {
 	//if(!this->gInfo_->d3Device) return;
 	HDC hDC;
@@ -82,6 +84,43 @@ void Graphic::DrawCircle(RECT rect)
 		//dout << _T("backBufが初期化されていません ") << DSTM << std::endl;
 		throw std::runtime_error("backBufが初期化されていません");
 	}
+}
+
+//四角形の描画
+void Graphic::DrawRect(const RECT& rect){
+
+	const int z = 1;
+
+	//四角形のvertex
+	const VertexL pt[4] = {
+		{rect.left, rect.top, z, 1, 0xFFFF0000},
+		{rect.left, rect.bottom, z, 1, 0xFF0000FF},
+		{rect.right, rect.bottom, z, 1, 0xFF0000FF},
+		{rect.right, rect.top, z, 1, 0xFF0000FF}
+	};
+
+
+	//三角形
+//    const VertexL pt[3] = {
+//        {rect.left, rect.top, z, 1, 0xFFFF0000},
+//        {rect.left, rect.bottom, z, 1, 0xFF0000FF},
+//        {rect.right, rect.top, z, 1, 0xFF0000FF}
+//    };
+
+
+	//シェーダのデータ
+	EXPECT_HRESULT_SUCCEEDED(sys::Device::GetInst()->SetVertexShader( NULL ));
+
+	//プリミティブの描画
+	const HRESULT primHR = sys::Device::GetInst()->DrawPrimitiveUP(
+		D3DPT_TRIANGLELIST, 1, pt, sizeof(VertexL)
+		);
+
+	//sys::Device::GetInst()->SetFVF(D3DFVF_CUSTOMVERTEX);
+
+	//sys::Device::GetInst()->DrawPrimitive(D3DPT_TRIANGLEFAN, 0, 2);
+
+	EXPECT_HRESULT_SUCCEEDED(primHR);
 }
 
 Graphic::~Graphic(void)
