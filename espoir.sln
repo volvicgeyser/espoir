@@ -14,6 +14,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SingletonTest", "SingletonT
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SingletonTest2", "SingletonTest2\SingletonTest2.vcproj", "{B45885E4-CCE8-4005-A487-566D9940CD6A}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Scene_test", "Scene_test\Scene_test.vcproj", "{2DB3D39C-E88E-4C62-B772-8F0DE3A48DBD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug Restrict|Win32 = Debug Restrict|Win32
@@ -51,6 +53,12 @@ Global
 		{B45885E4-CCE8-4005-A487-566D9940CD6A}.Debug|Win32.Build.0 = Debug|Win32
 		{B45885E4-CCE8-4005-A487-566D9940CD6A}.Release|Win32.ActiveCfg = Release|Win32
 		{B45885E4-CCE8-4005-A487-566D9940CD6A}.Release|Win32.Build.0 = Release|Win32
+		{2DB3D39C-E88E-4C62-B772-8F0DE3A48DBD}.Debug Restrict|Win32.ActiveCfg = Debug|Win32
+		{2DB3D39C-E88E-4C62-B772-8F0DE3A48DBD}.Debug Restrict|Win32.Build.0 = Debug|Win32
+		{2DB3D39C-E88E-4C62-B772-8F0DE3A48DBD}.Debug|Win32.ActiveCfg = Debug|Win32
+		{2DB3D39C-E88E-4C62-B772-8F0DE3A48DBD}.Debug|Win32.Build.0 = Debug|Win32
+		{2DB3D39C-E88E-4C62-B772-8F0DE3A48DBD}.Release|Win32.ActiveCfg = Release|Win32
+		{2DB3D39C-E88E-4C62-B772-8F0DE3A48DBD}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

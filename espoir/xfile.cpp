@@ -60,7 +60,13 @@ namespace espoir{
 
 		for(DWORD i = 0; i < xData->numMaterials_; i++){
 			xData->meshMaterials_.push_back(materials[i].MatD3D);
-			xData->textures_.push_back(NULL);
+			
+			typedef ComPtr<IDirect3DTexture9> SPTexture;
+			//typedef boost::intrusive_ptr<IDirect3DTexture9> SPTexture;
+
+			//NULLの要素を挿入
+			//SPTexture texture = SPTexture(NULL);
+			//xData->textures_.push_back(texture);
 
 			//構造体がUnicodeに対応していない！！
 			if(materials[i].pTextureFilename != NULL &&
@@ -69,6 +75,8 @@ namespace espoir{
 
 				//Xファイルが置かれているディレクトリ
 				std::string texturePath("../../x/");
+
+				LPDIRECT3DTEXTURE9 texture = NULL;
 
 				const std::string filename = materials[i].pTextureFilename;
 				if(filename.empty()){
@@ -80,12 +88,29 @@ namespace espoir{
 				}
 				//ここでもマルチバイト文字対応の関数を使う
 				if(FAILED(D3DXCreateTextureFromFileA(sys::Device::GetInst().GetRef(),
-					texturePath.c_str(), &xData->textures_[i])))
+					texturePath.c_str(), &texture )))
+				{
 					throw std::runtime_error("テクスチャマップが見つかりませんでした");
+				}
+
+				BOOST_ASSERT(texture);
+				//BOOST_ASSERT(texture->Name);
+				//if(!texture->Name)
+				//	throw std::runtime_error("テクスチャ名が無効です");
+
+				const SPTexture spTexture(texture);
+				xData->textures_.push_back(spTexture);
+
+				//texture->Release();
+				//texture = NULL;
+				//ComPtr<IDirect3DTexture9> a;
+				//ComPtr<LPDIRECT3DTEXTURE9> a;
+				//xData->textures_[i]->Name;
 			}
 		}
 		//バッファの解放
-		buf->Release();
+		const ULONG buf_count = buf->Release();
+		BOOST_ASSERT(!buf_count);
 		return xData;
 
 	}

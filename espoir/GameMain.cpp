@@ -10,7 +10,9 @@ namespace espoir{
 //ゲーム内容の初期化処理
 GameMain::GameMain(SPDXInfo info){
 	this->dinfo_ = info;
-	sys::Models::GetInst()->push_back(SPXFileData(XFile::Load(_T("../../x/kabotha_sensi.x"))));
+
+	//xfileを読み込まない
+	//sys::Models::GetInst()->push_back(SPXFileData(XFile::Load(_T("../../x/kabotha_sensi.x"))));
 }
 
 //ゲームの描画
@@ -24,6 +26,9 @@ void GameMain::Render(){
 	
 	//正しく画面クリアされたかどうかtest
 	EXPECT_HRESULT_SUCCEEDED(hrClear);
+
+
+
 
 	//3Dの描画
 	if(SUCCEEDED(sys::Device::GetInst()->BeginScene())){
@@ -58,8 +63,15 @@ void GameMain::Render(){
 
 				BOOST_ASSERT(xData.get());
 
-                sys::Device::GetInst()->SetMaterial( &xData->meshMaterials_[i] );
-                sys::Device::GetInst()->SetTexture( 0, xData->textures_[i] );
+                EXPECT_HRESULT_SUCCEEDED(sys::Device::GetInst()->SetMaterial( &xData->meshMaterials_[i] ));
+				
+				//for comptr
+				EXPECT_HRESULT_SUCCEEDED(sys::Device::GetInst()->SetTexture( 0, xData->textures_[i].GetRef() ));
+
+				//for intrusive_ptr
+				//EXPECT_HRESULT_SUCCEEDED(sys::Device::GetInst()->SetTexture( 0, xData->textures_[i].get() ));
+                
+				//sys::Device::GetInst()->SetTexture( 0, xData->textures_[i].get() );
 
                 xData->mesh_->DrawSubset(i);
             }
@@ -90,6 +102,17 @@ void GameMain::Render(){
 		this->dinfo_->g->DrawRect(rect5);
 		this->dinfo_->g->DrawRect(rect6);
 		this->dinfo_->g->DrawRect(rect7);
+
+		//プリミティブ描画てすと
+		//    try{
+		//        sys::Device::GetInst()->DrawPrimitive(D3DPT_TRIANGLELIST,
+		//            0,
+		//            2);
+		//    }
+		//    catch(TCHAR* str){
+		//        const String tmp = str;
+		//        ShowError(tmp);
+		//    }
 
 		//描画終了関数を呼び出すと共に成功したかどうかテスト
 		EXPECT_HRESULT_SUCCEEDED(sys::Device::GetInst()->EndScene());

@@ -14,6 +14,8 @@ public:
 		
 		return obj;
 	}
+	//スマートポインタに任せるので何もしない
+	static void Destroy(){}
 private:
 };
 

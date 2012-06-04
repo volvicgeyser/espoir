@@ -20,6 +20,7 @@
 	#include "gametime_test.h"
 	#include "cast_test.h"
 	#include "new_test.h"
+	#include "device_getref_test.h"
 #endif
 
 #ifdef OLD_CODE
@@ -91,6 +92,13 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 
 	//DirectXのメインループ
 	SPSingleton<DDevice>::GetInst()->DMainLoop();
+
+	//解放してみる
+//    DOut dout;
+//    for(ULONG cnt = sys::Device::GetInst()->Release(); 0L < cnt; cnt = sys::Device::GetInst()->Release()){
+//        dout << _T("警告　解放テスト") << std::endl;
+//        dout << cnt << endl;
+//    }
 
 	//system("pause");
 	return RUN_ALL_TESTS();

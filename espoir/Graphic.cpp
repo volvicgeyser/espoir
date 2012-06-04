@@ -112,15 +112,15 @@ void Graphic::DrawRect(const RECT& rect){
 	EXPECT_HRESULT_SUCCEEDED(sys::Device::GetInst()->SetVertexShader( NULL ));
 
 	//プリミティブの描画
-	const HRESULT primHR = sys::Device::GetInst()->DrawPrimitiveUP(
-		D3DPT_TRIANGLELIST, 1, pt, sizeof(VertexL)
-		);
+//    const HRESULT primHR = sys::Device::GetInst()->DrawPrimitiveUP(
+//        D3DPT_TRIANGLELIST, 1, pt, sizeof(VertexL)
+//        );
 
 	//sys::Device::GetInst()->SetFVF(D3DFVF_CUSTOMVERTEX);
 
 	//sys::Device::GetInst()->DrawPrimitive(D3DPT_TRIANGLEFAN, 0, 2);
 
-	EXPECT_HRESULT_SUCCEEDED(primHR);
+//    EXPECT_HRESULT_SUCCEEDED(primHR);
 }
 
 Graphic::~Graphic(void)

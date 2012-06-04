@@ -13,8 +13,16 @@ namespace espoir{
 	//Singleton‚ðsys‚ÅˆÍ‚Á‚Ätypedef
 	namespace sys{
 
+//        typedef SPSingleton<IDirect3D9, DX3D9Creation, boost::intrusive_ptr> Direct3D;
+//
 		typedef SPSingleton<IDirect3D9, DX3D9Creation, ComPtr> Direct3D;
 		typedef SPSingleton<IDirect3DDevice9, DXDeviceCreation, ComPtr> Device;
+
+//atl
+//        typedef SPSingleton<IDirect3D9, DX3D9Creation, CComPtr> Direct3D;
+//        typedef SPSingleton<IDirect3DDevice9, DXDeviceCreation, CComPtr> Device;
+
+
 		typedef SPSingleton<Form, DXFormCreation> Form;
 
 		typedef Singleton<GameTime<> > Time;
