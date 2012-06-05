@@ -9,7 +9,7 @@ namespace espoir{
 
 //ƒQ[ƒ€“à—e‚Ì‰Šú‰»ˆ—
 GameMain::GameMain(){
-	//sys::Models::GetInst()->push_back(SPXFileData(XFile::Load(_T("../../x/kabotha_sensi.x"))));
+	sys::Models::GetInst()->push_back(SPXFileData(XFile::Load(_T("../../x/kabotha_sensi.x"))));
 }
 
 //ƒQ[ƒ€‚Ì•`‰æ

@@ -100,6 +100,7 @@ namespace espoir{
 
 				const SPTexture spTexture(texture);
 				xData->textures_.push_back(spTexture);
+				
 
 				//texture->Release();
 				//texture = NULL;
@@ -110,6 +111,7 @@ namespace espoir{
 		}
 		//バッファの解放
 		const ULONG buf_count = buf->Release();
+		
 		BOOST_ASSERT(!buf_count);
 		return xData;
 
