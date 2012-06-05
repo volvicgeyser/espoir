@@ -4,12 +4,10 @@
 namespace espoir{
 class Graphic
 {
-SP_TDEF(GraphicInfo);
 
 private:
-	SPGraphicInfo gInfo_;
 public:
-	Graphic(SPGraphicInfo gInfo);
+	Graphic();
 
 	//テキストメッセージの表示
 	void DrawString(String text);

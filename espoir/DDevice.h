@@ -31,7 +31,7 @@ private:
 
 	//デバイス
 	//ComPtr<IDirect3DDevice9>::type d3Device_;
-	boost::intrusive_ptr<IDirect3DDevice9> d3Device_;
+	//boost::intrusive_ptr<IDirect3DDevice9> d3Device_;
 
 	//Direct3D, デバイス
 	//SPGrahpicInfo ginfo_;

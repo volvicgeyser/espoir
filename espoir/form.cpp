@@ -47,6 +47,7 @@ void Form::InitFormInfo(){
 	}
 
 	this->info_ = boost::make_shared<ControlInfo>();
+	//this->info_ = boost::shared_ptr<ControlInfo>(new ControlInfo);
 
 	//ƒ^ƒCƒgƒ‹‚Ì‰Šú‰»
 	InitTitle();
@@ -223,6 +224,8 @@ INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 
 
 HWND Form::GetHandle(){
+	if(!this->info_->hWnd)
+		throw std::runtime_error("Handle‚ªNULL‚Å‚·");
 	return this->info_->hWnd;
 }
 

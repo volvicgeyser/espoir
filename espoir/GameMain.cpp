@@ -8,27 +8,17 @@ namespace espoir{
 
 
 //ゲーム内容の初期化処理
-GameMain::GameMain(SPDXInfo info){
-	this->dinfo_ = info;
-
-	//xfileを読み込まない
+GameMain::GameMain(){
 	//sys::Models::GetInst()->push_back(SPXFileData(XFile::Load(_T("../../x/kabotha_sensi.x"))));
 }
 
 //ゲームの描画
 void GameMain::Render(){
-	
-	BOOST_ASSERT(this->dinfo_);
-	BOOST_ASSERT(this->dinfo_->g);
-
 	//描画開始
 	const HRESULT hrClear = sys::Device::GetInst()->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(100, 100, 50), 1.0f, 0);
 	
 	//正しく画面クリアされたかどうかtest
 	EXPECT_HRESULT_SUCCEEDED(hrClear);
-
-
-
 
 	//3Dの描画
 	if(SUCCEEDED(sys::Device::GetInst()->BeginScene())){
@@ -50,7 +40,7 @@ void GameMain::Render(){
 
 		//モデルを描画する関数オブジェクト
 		//tuple<XFileのデータ(SmartPtr), ループカウンタ>
-        struct DrawModelFunctor{
+		struct DrawModelFunctor{
 			void operator()(boost::tuples::tuple<SPXFileData, int> t){
 
 				//i番目の要素
@@ -61,31 +51,26 @@ void GameMain::Render(){
 
 				boost::tie(xData, i) = t;
 
-				BOOST_ASSERT(xData.get());
+				BOOST_ASSERT(xData);
 
-                EXPECT_HRESULT_SUCCEEDED(sys::Device::GetInst()->SetMaterial( &xData->meshMaterials_[i] ));
+				EXPECT_HRESULT_SUCCEEDED(sys::Device::GetInst()->SetMaterial( &xData->meshMaterials_[i] ));
 				
 				//for comptr
 				EXPECT_HRESULT_SUCCEEDED(sys::Device::GetInst()->SetTexture( 0, xData->textures_[i].GetRef() ));
 
-				//for intrusive_ptr
-				//EXPECT_HRESULT_SUCCEEDED(sys::Device::GetInst()->SetTexture( 0, xData->textures_[i].get() ));
-                
-				//sys::Device::GetInst()->SetTexture( 0, xData->textures_[i].get() );
-
-                xData->mesh_->DrawSubset(i);
-            }
-        };
+				xData->mesh_->DrawSubset(i);
+			}
+		};
 
 		//描画
 		boost::for_each(
-            boost::combine(
+			boost::combine(
 				*sys::Models::GetInst(), 
 				boost::counting_range(0, static_cast<int>(sys::Models::GetInst()->size() ) )
 			),
 		DrawModelFunctor() );
 
-		
+//        
 		//四角形のサイズ
 		const RECT rect2 = {200, 200, 250, 250};
 		const RECT rect3 = {2, 2, 4, 4};
@@ -96,23 +81,18 @@ void GameMain::Render(){
 
 
 		//四角形の描画テスト
-		this->dinfo_->g->DrawRect(rect2);
-		this->dinfo_->g->DrawRect(rect3);
-		this->dinfo_->g->DrawRect(rect4);
-		this->dinfo_->g->DrawRect(rect5);
-		this->dinfo_->g->DrawRect(rect6);
-		this->dinfo_->g->DrawRect(rect7);
-
-		//プリミティブ描画てすと
-		//    try{
-		//        sys::Device::GetInst()->DrawPrimitive(D3DPT_TRIANGLELIST,
-		//            0,
-		//            2);
-		//    }
-		//    catch(TCHAR* str){
-		//        const String tmp = str;
-		//        ShowError(tmp);
-		//    }
+		sys::Graphic::GetInst()->DrawRect(rect2);
+		sys::Graphic::GetInst()->DrawRect(rect3);
+		sys::Graphic::GetInst()->DrawRect(rect4);
+		sys::Graphic::GetInst()->DrawRect(rect5);
+		sys::Graphic::GetInst()->DrawRect(rect6);
+		sys::Graphic::GetInst()->DrawRect(rect7);
+//        this->dinfo_->g->DrawRect(rect2);
+//        this->dinfo_->g->DrawRect(rect3);
+//        this->dinfo_->g->DrawRect(rect4);
+//        this->dinfo_->g->DrawRect(rect5);
+//        this->dinfo_->g->DrawRect(rect6);
+//        this->dinfo_->g->DrawRect(rect7);
 
 		//描画終了関数を呼び出すと共に成功したかどうかテスト
 		EXPECT_HRESULT_SUCCEEDED(sys::Device::GetInst()->EndScene());
@@ -126,16 +106,30 @@ void GameMain::Render(){
 	//円のサイズ left top right bottom
 	const RECT circle_rect1 = {100, 100, 150, 150};
 	const RECT circle_rect2 = {10, 10, 15, 15};
-	const RECT circle_rect3 = {50, 50, 51, 51};
-	const RECT circle_rect4 = {0, 0, 1, 1};
-	const RECT circle_rect5 = {1000, 1000, 1500, 1500};
+
+	//小さすぎて描画できない
+//	const RECT circle_rect3 = {50, 50, 51, 51};
+//    const RECT circle_rect4 = {0, 0, 1, 1};
+//
+//    const RECT circle_rect5 = {1000, 1000, 1500, 1500};
+
+
+	//合格
+//    const RECT circle_rect6 = {0, 0, 650, 550};
 
 	//円を描画
-//    this->dinfo_->g->DrawCircle(circle_rect1);
-//    this->dinfo_->g->DrawCircle(circle_rect2);
-//    this->dinfo_->g->DrawCircle(circle_rect3);
-//    this->dinfo_->g->DrawCircle(circle_rect4);
-//    this->dinfo_->g->DrawCircle(circle_rect5);
+//    sys::Graphic::GetInst()->DrawCircle(circle_rect1);
+//    sys::Graphic::GetInst()->DrawCircle(circle_rect2);
+
+	//小さすぎて描画できない
+//    sys::Graphic::GetInst()->DrawCircle(circle_rect3);
+//    sys::Graphic::GetInst()->DrawCircle(circle_rect4);
+
+	//大きすぎても描画できない
+//    sys::Graphic::GetInst()->DrawCircle(circle_rect5);
+
+	//合格
+//    sys::Graphic::GetInst()->DrawCircle(circle_rect6);
 
 	const RECT rect2 = {200, 200, 250, 250};
 	const RECT rect3 = {2, 2, 4, 4};

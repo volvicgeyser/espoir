@@ -12,7 +12,7 @@ struct ControlInfo
 {
 
 	//ControlInfoスマポ化
-	SP_TDEF(ControlInfo);
+	//SP_TDEF(ControlInfo);
 
 	//コンストラクタ
 	ControlInfo(void);

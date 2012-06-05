@@ -9,6 +9,7 @@ private:
 public:
 	DStreamBuf();
 	virtual Int_type overflow(Int_type iChar = EOF);
+	virtual ~DStreamBuf();
 };
 
 

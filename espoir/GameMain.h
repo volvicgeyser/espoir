@@ -3,11 +3,12 @@
 
 namespace espoir{
 	class GameMain{
-		SP_TDEF(DXInfo);
+		//SP_TDEF(DXInfo);
 	private:
-		SPDXInfo dinfo_;
+		//SPDXInfo dinfo_;
 	public:
-		GameMain(SPDXInfo info);
+		//GameMain(SPDXInfo info);
+		GameMain();
 		void Render();
 		void Render3D();
 		void Update();

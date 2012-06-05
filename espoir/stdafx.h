@@ -105,9 +105,9 @@ extern CComModule _Module;
 
 //é¿çséûComptrå^ê∂ê¨
 
-//template <typename T> struct ComPtr{
-//    typedef ::_com_ptr_t<::_com_IIID< T , &__uuidof( T )>> type;
-//};
+template <typename T> struct ComPtr_t{
+    typedef ::_com_ptr_t<::_com_IIID< T , &__uuidof( T )>> type;
+};
 
 
 

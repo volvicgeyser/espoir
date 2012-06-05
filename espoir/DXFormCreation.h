@@ -1,21 +1,19 @@
 #pragma once
 
-//#include"DDevice.h"
 #include"form.h"
+
 namespace espoir{
 
-template <class ObjType>
+template<class ObjType>
 class DXFormCreation{
-SP_TDEF(ObjType);
 public:
-	static SPObjType Create(){
-		//DirectXウィンドウ生成
-		SPObjType obj(new ObjType(DirectX));
-		
-		return obj;
+	static ObjType* Create(){
+		static ObjType object(DirectX);
+		return &object;
 	}
-	//スマートポインタに任せるので何もしない
-	static void Destroy(){}
+	//staticに生成するので何もしない
+	static void Destroy(ObjType*){
+	}
 private:
 };
 

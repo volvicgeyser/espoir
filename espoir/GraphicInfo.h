@@ -15,7 +15,7 @@ struct GraphicInfo{
 
 	//バックバッファサーフェス
 	//ComPtr<IDirect3DSurface9>::type backBuf;
-	boost::intrusive_ptr<IDirect3DSurface9> backBuf;
+	//boost::intrusive_ptr<IDirect3DSurface9> backBuf;
 
 	//DiretcXのウィンドウハンドル
 	//HWND hWnd;

@@ -18,19 +18,19 @@ bool espoir::DDevice::Init(){
 		//bool result = true;
 
 		//DirectXのメインウィンドウを生成
-		typedef SPSingleton<Form, DXFormCreation> SingleDXForm;
+		typedef Singleton<Form, DXFormCreation> SingleDXForm;
 		SingleDXForm::GetInst()->Show();
 
 		//Grahpcsの初期化
-		SPGraphicInfo gInfo(boost::make_shared<GraphicInfo>());
+		//SPGraphicInfo gInfo(boost::make_shared<GraphicInfo>());
 
-		SPDXInfo dxInfo(new_<DXInfo>());
-		if(dxInfo->g.get() == NULL)
-			dxInfo->g = boost::make_shared<Graphic>(gInfo);
+		//SPDXInfo dxInfo();
+		//if(dxInfo->g == NULL)
+		//	dxInfo->g = boost::make_shared<Graphic>(gInfo);
 
 		//GameWindowの初期化
-		if(this->gm_.get() == NULL)
-			this->gm_ = boost::make_shared<GameMain>(dxInfo);
+		if(this->gm_ == NULL)
+			this->gm_ = boost::make_shared<GameMain>();
 
 		return true;
 }

@@ -9,80 +9,53 @@
 
 namespace espoir{
 
-Graphic::Graphic(SPGraphicInfo gInfo)
+Graphic::Graphic()
 {
-	if(gInfo_ == NULL)
-		this->gInfo_ = gInfo;
-
-	LPDIRECT3DSURFACE9 tmp_backBuf;
-
-	const HRESULT hr = sys::Device::GetInst()->GetBackBuffer(
-		0, 0, D3DBACKBUFFER_TYPE_MONO, &tmp_backBuf);
-
-	//Ç±ÇÍÇ©ÇÁèâä˙âªÇ∑ÇÈÇÃÇ≈íÜêgÇÕNULLÇÃÇÕÇ∏
-	//NULLÇ©Ç«Ç§Ç©É`ÉFÉbÉN
-
-	//EXPECT_EQ(this->gInfo_->backBuf, NULL);
-
-	
-	//static_cast<LPDIRECT3DSURFACE9>(this->gInfo_->backBuf.get());
-
-	this->gInfo_->backBuf = tmp_backBuf;
-
-	if(FAILED(hr)){
-		throw std::runtime_error("BackBufferÇÃèâä˙âªÇ…é∏îsÇµÇ‹ÇµÇΩ");
-		//(*debug::Dout::GetInst()) << _T("BackBufferÇÃèâä˙âªÇ…é∏îsÇµÇ‹ÇµÇΩ");
-	}
 }
 
 
 void Graphic::DrawCircle(const RECT& rect)
 {
-	//if(!this->gInfo_->d3Device) return;
+	//ÉfÉoÉCÉXÉRÉìÉeÉLÉXÉg
 	HDC hDC;
 
-	if(this->gInfo_->backBuf != NULL){
-		const HRESULT hr = this->gInfo_->backBuf->GetDC(&hDC);
+	//if(this->gInfo_->backBuf != NULL){
+	const HRESULT hr = sys::Backbuf::GetInst()->GetDC(&hDC);
+//        const HRESULT hr = this->gInfo_->backBuf->GetDC(&hDC);
 
-		//ê≥ÇµÇ≠DCéÊìæÇ≈Ç´ÇΩÇ©test
-		EXPECT_HRESULT_SUCCEEDED(hr);
+	//ê≥ÇµÇ≠DCéÊìæÇ≈Ç´ÇΩÇ©test
+	EXPECT_HRESULT_SUCCEEDED(hr);
 
-		if(hr == S_OK){
+	if(hr == S_OK){
 
-			//ìÒéüå≥ÇÃâ~Çï`âÊ
-			const BOOL rEllipse = Ellipse(hDC, rect.left, rect.top, rect.right, rect.bottom);
+		//ìÒéüå≥ÇÃâ~Çï`âÊ
+		const BOOL rEllipse = Ellipse(hDC, rect.left, rect.top, rect.right, rect.bottom);
 			
-			//â~Ç™ê≥ÇµÇ≠ï`âÊÇ≈Ç´ÇƒÇ¢ÇÈÇ©Ç«Ç§Ç©ÉeÉXÉg
-			EXPECT_NE(rEllipse, FALSE);
+		//â~Ç™ê≥ÇµÇ≠ï`âÊÇ≈Ç´ÇƒÇ¢ÇÈÇ©Ç«Ç§Ç©ÉeÉXÉg
+		EXPECT_NE(rEllipse, FALSE);
  			
-			this->gInfo_->backBuf->ReleaseDC(hDC);
-		}
-		else{
-			//DOut dout;
-			//dout << _T("Error: ") << hr << _T(" â~ÇÃï`âÊÇ…é∏îsÇµÇ‹ÇµÇΩ ") << DSTM << std::endl;
-
-			//throw std::runtime_error("â~ÇÃï`âÊÇ…é∏îsÇµÇ‹ÇµÇΩ");
-
-			const char* str = "â~ÇÃï`âÊÇ…é∏îsÇµÇ‹ÇµÇΩ";
-			//å^É`ÉFÉbÉNÉeÉXÉg
-			typedef ::testing::Types<long> testTypes;
-			TYPED_TEST_CASE(getdc_result_test, testTypes);
-
-			switch(hr){
-				case E_FAIL:
-					throw std::runtime_error( (boost::format("%1% E_FAIL") % str).str() );
-					break;
-				case D3DERR_INVALIDCALL :
-					throw std::runtime_error( (boost::format("%1% ñ≥å¯Ç»åƒÇ—èoÇµ") % str).str() );
-					break;
-			}
-		}
-
+		sys::Backbuf::GetInst()->ReleaseDC(hDC);
+//        this->gInfo_->backBuf->ReleaseDC(hDC);
 	}
 	else{
 		//DOut dout;
-		//dout << _T("backBufÇ™èâä˙âªÇ≥ÇÍÇƒÇ¢Ç‹ÇπÇÒ ") << DSTM << std::endl;
-		throw std::runtime_error("backBufÇ™èâä˙âªÇ≥ÇÍÇƒÇ¢Ç‹ÇπÇÒ");
+		//dout << _T("Error: ") << hr << _T(" â~ÇÃï`âÊÇ…é∏îsÇµÇ‹ÇµÇΩ ") << DSTM << std::endl;
+
+		//throw std::runtime_error("â~ÇÃï`âÊÇ…é∏îsÇµÇ‹ÇµÇΩ");
+
+		const char* str = "â~ÇÃï`âÊÇ…é∏îsÇµÇ‹ÇµÇΩ";
+		//å^É`ÉFÉbÉNÉeÉXÉg
+		typedef ::testing::Types<long> testTypes;
+			TYPED_TEST_CASE(getdc_result_test, testTypes);
+
+		switch(hr){
+			case E_FAIL:
+				throw std::runtime_error( (boost::format("%1% E_FAIL") % str).str() );
+				break;
+			case D3DERR_INVALIDCALL :
+				throw std::runtime_error( (boost::format("%1% ñ≥å¯Ç»åƒÇ—èoÇµ") % str).str() );
+				break;
+		}
 	}
 }
 
@@ -118,7 +91,7 @@ void Graphic::DrawRect(const RECT& rect){
 
 	//sys::Device::GetInst()->SetFVF(D3DFVF_CUSTOMVERTEX);
 
-	//sys::Device::GetInst()->DrawPrimitive(D3DPT_TRIANGLEFAN, 0, 2);
+//    sys::Device::GetInst()->DrawPrimitive(D3DPT_TRIANGLEFAN, 0, 2);
 
 //    EXPECT_HRESULT_SUCCEEDED(primHR);
 }

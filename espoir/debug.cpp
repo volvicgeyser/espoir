@@ -7,14 +7,16 @@ espoir::DStreamBuf::DStreamBuf(){
 	ZeroMemory(acBuf_, sizeof(acBuf_));
 }
 
-Int_type espoir::DStreamBuf::overflow(Int_type iChar){
-			if(iChar != EOF){
-				acBuf_[0] = iChar;
+espoir::DStreamBuf::~DStreamBuf(){}
 
-				//デバッガに出力
-				OutputDebugString(acBuf_);
-			}
-			return iChar;
+Int_type espoir::DStreamBuf::overflow(Int_type iChar){
+		if(iChar != EOF){
+			acBuf_[0] = iChar;
+
+			//デバッガに出力
+			OutputDebugString(acBuf_);
+		}
+		return iChar;
 }
 
 

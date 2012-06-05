@@ -16,11 +16,11 @@
 #include "system.h"
 
 #ifdef _DEBUG
-	#include "Singleton_test.h"
+//	#include "Singleton_test.h"
 	#include "gametime_test.h"
 	#include "cast_test.h"
-	#include "new_test.h"
-	#include "device_getref_test.h"
+//	#include "new_test.h"
+	//#include "device_getref_test.h"
 #endif
 
 #ifdef OLD_CODE
@@ -88,10 +88,10 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 #endif
 
 	//DirectX‰Šú‰»
-	SPSingleton<DDevice>::GetInst()->Init();
+	Singleton<DDevice>::GetInst()->Init();
 
 	//DirectX‚ÌƒƒCƒ“ƒ‹[ƒv
-	SPSingleton<DDevice>::GetInst()->DMainLoop();
+	Singleton<DDevice>::GetInst()->DMainLoop();
 
 	//‰ğ•ú‚µ‚Ä‚İ‚é
 //    DOut dout;

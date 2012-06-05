@@ -260,6 +260,22 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\2dhelper.h"
+				>
+			</File>
+			<File
+				RelativePath=".\_new_DX3D9Creation.h"
+				>
+			</File>
+			<File
+				RelativePath=".\_new_DXDeviceCreation.h"
+				>
+			</File>
+			<File
+				RelativePath=".\_old_DXFormCreation.h"
+				>
+			</File>
+			<File
 				RelativePath=".\ComPtr.h"
 				>
 			</File>
@@ -281,6 +297,10 @@
 			</File>
 			<File
 				RelativePath=".\DX3D9Creation.h"
+				>
+			</File>
+			<File
+				RelativePath=".\DXBackBufferCreation.h"
 				>
 			</File>
 			<File
@@ -321,6 +341,10 @@
 			</File>
 			<File
 				RelativePath=".\point.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\safedelete.h"
 				>
 			</File>
 			<File
@@ -427,6 +451,10 @@
 			</File>
 			<File
 				RelativePath=".\singleton.h"
+				>
+			</File>
+			<File
+				RelativePath=".\spsingleton.h"
 				>
 			</File>
 			<File
