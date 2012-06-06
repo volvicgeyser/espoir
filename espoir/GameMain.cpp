@@ -55,7 +55,6 @@ void GameMain::Render(){
 
 				EXPECT_HRESULT_SUCCEEDED(sys::Device::GetInst()->SetMaterial( &xData->meshMaterials_[i] ));
 				
-				//for comptr
 				EXPECT_HRESULT_SUCCEEDED(sys::Device::GetInst()->SetTexture( 0, xData->textures_[i].GetRef() ));
 
 				xData->mesh_->DrawSubset(i);

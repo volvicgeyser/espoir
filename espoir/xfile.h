@@ -21,28 +21,17 @@ struct XFileData{
 	//SPTexture textures_;
 	//ComPtr<IDirect3DTexture9> textures_;
 	//LPDIRECT3DTEXTURE9* texutres_;
-	LPD3DXMESH mesh_;
+//    LPD3DXMESH mesh_;
+	boost::intrusive_ptr<ID3DXMesh> mesh_;
 	//ComPtr<ID3DXMesh> mesh_;
 	//boost::intrusive_ptr<ID3DXMesh> mesh_;
 	DWORD numMaterials_;
-	~XFileData(){
-		DOut dout;
-		dout << _T("XFileDataのですとらくた") << std::endl;
-
-		dout << _T("mesh_解放") << std::endl;
-		safe_release(mesh_);
-	}
-	//~XFileData(){
-	//	this->textures_.clear();
-	//}
 //    ~XFileData(){
-//        試験的にデストラクタを使ってテクスチャの解放を行う
-//        for(TextureArray::iterator it = textures_.begin(); it != textures_.end();it++)
-//        {
-//                const ULONG u = (*it)->Release();
-//                DOut dout;
-//                dout << _T("XFileDataデストラクタの処理") << u << std::endl;
-//        }
+//        DOut dout;
+//        dout << _T("XFileDataのですとらくた") << std::endl;
+
+//        dout << _T("mesh_解放") << std::endl;
+//        safe_release(mesh_);
 //    }
 };
 

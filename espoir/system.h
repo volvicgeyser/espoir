@@ -22,10 +22,6 @@ namespace espoir{
 		typedef SPSingleton<IDirect3D9, DX3D9Creation, ComPtr> Direct3D;
 		typedef SPSingleton<IDirect3DDevice9, DXDeviceCreation, ComPtr> Device;
 		typedef SPSingleton<IDirect3DSurface9, DXBackBufferCreation, ComPtr> Backbuf;
-
-//		typedef Singleton<IDirect3D9, DX3D9Creation> Direct3D;
-//		typedef Singleton<IDirect3DDevice9, DXDeviceCreation> Device;
-//		typedef Singleton<IDirect3DSurface9, DXBackBufferCreation> Backbuf;
 		
 		//staticÇ…ê∂ê¨
 		typedef Singleton<Graphic> Graphic;

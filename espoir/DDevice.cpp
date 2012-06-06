@@ -21,13 +21,6 @@ bool espoir::DDevice::Init(){
 		typedef Singleton<Form, DXFormCreation> SingleDXForm;
 		SingleDXForm::GetInst()->Show();
 
-		//Grahpcs‚Ì‰Šú‰»
-		//SPGraphicInfo gInfo(boost::make_shared<GraphicInfo>());
-
-		//SPDXInfo dxInfo();
-		//if(dxInfo->g == NULL)
-		//	dxInfo->g = boost::make_shared<Graphic>(gInfo);
-
 		//GameWindow‚Ì‰Šú‰»
 		if(this->gm_ == NULL)
 			this->gm_ = boost::make_shared<GameMain>();

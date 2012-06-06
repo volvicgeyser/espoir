@@ -7,10 +7,16 @@
 
 namespace espoir{
 	SP_TDEF(XFileData);
+
+	//xファイルを読み込むメンバ関数
 	SPXFileData XFile::Load(const String& model){
+
+		//ファイルパスの文字列が空かどうかチェック
 		if(model.empty()){
 			throw std::runtime_error("modelの文字列が空っぽです");
 		}
+
+		//ファイルパスが存在するかどうかチェック
 		if(!PathFileExists(model.c_str())){
 
 			//エラー文字列の長さ
@@ -23,22 +29,32 @@ namespace espoir{
 
 //            DOut dout;
 //            dout << str << model.c_str() << _T("カレントディレクトリ:") << path << DSTM << std::endl;
+#if _DEBUG
 			throw std::runtime_error(str.str().c_str());
+#else
+			MessageBoxA(NULL, str.str().c_str(), "", MB_OK);
+#endif
 		}
+
+		//バッファの一時的なポインタ
 		LPD3DXBUFFER buf = NULL;
-
-		//メッシュ
-		//LPD3DXMESH mesh = NULL;
-
 
 		//3DData構造体
 		SPXFileData xData(new_<XFileData>());
 		//メッシュマテリアルの数
 		xData->numMaterials_ = 0L;
 		
+		//メッシュの一時的なポインタ
+		LPD3DXMESH tmp_mesh = NULL;
+
 		//Xファイルの読み出し
 		const HRESULT hResult = D3DXLoadMeshFromX(model.c_str(), D3DXMESH_SYSTEMMEM, sys::Device::GetInst().GetRef(), NULL,
-			&buf, NULL, &xData->numMaterials_, &xData->mesh_);
+			&buf, NULL, &xData->numMaterials_, &tmp_mesh);
+
+		BOOST_ASSERT(tmp_mesh);
+
+		//メッシュをスマポに格納
+		xData->mesh_ = boost::intrusive_ptr<ID3DXMesh>(tmp_mesh, false);
 
 		//エラー処理
 		if(FAILED(hResult)){
@@ -59,7 +75,12 @@ namespace espoir{
 			throw std::runtime_error("マテリアルの取得に失敗しました");
 
 		for(DWORD i = 0; i < xData->numMaterials_; i++){
-			xData->meshMaterials_.push_back(materials[i].MatD3D);
+			D3DMATERIAL9 material = materials[i].MatD3D;
+
+			//反射光を環境光としてセット
+			material.Ambient = material.Diffuse;
+
+			xData->meshMaterials_.push_back(material);
 			
 			typedef ComPtr<IDirect3DTexture9> SPTexture;
 			//typedef boost::intrusive_ptr<IDirect3DTexture9> SPTexture;
@@ -90,7 +111,8 @@ namespace espoir{
 				if(FAILED(D3DXCreateTextureFromFileA(sys::Device::GetInst().GetRef(),
 					texturePath.c_str(), &texture )))
 				{
-					throw std::runtime_error("テクスチャマップが見つかりませんでした");
+					MessageBox(NULL, _T("テクスチャマップが見つかりませんでした"), _T("err"), MB_OK);
+					//throw std::runtime_error("テクスチャマップが見つかりませんでした");
 				}
 
 				BOOST_ASSERT(texture);

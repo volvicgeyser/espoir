@@ -13,9 +13,9 @@
 
 // Windows ヘッダー ファイル:
 #include <windows.h>
-#include<atlbase.h>
-extern CComModule _Module;
-#include<atlwin.h>
+//#include<atlbase.h>
+//extern CComModule _Module;
+//#include<atlwin.h>
 
 // C ランタイム ヘッダー ファイル
 #ifdef OLD_CODE
