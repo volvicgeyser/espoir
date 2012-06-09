@@ -189,6 +189,8 @@ void GameMain::Update(){
 
 	boost::array<BYTE, max_key> keyState;
 
+	sys::InputDevice::GetInst()->Acquire();
+
 	//キーボード処理
 	const HRESULT devStateErr = sys::InputDevice::GetInst()->GetDeviceState(
 			max_key, keyState.begin());
