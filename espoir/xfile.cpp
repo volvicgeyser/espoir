@@ -24,15 +24,15 @@ namespace espoir{
 			boost::array<TCHAR, length> path;
 			GetCurrentDirectory(length, path.begin());
 
-			std::stringstream str;
+			Stringstream str;
 			str << _T("無効なファイルパスです") << model.c_str() << _T("カレントディレクトリ:") << path.begin() << std::endl;
 
 //            DOut dout;
 //            dout << str << model.c_str() << _T("カレントディレクトリ:") << path << DSTM << std::endl;
 #if _DEBUG
-			throw std::runtime_error(str.str().c_str());
+			throw std::runtime_error("無効なファイルパス");
 #else
-			MessageBoxA(NULL, str.str().c_str(), "", MB_OK);
+			MessageBox(NULL, str.str().c_str(), _T("Xファイル読み込みエラー"), MB_OK);
 #endif
 		}
 
@@ -130,6 +130,7 @@ namespace espoir{
 				//ComPtr<LPDIRECT3DTEXTURE9> a;
 				//xData->textures_[i]->Name;
 			}
+	
 		}
 		//バッファの解放
 		const ULONG buf_count = buf->Release();

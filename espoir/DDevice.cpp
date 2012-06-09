@@ -18,13 +18,15 @@ bool espoir::DDevice::Init(){
 		//bool result = true;
 
 		//DirectXのメインウィンドウを生成
-		typedef Singleton<Form, DXFormCreation> SingleDXForm;
-		SingleDXForm::GetInst()->Show();
+		//typedef Singleton<Form, DXFormCreation> SingleDXForm;
+		//SingleDXForm::GetInst()->Show();
+		sys::Form::GetInst()->Show();
 
 		//GameWindowの初期化
 		if(this->gm_ == NULL)
 			this->gm_ = boost::make_shared<GameMain>();
 
+		
 		return true;
 }
 

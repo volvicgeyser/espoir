@@ -312,6 +312,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\DXInputCreation.h"
+				>
+			</File>
+			<File
+				RelativePath=".\DXInputDeviceCreation.h"
+				>
+			</File>
+			<File
 				RelativePath=".\form.cpp"
 				>
 			</File>

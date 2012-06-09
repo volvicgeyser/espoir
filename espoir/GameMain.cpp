@@ -9,14 +9,21 @@ namespace espoir{
 
 //ゲーム内容の初期化処理
 GameMain::GameMain(){
-	sys::Models::GetInst()->push_back(SPXFileData(XFile::Load(_T("../../x/kabotha_sensi.x"))));
+    sys::Models::GetInst()->push_back(SPXFileData(XFile::Load(_T("../../x/kabotha_sensi.x"))));
+    sys::Models::GetInst()->push_back(SPXFileData(XFile::Load(_T("../../x/tiger.x"))));
+
+	DOut dout;
+	dout << "DirectInput初期化テスト" << std::endl;
+	sys::Input::GetInst();
+	
 }
 
 //ゲームの描画
 void GameMain::Render(){
 	//描画開始
-	const HRESULT hrClear = sys::Device::GetInst()->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(100, 100, 50), 1.0f, 0);
+//    const HRESULT hrClear = sys::Device::GetInst()->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(100, 100, 50), 1.0f, 0);
 	
+	const HRESULT hrClear = sys::Device::GetInst()->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(0xff, 0xff, 0xff), 1.0f, 0);
 	//正しく画面クリアされたかどうかtest
 	EXPECT_HRESULT_SUCCEEDED(hrClear);
 
@@ -27,7 +34,8 @@ void GameMain::Render(){
 		D3DXMATRIXA16 world;
 		D3DXMatrixRotationY(&world, sys::Time::GetInst()->GetTimeApp() / 1000.0f);
 		sys::Device::GetInst()->SetTransform(D3DTS_WORLD, &world);
-		D3DXVECTOR3 vEyePt(0.0f, 3.0f, -5.0f);
+//        D3DXVECTOR3 vEyePt(0.0f, 3.0f, -5.0f);
+		D3DXVECTOR3 vEyePt(0.0f, 3.0f, -4.0f);
 		D3DXVECTOR3 vLookatPt(0.0f, 0.0f, 0.0f);
 		D3DXVECTOR3 vUpVec(0.0f, 1.0f, 0.0f);
 		D3DXMATRIXA16 view;
@@ -40,36 +48,56 @@ void GameMain::Render(){
 
 		//モデルを描画する関数オブジェクト
 		//tuple<XFileのデータ(SmartPtr), ループカウンタ>
-		struct DrawModelFunctor{
-			void operator()(boost::tuples::tuple<SPXFileData, int> t){
+//        struct DrawModelFunctor{
+//            void operator()(boost::tuples::tuple<SPXFileData, int> t){
 
-				//i番目の要素
-				SPXFileData xData;
+//                i番目の要素
+//                SPXFileData xData;
 
-				//ループカウンタi
-				int i;
+//                ループカウンタi
+//                int i;
 
-				boost::tie(xData, i) = t;
+//                boost::tie(xData, i) = t;
 
-				BOOST_ASSERT(xData);
+//                BOOST_ASSERT(xData);
 
-				EXPECT_HRESULT_SUCCEEDED(sys::Device::GetInst()->SetMaterial( &xData->meshMaterials_[i] ));
-				
-				EXPECT_HRESULT_SUCCEEDED(sys::Device::GetInst()->SetTexture( 0, xData->textures_[i].GetRef() ));
+//                EXPECT_HRESULT_SUCCEEDED(sys::Device::GetInst()->SetMaterial( &xData->meshMaterials_[i] ));
+//                
+//                EXPECT_HRESULT_SUCCEEDED(sys::Device::GetInst()->SetTexture( 0, xData->textures_[i].GetRef() ));
 
-				xData->mesh_->DrawSubset(i);
-			}
-		};
+//                xData->mesh_->DrawSubset(i);
+//            }
+//        };
 
 		//描画
-		boost::for_each(
-			boost::combine(
-				*sys::Models::GetInst(), 
-				boost::counting_range(0, static_cast<int>(sys::Models::GetInst()->size() ) )
-			),
-		DrawModelFunctor() );
+//        boost::for_each(
+//            boost::combine(
+//                *sys::Models::GetInst(), 
+//                boost::counting_range(0, static_cast<int>(sys::Models::GetInst()->size() ) )
+//            ),
+//        DrawModelFunctor() );
 
 //        
+
+		//モデルデータの表示
+		for(XFileArray::iterator it = sys::Models::GetInst()->begin(); it != sys::Models::GetInst()->end(); it++){
+			const DWORD size = (*it)->numMaterials_;
+			BOOST_ASSERT(0 < size);
+			BOOST_ASSERT(size == (*it)->meshMaterials_.size());
+
+			//マテリアルをセット
+			for(DWORD i = 0; i < size; i++){
+				sys::Device::GetInst()->SetMaterial( &(*it)->meshMaterials_.at(i) ); 
+				//sys::Device::GetInst()->SetTexture(0, (*it)->textures_.at(i).GetRef() );
+
+			}
+			//テクスチャをセット
+			for(DWORD i = 0; i < (*it)->textures_.size(); i++){
+				sys::Device::GetInst()->SetTexture(0, (*it)->textures_.at(i).GetRef() );
+				(*it)->mesh_->DrawSubset(i);
+			}
+		}
+
 		//四角形のサイズ
 		const RECT rect2 = {200, 200, 250, 250};
 		const RECT rect3 = {2, 2, 4, 4};
@@ -156,6 +184,36 @@ void GameMain::Render3D(){
 
 //ゲームのアップデート処理
 void GameMain::Update(){
+
+	const DWORD max_key = 256;
+
+	boost::array<BYTE, max_key> keyState;
+
+	//キーボード処理
+	const HRESULT devStateErr = sys::InputDevice::GetInst()->GetDeviceState(
+			max_key, keyState.begin());
+
+	if(SUCCEEDED(devStateErr)){
+		//Escキーで終了
+		if(keyState[DIK_ESCAPE]&0xf0) PostMessage(sys::Form::GetInst()->GetHandle(), WM_CLOSE, 0, 0);
+		if(keyState[DIK_J]){
+			//j key
+		}
+		if(keyState[DIK_K]){
+			//k key
+		}
+		if(keyState[DIK_L]){
+			//l key
+		}
+		if(keyState[DIK_H]){
+			//h key
+		}
+#ifdef _DEBUG
+		if(keyState[DIK_D]){
+			//call debug menu
+		}
+#endif
+	}
 	
 }
 

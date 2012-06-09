@@ -6,6 +6,8 @@
 #include"DXDeviceCreation.h"
 #include"DXFormCreation.h"
 #include"DXBackBufferCreation.h"
+#include"DXInputCreation.h"
+#include"DXInputDeviceCreation.h"
 #include"xfile.h"
 #include "gametime.h"
 #include "graphic.h"
@@ -19,9 +21,12 @@ namespace espoir{
 
 //        typedef SPSingleton<IDirect3D9, DX3D9Creation, boost::intrusive_ptr> Direct3D;
 //
+		//typedef Singleton<Form, DXFormCreation> DXForm;
 		typedef SPSingleton<IDirect3D9, DX3D9Creation, ComPtr> Direct3D;
 		typedef SPSingleton<IDirect3DDevice9, DXDeviceCreation, ComPtr> Device;
 		typedef SPSingleton<IDirect3DSurface9, DXBackBufferCreation, ComPtr> Backbuf;
+		typedef SPSingleton<IDirectInputDevice8, DXInputDeviceCreation, boost::intrusive_ptr> InputDevice;
+		typedef SPSingleton<IDirectInput8, DXInputCreation, boost::intrusive_ptr> Input;
 		
 		//staticÇ…ê∂ê¨
 		typedef Singleton<Graphic> Graphic;

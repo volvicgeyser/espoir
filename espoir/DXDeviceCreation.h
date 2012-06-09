@@ -14,9 +14,12 @@ static void InitPresent(D3DPRESENT_PARAMETERS* d3dpp, const D3DDISPLAYMODE d3ddm
 		throw std::runtime_error("d3dppが空です");
 
 	d3dpp->BackBufferFormat = d3ddm.Format;
+//    d3dpp->BackBufferFormat = D3DFMT_UNKNOWN;
 	d3dpp->BackBufferCount = 1;
 	d3dpp->SwapEffect = D3DSWAPEFFECT_DISCARD;
-	d3dpp->Windowed = TRUE;
+    d3dpp->Windowed = TRUE;
+//    d3dpp->EnableAutoDepthStencil = TRUE;
+//    d3dpp->AutoDepthStencilFormat = D3DFMT_D16;
 
 	//アプリケーションがバックバッファを直接ロック
 	d3dpp->Flags = D3DPRESENTFLAG_LOCKABLE_BACKBUFFER;
@@ -83,6 +86,12 @@ public:
 
 		//デバイス生成時のエラーチェック
 		CheckDeviceErr(hResult);
+
+		//zbufferの設定
+//        tmp_d3Device->SetRenderState(D3DRS_ZENABLE, TRUE);	
+
+		//アンビエント
+		tmp_d3Device->SetRenderState(D3DRS_AMBIENT, 0xffffffff );
 
 		const SPObjType obj = SPObjType(tmp_d3Device);
 

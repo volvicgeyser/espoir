@@ -66,6 +66,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	//プログラム終了直前、メモリリークチェック
 	CheckMemoryLeaks();
 
+	
 
 #ifdef USE_DX_DBG_WND
 	SPForm f(new Form(DbgWnd));

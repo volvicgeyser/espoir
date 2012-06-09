@@ -60,6 +60,10 @@
 #include <boost/format.hpp>
 #include <d3d9.h>
 #include<d3dx9.h>
+//#include<XInput.h>
+//direct input 8 ‚ðŽg‚¤
+#define DIRECTINPUT_VERSION 0x800
+#include<dinput.h>
 #include <boost/preprocessor.hpp>
 #include <boost/scope_exit.hpp>
 #include <gtest/gtest.h>
@@ -92,6 +96,9 @@
 #pragma comment(lib, "comctl32.lib")
 #pragma comment(lib, "dxgi.lib")
 #pragma comment(lib, "dxguid.lib")
+//#pragma comment(lib, "XInput.lib")
+#pragma comment(lib, "dinput8.lib")
+
 #ifdef NDEBUG
 	#pragma comment(lib, "gtest.lib")
 	#pragma comment(lib, "gtest_main.lib")

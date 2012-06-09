@@ -1,4 +1,4 @@
-#pragma
+g#pragma
 #include"GraphicInfo.h"
 
 namespace espoir{
