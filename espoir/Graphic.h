@@ -1,11 +1,14 @@
 #pragma once
 #include"GraphicInfo.h"
+//#include"vertex.h"
 
 namespace espoir{
 class Graphic
 {
 
 private:
+	
+	//std::vector<Vertex> vertexArray;
 public:
 	Graphic();
 
@@ -15,9 +18,11 @@ public:
 	//‰~‚Ì•`‰æ
 	void DrawCircle(const RECT& rect);
 
-	//lŠpŒ`‚Ì•`‰æ
-	void DrawRect(const RECT& rect);
+	//İ’è‚³‚ê‚½lŠpŒ`‚Ì’¸“_‚ğŒ³‚É•`‰æ
+	void DrawRect();
 
+	//lŠpŒ`‚Ì’¸“_‚ğİ’è
+	void SetRect(const RECT& rect);
 
 	~Graphic(void);
 };

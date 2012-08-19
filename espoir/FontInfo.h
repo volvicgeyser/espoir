@@ -1,14 +1,12 @@
 #pragma once
+#include"ComPtr.h"
 
 namespace espoir{
 
-
+//GDIの描画なので遅い。
 
 //フォントの情報構造体
 struct FontInfo{
-
-	//DirectXデバイス
-	LPDIRECT3DDEVICE9 pDevice;
 
 	//文字の高さ
 	INT height;
@@ -38,7 +36,10 @@ struct FontInfo{
 	String pFacename;
 	
 	//フォントのポインタ
-	ComPtr<LPD3DXFONT> ppFont;
-}
+	boost::intrusive_ptr<ID3DXFont> ppFont;
+};
+
+
+
 
 }

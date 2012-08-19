@@ -11,11 +11,15 @@
 #include"xfile.h"
 #include "gametime.h"
 #include "graphic.h"
+#include "FontCreation.h"
+#include "font.h"
+
 namespace espoir{
 
 	SP_TDEF(XFileData);
 	typedef std::vector<SPXFileData> XFileArray;
 
+	//class Graphic;
 	//SingletonÇsysÇ≈àÕÇ¡Çƒtypedef
 	namespace sys{
 
@@ -31,17 +35,15 @@ namespace espoir{
 		//staticÇ…ê∂ê¨
 		typedef Singleton<Graphic> Graphic;
 
-//atl
-//        typedef SPSingleton<IDirect3D9, DX3D9Creation, CComPtr> Direct3D;
-//        typedef SPSingleton<IDirect3DDevice9, DXDeviceCreation, CComPtr> Device;
-
-
 //		typedef SPSingleton<Form, DXFormCreation> Form;
 		typedef Singleton<Form, DXFormCreation> Form;
 
 		typedef Singleton<GameTime<> > Time;
 		typedef Singleton<XFileArray> Models;
-		//typedef Singleton<DOut> DOut;
+		//typedef std::vector<Font> FontArray;
+		
+		typedef SPSingleton<Font, DebugFontCreation> DebugFont;
+
 	}
 	namespace debug{
 		//typedef Singleton<DOut> Dout;

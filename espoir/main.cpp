@@ -19,6 +19,8 @@
 //	#include "Singleton_test.h"
 	#include "gametime_test.h"
 	#include "cast_test.h"
+	#include "font_test.h"
+	#include "boost_format_test.h"
 //	#include "new_test.h"
 	//#include "device_getref_test.h"
 #endif

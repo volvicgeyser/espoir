@@ -3,19 +3,36 @@
 #include"debug.h"
 #include"xfile.h"
 #include"system.h"
+#include"vertex.h"
+#include"font.h"
 
 namespace espoir{
 
 
 //ゲーム内容の初期化処理
 GameMain::GameMain(){
-    sys::Models::GetInst()->push_back(SPXFileData(XFile::Load(_T("../../x/kabotha_sensi.x"))));
-    sys::Models::GetInst()->push_back(SPXFileData(XFile::Load(_T("../../x/tiger.x"))));
+    //sys::Models::GetInst()->push_back(SPXFileData(XFile::Load(_T("../../x/kabotha_sensi.x"))));
+    //sys::Models::GetInst()->push_back(SPXFileData(XFile::Load(_T("../../x/tiger.x"))));
 
-	DOut dout;
-	dout << "DirectInput初期化テスト" << std::endl;
-	sys::Input::GetInst();
-	
+	//DOut dout;
+	//dout << "DirectInput初期化テスト" << std::endl;
+	//sys::Input::GetInst();
+
+	//Z軸
+	const LONG z = 1;
+
+	const RECT rect = {10, 10, 100, 100};
+	//四角形のvertex
+	const VertexImplL pt[4] = {
+		{rect.left, rect.top, z, 1, 0xFFFF0000},
+		{rect.left, rect.bottom, z, 1, 0xFF0000FF},
+		{rect.right, rect.bottom, z, 1, 0xFF0000FF},
+		{rect.right, rect.top, z, 1, 0xFF0000FF}
+	};
+
+	//フォントのテスト	
+	SP_TDEF(Font);
+	SPFont font = boost::make_shared<Font>( (Format(_T("MS ゴシック"))).str() );
 }
 
 //ゲームの描画
@@ -29,7 +46,9 @@ void GameMain::Render(){
 
 	//3Dの描画
 	if(SUCCEEDED(sys::Device::GetInst()->BeginScene())){
-		
+		//フォントの描画テスト
+		sys::DebugFont::GetInst()->DrawString( Format( _T("こんにちは、Hello Directx9") ).str() );
+
 		//描画環境の設定
 		D3DXMATRIXA16 world;
 		D3DXMatrixRotationY(&world, sys::Time::GetInst()->GetTimeApp() / 1000.0f);
@@ -99,21 +118,22 @@ void GameMain::Render(){
 		}
 
 		//四角形のサイズ
-		const RECT rect2 = {200, 200, 250, 250};
-		const RECT rect3 = {2, 2, 4, 4};
-		const RECT rect4 = {0,0, 1000, 1000};
-		const RECT rect5 = {100, 100 ,50, 50};
-		const RECT rect6 = {100,100,150,150};
-		const RECT rect7 = {50, 50, 100, 100};
+//        const RECT rect2 = {200, 200, 250, 250};
+//        const RECT rect3 = {2, 2, 4, 4};
+//        const RECT rect4 = {0,0, 1000, 1000};
+//        const RECT rect5 = {100, 100 ,50, 50};
+//        const RECT rect6 = {100,100,150,150};
+//        const RECT rect7 = {50, 50, 100, 100};
 
 
 		//四角形の描画テスト
-		sys::Graphic::GetInst()->DrawRect(rect2);
-		sys::Graphic::GetInst()->DrawRect(rect3);
-		sys::Graphic::GetInst()->DrawRect(rect4);
-		sys::Graphic::GetInst()->DrawRect(rect5);
-		sys::Graphic::GetInst()->DrawRect(rect6);
-		sys::Graphic::GetInst()->DrawRect(rect7);
+//        sys::Graphic::GetInst()->DrawRect(rect2);
+//        sys::Graphic::GetInst()->DrawRect(rect3);
+//        sys::Graphic::GetInst()->DrawRect(rect4);
+//        sys::Graphic::GetInst()->DrawRect(rect5);
+//        sys::Graphic::GetInst()->DrawRect(rect6);
+//        sys::Graphic::GetInst()->DrawRect(rect7);
+
 //        this->dinfo_->g->DrawRect(rect2);
 //        this->dinfo_->g->DrawRect(rect3);
 //        this->dinfo_->g->DrawRect(rect4);

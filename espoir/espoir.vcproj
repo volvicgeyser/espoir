@@ -320,6 +320,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Font.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\FontCreation.h"
+				>
+			</File>
+			<File
 				RelativePath=".\form.cpp"
 				>
 			</File>
@@ -403,6 +411,10 @@
 			</File>
 			<File
 				RelativePath=".\Factory.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Font.h"
 				>
 			</File>
 			<File
@@ -520,11 +532,19 @@
 			Name="テストコード"
 			>
 			<File
+				RelativePath=".\boost_format_test.h"
+				>
+			</File>
+			<File
 				RelativePath=".\cast_test.h"
 				>
 			</File>
 			<File
 				RelativePath=".\device_getref_test.h"
+				>
+			</File>
+			<File
+				RelativePath=".\font_test.h"
 				>
 			</File>
 			<File

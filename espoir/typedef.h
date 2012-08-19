@@ -17,3 +17,5 @@ typedef std::basic_stringstream<TCHAR, std::char_traits<TCHAR>, std::allocator<T
 typedef std::basic_ostream<TCHAR, std::char_traits<TCHAR> > Ostream;
 typedef std::basic_streambuf<TCHAR, std::char_traits<TCHAR> > Streambuf;
 typedef std::char_traits<TCHAR>::int_type Int_type;
+
+typedef boost::basic_format<TCHAR> Format;
