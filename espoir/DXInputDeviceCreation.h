@@ -38,7 +38,7 @@ public:
 			throw std::runtime_error("協調レベルの設定に失敗");
 #else
 			MessageBox(NULL, _T("フォアグラウンド＆非排他モードの設定に失敗"),
-					_T("err", MB_OK);
+					_T("err"), MB_OK);
 #endif
 		}
 

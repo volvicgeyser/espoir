@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "main.h"
 #include "DDevice.h"
+#include "custom_assert.h"
 #include "debug.h"
 #include "color.h"
 #include "Form.h"
@@ -14,6 +15,7 @@
 #include "cast.h"
 #include "new.h"
 #include "system.h"
+#include"notify.h"
 
 #ifdef _DEBUG
 //	#include "Singleton_test.h"

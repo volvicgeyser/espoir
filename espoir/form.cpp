@@ -3,6 +3,7 @@
 #include "controlInfo.h"
 #include "debug.h"
 #include "Resource.h"
+#include "notify.h"
 namespace espoir{
 
 	HINSTANCE Form::hInst_ = GetModuleHandle(NULL);
@@ -24,6 +25,8 @@ void Form::InitTitle(){
 			break;
 	}
 
+	//通知アイコンの初期化
+	//Form::notify = boost::make_shared<Notify>();
 }
 void Form::CreateWnd(){
 	//ウィンドウの生成
@@ -114,13 +117,14 @@ SPControlInfo Form::GetInfo(){
 	return this->info_;
 }
 
-
+	boost::shared_ptr<Notify> notify2;
 //DirectXのメインウィンドウ
 LRESULT CALLBACK Form::DXWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam){
 	int wmId;
 	int wmEvent;
 	PAINTSTRUCT ps;
 	HDC hdc;
+
 
 	switch(msg){
 		case WM_DESTROY:
@@ -149,7 +153,14 @@ LRESULT CALLBACK Form::DXWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lPar
 			}
 			break;
 		case WM_CREATE:
-
+			//notify2 = boost::make_shared<Notify>();
+			break;
+		case WM_MYNOTIFY:
+			//notify.sendMessage( String(_T("abc")));
+			break;
+		case WM_CHAR:
+			notify.sendMessage( String(_T("てすとてすとてすとてすと")));
+			//MessageBox(NULL, _T(""), _T(""), MB_OK);
 			break;
 		default:
 			return DefWindowProc(hWnd, msg, wParam, lParam);

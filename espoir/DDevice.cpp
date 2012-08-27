@@ -8,18 +8,15 @@
 //#include"DX3D9Creation.h"
 //#include"DXDeviceCreation.h"
 #include"system.h"
-#include"new.h"
+//#include"new.h"
 namespace espoir{
 
 }
 
 bool espoir::DDevice::Init(){
 		//戻り値　初期化に成功した=true : 失敗=false
-		//bool result = true;
 
 		//DirectXのメインウィンドウを生成
-		//typedef Singleton<Form, DXFormCreation> SingleDXForm;
-		//SingleDXForm::GetInst()->Show();
 		sys::Form::GetInst()->Show();
 
 		//GameWindowの初期化

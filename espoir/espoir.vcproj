@@ -288,6 +288,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\custom_assert.h"
+				>
+			</File>
+			<File
 				RelativePath=".\DDevice.cpp"
 				>
 			</File>
@@ -353,6 +357,14 @@
 			</File>
 			<File
 				RelativePath=".\new.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\notify.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\notify.h"
 				>
 			</File>
 			<File

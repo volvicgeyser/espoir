@@ -10,12 +10,14 @@
 
 #define WIN32_LEAN_AND_MEAN             // Windows ヘッダーから使用されていない部分を除外します。
 #define D3D_DEBUG_INFO				//ウォッチウィンドウからDirect3Dのデバッグ情報の詳細が見れるようにします。
+#define BOOST_ENABLE_ASSERT_HANDLER //BOOST_ASSERTをハンドル
 
 // Windows ヘッダー ファイル:
 #include <windows.h>
 //#include<atlbase.h>
 //extern CComModule _Module;
 //#include<atlwin.h>
+#include<shellapi.h>
 
 // C ランタイム ヘッダー ファイル
 #ifdef OLD_CODE
@@ -85,6 +87,8 @@
 //#include"rect.h"
 #include"typedef.h"
 #include"config.h"
+
+
 
 //Microsoft Visual C++向け
 #if defined(_MSC_VER)

@@ -1,11 +1,12 @@
 #pragma once
 #include"IClonable.h"
 #include<windef.h>
-
+#include"notify.h"
 namespace espoir{
 
 struct ControlInfo;
 class Form;
+//class Notify;
 
 //Aboutダイアログ
 INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam);
@@ -16,16 +17,23 @@ enum WindowType{
 	DbgWnd
 };
 
+	//通知アイコン
+	static Notify notify;
+
 
 //スマートポインタをSPという名前を頭につけて宣言
 SP_TDEF(Form);
 SP_TDEF(ControlInfo);
-
+SP_TDEF(Notify);
 
 //ウィンドウの状態を持つフォームクラス
 class Form
 {
 private:
+
+
+	//static boost::shared_ptr<Notify> notify;
+
 	//フォームの情報
 	SPControlInfo info_;
 
