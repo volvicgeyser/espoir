@@ -50,7 +50,7 @@ void GameMain::Render(){
 	//3Dの描画
 	if(SUCCEEDED(sys::Device::GetInst()->BeginScene())){
 		//フォントの描画テスト
-		sys::DebugFont::GetInst()->DrawString( Format( _T("こんにちは、Hello Directx9") ).str() );
+		sys::DebugFont::GetInst()->DrawString( Format( _T("デバッグ実行中") ).str() );
 
 		//描画環境の設定
 		D3DXMATRIXA16 world;
@@ -117,9 +117,12 @@ void GameMain::Render(){
 				sys::Device::GetInst()->SetMaterial( &(*it)->meshMaterials_.at(i) ); 
 			}
 			//テクスチャをセット
-			for(DWORD i = 0; i < (*it)->textures_.size(); i++){
-				sys::Device::GetInst()->SetTexture(0, (*it)->textures_.at(i).GetRef() );
-				(*it)->mesh_->DrawSubset(i);
+			//for(DWORD i = 0; i < (*it)->textures_.size(); i++){
+			for(DWORD i = 0; i < size; i++){
+				//if((*it)->textures_.at(i) != NULL){
+					sys::Device::GetInst()->SetTexture(0, (*it)->textures_.at(i).GetRef() );
+					(*it)->mesh_->DrawSubset(i);
+				//}
 			}
 			 
 		}

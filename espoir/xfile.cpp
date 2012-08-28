@@ -75,14 +75,18 @@ namespace espoir{
 			throw std::runtime_error("マテリアルの取得に失敗しました");
 
 		for(DWORD i = 0; i < xData->numMaterials_; i++){
+			typedef ComPtr<IDirect3DTexture9> SPTexture;
+			
 			D3DMATERIAL9 material = materials[i].MatD3D;
 
 			//反射光を環境光としてセット
 			material.Ambient = material.Diffuse;
 
 			xData->meshMaterials_.push_back(material);
+
+			xData->textures_.push_back(SPTexture());
 			
-			typedef ComPtr<IDirect3DTexture9> SPTexture;
+
 			//typedef boost::intrusive_ptr<IDirect3DTexture9> SPTexture;
 
 			//NULLの要素を挿入
@@ -124,7 +128,8 @@ namespace espoir{
 				//	throw std::runtime_error("テクスチャ名が無効です");
 
 				const SPTexture spTexture(texture);
-				xData->textures_.push_back(spTexture);
+				//xData->textures_.push_back(spTexture);
+				xData->textures_.at(i) = spTexture;
 				
 
 				//texture->Release();
@@ -133,7 +138,6 @@ namespace espoir{
 				//ComPtr<LPDIRECT3DTEXTURE9> a;
 				//xData->textures_[i]->Name;
 			}
-	
 		}
 		//バッファの解放
 		const ULONG buf_count = buf->Release();

@@ -66,8 +66,8 @@ public:
 	SPObjType& GetRef(){
 		//this->spObj_->AddRef();
 		//const ULONG u = this->spObj_->Release();
-		if(!this->spObj_)
-			throw std::runtime_error("ComPtr‚Ì’†g‚ªNULL‚Å‚·");
+		//if(!this->spObj_)
+		//	throw std::runtime_error("ComPtr‚Ì’†g‚ªNULL‚Å‚·");
 		return this->spObj_;
 	}
 //    template<class T>
