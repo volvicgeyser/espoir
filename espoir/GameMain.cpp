@@ -245,6 +245,9 @@ void GameMain::Update(){
 		if(keyState[DIK_H]){
 			//h key
 		}
+		if(keyState[DIK_Q]){
+			PostMessage(sys::Form::GetInst()->GetHandle(), WM_CLOSE, 0, 0);
+		}
 #ifdef _DEBUG
 		if(keyState[DIK_D]){
 			//call debug menu
