@@ -8,14 +8,16 @@
 
 namespace espoir{
 
+static float modelZ = 0;
 
 //ゲーム内容の初期化処理
 GameMain::GameMain(){
     //sys::Models::GetInst()->push_back(SPXFileData(XFile::Load(_T("../../x/kabotha_sensi.x"))));
-    sys::Models::GetInst()->push_back(SPXFileData(XFile::Load(_T("../../x/tiger.x"))));
-	sys::Models::GetInst()->push_back(SPXFileData(XFile::Load(_T("../../x/box.x"))));
-	sys::Models::GetInst()->push_back(SPXFileData(XFile::Load(_T("../../x/box3.x"))));
-	sys::Models::GetInst()->push_back(SPXFileData(XFile::Load(_T("../../x/kame.x"))));
+    //sys::Models::GetInst()->push_back(SPXFileData(XFile::Load(_T("../../x/tiger.x"))));
+	//sys::Models::GetInst()->push_back(SPXFileData(XFile::Load(_T("../../x/green_box.x"))));
+	sys::Models::GetInst()->push_back(SPXFileData(XFile::Load(_T("../../x/violin.x"))));
+	//sys::Models::GetInst()->push_back(SPXFileData(XFile::Load(_T("../../x/box3.x"))));
+	//sys::Models::GetInst()->push_back(SPXFileData(XFile::Load(_T("../../x/kame.x"))));
 
 	//DOut dout;
 	//dout << "DirectInput初期化テスト" << std::endl;
@@ -57,7 +59,7 @@ void GameMain::Render(){
 		D3DXMatrixRotationY(&world, sys::Time::GetInst()->GetTimeApp() / 1000.0f);
 		sys::Device::GetInst()->SetTransform(D3DTS_WORLD, &world);
 //        D3DXVECTOR3 vEyePt(0.0f, 3.0f, -5.0f);
-		D3DXVECTOR3 vEyePt(0.0f, 3.0f, -4.0f);
+		D3DXVECTOR3 vEyePt(modelZ, 3.0f, -4.0f);
 		D3DXVECTOR3 vLookatPt(0.0f, 0.0f, 0.0f);
 		D3DXVECTOR3 vUpVec(0.0f, 1.0f, 0.0f);
 		D3DXMATRIXA16 view;
@@ -231,9 +233,11 @@ void GameMain::Update(){
 		if(keyState[DIK_ESCAPE]&0xf0) PostMessage(sys::Form::GetInst()->GetHandle(), WM_CLOSE, 0, 0);
 		if(keyState[DIK_J]){
 			//j key
+			modelZ--;
 		}
 		if(keyState[DIK_K]){
 			//k key
+			modelZ++;
 		}
 		if(keyState[DIK_L]){
 			//l key

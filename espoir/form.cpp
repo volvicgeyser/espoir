@@ -117,7 +117,7 @@ SPControlInfo Form::GetInfo(){
 	return this->info_;
 }
 
-	boost::shared_ptr<Notify> notify2;
+	//boost::shared_ptr<Notify> notify2;
 //DirectXのメインウィンドウ
 LRESULT CALLBACK Form::DXWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam){
 	int wmId;
@@ -159,7 +159,7 @@ LRESULT CALLBACK Form::DXWndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lPar
 			//notify.sendMessage( String(_T("abc")));
 			break;
 		case WM_CHAR:
-			notify.sendMessage( String(_T("てすとてすとてすとてすと")));
+			//notify.sendMessage( String(_T("てすとてすとてすとてすと")));
 			//MessageBox(NULL, _T(""), _T(""), MB_OK);
 			break;
 		default:
