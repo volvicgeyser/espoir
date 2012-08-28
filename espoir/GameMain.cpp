@@ -8,7 +8,9 @@
 
 namespace espoir{
 
-static float modelZ = 0;
+static float modelZ = 0.0f;
+static float modelY = 0.0f;
+static float modelX = 0.0f;
 
 //ゲーム内容の初期化処理
 GameMain::GameMain(){
@@ -56,10 +58,22 @@ void GameMain::Render(){
 
 		//描画環境の設定
 		D3DXMATRIXA16 world;
-		D3DXMatrixRotationY(&world, sys::Time::GetInst()->GetTimeApp() / 1000.0f);
-		sys::Device::GetInst()->SetTransform(D3DTS_WORLD, &world);
+		D3DXMATRIXA16 worldRot;
+		D3DXMATRIXA16 worldTrans;
+
+		//回転処理
+		D3DXMatrixRotationY(&worldRot, sys::Time::GetInst()->GetTimeApp() / 1000.0f);
+
+		//移動処理
+		D3DXMatrixTranslation(&worldTrans, modelX, modelY, modelZ);
+
+		//掛け算
+		D3DXMatrixMultiply(&world, &worldRot, &worldTrans);
+
+
+		//sys::Device::GetInst()->SetTransform(D3DTS_WORLD, &world);
 //        D3DXVECTOR3 vEyePt(0.0f, 3.0f, -5.0f);
-		D3DXVECTOR3 vEyePt(modelZ, 3.0f, -4.0f);
+		D3DXVECTOR3 vEyePt(0.0f, 3.0f, -4.0f);
 		D3DXVECTOR3 vLookatPt(0.0f, 0.0f, 0.0f);
 		D3DXVECTOR3 vUpVec(0.0f, 1.0f, 0.0f);
 		D3DXMATRIXA16 view;
@@ -70,6 +84,8 @@ void GameMain::Render(){
 		//視野角　アスペクト比　最近接距離　最遠方距離
 		D3DXMatrixPerspectiveFovLH(&proj, D3DX_PI/ 4,1.0f,0.01f,100.0f);
 
+		//sys::Device::GetInst()->SetTransform(D3DTS_WORLD, &worldRot);
+		//sys::Device::GetInst()->SetTransform(D3DTS_WORLD, &worldTrans);
 		sys::Device::GetInst()->SetTransform(D3DTS_WORLD, &world);
 		sys::Device::GetInst()->SetTransform(D3DTS_VIEW, &view);
 		sys::Device::GetInst()->SetTransform(D3DTS_PROJECTION, &proj);
@@ -121,10 +137,8 @@ void GameMain::Render(){
 			//テクスチャをセット
 			//for(DWORD i = 0; i < (*it)->textures_.size(); i++){
 			for(DWORD i = 0; i < size; i++){
-				//if((*it)->textures_.at(i) != NULL){
-					sys::Device::GetInst()->SetTexture(0, (*it)->textures_.at(i).GetRef() );
-					(*it)->mesh_->DrawSubset(i);
-				//}
+				sys::Device::GetInst()->SetTexture(0, (*it)->textures_.at(i).GetRef() );
+				(*it)->mesh_->DrawSubset(i);
 			}
 			 
 		}
@@ -233,17 +247,17 @@ void GameMain::Update(){
 		if(keyState[DIK_ESCAPE]&0xf0) PostMessage(sys::Form::GetInst()->GetHandle(), WM_CLOSE, 0, 0);
 		if(keyState[DIK_J]){
 			//j key
-			modelZ--;
+			modelZ-=0.1f;
 		}
 		if(keyState[DIK_K]){
 			//k key
-			modelZ++;
+			modelZ+=0.1f;
 		}
 		if(keyState[DIK_L]){
-			//l key
+			modelX+=0.1f;
 		}
 		if(keyState[DIK_H]){
-			//h key
+			modelX-=0.1f;
 		}
 		if(keyState[DIK_Q]){
 			PostMessage(sys::Form::GetInst()->GetHandle(), WM_CLOSE, 0, 0);
