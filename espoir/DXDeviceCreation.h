@@ -18,9 +18,18 @@ static void InitPresent(D3DPRESENT_PARAMETERS* d3dpp, const D3DDISPLAYMODE d3ddm
 	d3dpp->BackBufferCount = 1;
 	d3dpp->SwapEffect = D3DSWAPEFFECT_DISCARD;
     d3dpp->Windowed = TRUE;
+	if(!d3dpp->Windowed){
+		d3dpp->BackBufferWidth = 0;
+		d3dpp->BackBufferHeight = 0;
+	}
+	d3dpp->MultiSampleQuality = D3DMULTISAMPLE_NONE;
+	d3dpp->EnableAutoDepthStencil = TRUE;
+	d3dpp->AutoDepthStencilFormat = D3DFMT_D16;
+	
 //    d3dpp->EnableAutoDepthStencil = TRUE;
 //    d3dpp->AutoDepthStencilFormat = D3DFMT_D16;
 
+	//d3dpp->d3dfor
 	//アプリケーションがバックバッファを直接ロック
 	d3dpp->Flags = D3DPRESENTFLAG_LOCKABLE_BACKBUFFER;
 }
@@ -78,8 +87,7 @@ public:
 		//プレゼントパラメータの初期化
 		InitPresent(&d3dpp, d3ddm);
 
-
-		//デバイスの作成
+		//デバイスの作成 HAL
 		const HRESULT hResult = sys::Direct3D::GetInst()->CreateDevice(
 			D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, sys::Form::GetInst()->GetHandle(),
 		D3DCREATE_SOFTWARE_VERTEXPROCESSING, &d3dpp, &tmp_d3Device);
@@ -88,7 +96,7 @@ public:
 		CheckDeviceErr(hResult);
 
 		//zbufferの設定
-//        tmp_d3Device->SetRenderState(D3DRS_ZENABLE, TRUE);	
+        tmp_d3Device->SetRenderState(D3DRS_ZENABLE, TRUE);	
 
 		//アンビエント
 		tmp_d3Device->SetRenderState(D3DRS_AMBIENT, 0xffffffff );

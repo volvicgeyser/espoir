@@ -115,6 +115,9 @@ namespace espoir{
 					//throw std::runtime_error("テクスチャマップが見つかりませんでした");
 				}
 
+				//sys::Device::GetInst()->SetRenderState( D3DRS_ZENABLE, TRUE);
+				//sys::Device::GetInst()->SetRenderState( D3DRS_AMBIENT, 0xffffffff);
+
 				BOOST_ASSERT(texture);
 				//BOOST_ASSERT(texture->Name);
 				//if(!texture->Name)

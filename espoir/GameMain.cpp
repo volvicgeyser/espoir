@@ -12,7 +12,10 @@ namespace espoir{
 //ゲーム内容の初期化処理
 GameMain::GameMain(){
     //sys::Models::GetInst()->push_back(SPXFileData(XFile::Load(_T("../../x/kabotha_sensi.x"))));
-    //sys::Models::GetInst()->push_back(SPXFileData(XFile::Load(_T("../../x/tiger.x"))));
+    sys::Models::GetInst()->push_back(SPXFileData(XFile::Load(_T("../../x/tiger.x"))));
+	sys::Models::GetInst()->push_back(SPXFileData(XFile::Load(_T("../../x/box.x"))));
+	sys::Models::GetInst()->push_back(SPXFileData(XFile::Load(_T("../../x/box3.x"))));
+	sys::Models::GetInst()->push_back(SPXFileData(XFile::Load(_T("../../x/kame.x"))));
 
 	//DOut dout;
 	//dout << "DirectInput初期化テスト" << std::endl;
@@ -40,7 +43,7 @@ void GameMain::Render(){
 	//描画開始
 //    const HRESULT hrClear = sys::Device::GetInst()->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(100, 100, 50), 1.0f, 0);
 	
-	const HRESULT hrClear = sys::Device::GetInst()->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(0xff, 0xff, 0xff), 1.0f, 0);
+	const HRESULT hrClear = sys::Device::GetInst()->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(0x00, 0x00, 0xff), 1.0f, 0);
 	//正しく画面クリアされたかどうかtest
 	EXPECT_HRESULT_SUCCEEDED(hrClear);
 
@@ -61,7 +64,12 @@ void GameMain::Render(){
 		D3DXMatrixLookAtLH(&view, &vEyePt, &vLookatPt, &vUpVec);
 		sys::Device::GetInst()->SetTransform(D3DTS_VIEW, &view);
 		D3DXMATRIXA16 proj;
-		D3DXMatrixPerspectiveFovLH(&proj, D3DX_PI/ 4,1.0f,1.0f,100.0f);
+
+		//視野角　アスペクト比　最近接距離　最遠方距離
+		D3DXMatrixPerspectiveFovLH(&proj, D3DX_PI/ 4,1.0f,0.01f,100.0f);
+
+		sys::Device::GetInst()->SetTransform(D3DTS_WORLD, &world);
+		sys::Device::GetInst()->SetTransform(D3DTS_VIEW, &view);
 		sys::Device::GetInst()->SetTransform(D3DTS_PROJECTION, &proj);
 		
 
@@ -107,14 +115,13 @@ void GameMain::Render(){
 			//マテリアルをセット
 			for(DWORD i = 0; i < size; i++){
 				sys::Device::GetInst()->SetMaterial( &(*it)->meshMaterials_.at(i) ); 
-				//sys::Device::GetInst()->SetTexture(0, (*it)->textures_.at(i).GetRef() );
-
 			}
 			//テクスチャをセット
 			for(DWORD i = 0; i < (*it)->textures_.size(); i++){
 				sys::Device::GetInst()->SetTexture(0, (*it)->textures_.at(i).GetRef() );
 				(*it)->mesh_->DrawSubset(i);
 			}
+			 
 		}
 
 		//四角形のサイズ
@@ -205,6 +212,7 @@ void GameMain::Render3D(){
 //ゲームのアップデート処理
 void GameMain::Update(){
 
+	//キーの数
 	const DWORD max_key = 256;
 
 	boost::array<BYTE, max_key> keyState;
