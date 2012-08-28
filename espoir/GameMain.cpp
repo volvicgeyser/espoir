@@ -60,6 +60,11 @@ void GameMain::Render(){
 		D3DXMATRIXA16 world;
 		D3DXMATRIXA16 worldRot;
 		D3DXMATRIXA16 worldTrans;
+		D3DXMATRIXA16 worldScale;
+
+		//ƒXƒP[ƒ‹
+		//D3DXMatrixScaling(&worldScale, 0.01f, 0.01f, 0.01f);
+		D3DXMatrixScaling(&worldScale, 1.0f, 1.0f, 1.0f);
 
 		//‰ñ“]ˆ—
 		D3DXMatrixRotationY(&worldRot, sys::Time::GetInst()->GetTimeApp() / 1000.0f);
@@ -67,8 +72,11 @@ void GameMain::Render(){
 		//ˆÚ“®ˆ—
 		D3DXMatrixTranslation(&worldTrans, modelX, modelY, modelZ);
 
-		//Š|‚¯ŽZ
-		D3DXMatrixMultiply(&world, &worldRot, &worldTrans);
+		//ƒXƒP[ƒ‹~‰ñ“]
+		D3DXMatrixMultiply(&world, &worldScale, &worldRot);
+
+		//~ˆÚ“®
+		D3DXMatrixMultiply(&world, &world, &worldTrans);
 
 
 		//sys::Device::GetInst()->SetTransform(D3DTS_WORLD, &world);
@@ -242,22 +250,23 @@ void GameMain::Update(){
 	const HRESULT devStateErr = sys::InputDevice::GetInst()->GetDeviceState(
 			max_key, keyState.begin());
 
+	const float speed = 0.1f;
 	if(SUCCEEDED(devStateErr)){
 		//EscƒL[‚ÅI—¹
 		if(keyState[DIK_ESCAPE]&0xf0) PostMessage(sys::Form::GetInst()->GetHandle(), WM_CLOSE, 0, 0);
 		if(keyState[DIK_J]){
 			//j key
-			modelZ-=0.1f;
+			modelZ-=speed;
 		}
 		if(keyState[DIK_K]){
 			//k key
-			modelZ+=0.1f;
+			modelZ+=speed;
 		}
 		if(keyState[DIK_L]){
-			modelX+=0.1f;
+			modelX+=speed;
 		}
 		if(keyState[DIK_H]){
-			modelX-=0.1f;
+			modelX-=speed;
 		}
 		if(keyState[DIK_Q]){
 			PostMessage(sys::Form::GetInst()->GetHandle(), WM_CLOSE, 0, 0);
