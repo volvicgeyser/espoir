@@ -32,7 +32,7 @@ void Form::CreateWnd(){
 	//ウィンドウの生成
 	this->info_->hWnd  = CreateWindow(  this->info_->text.c_str() , this->info_->text.c_str(), WS_OVERLAPPEDWINDOW,
 		CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, NULL, NULL, this->info_->hInst, NULL);
-	
+
 	//エラーがあれば出力
 	if(GetLastError() != 0){
 		throw std::runtime_error("エラー");

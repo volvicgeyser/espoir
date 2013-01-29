@@ -5,6 +5,7 @@
 #include"system.h"
 #include"vertex.h"
 #include"font.h"
+#include"content.h"
 
 namespace espoir{
 
@@ -12,12 +13,18 @@ static float modelZ = 0.0f;
 static float modelY = 0.0f;
 static float modelX = 0.0f;
 
+
+//static Graphic::SPTexture spTexture;
+static boost::shared_ptr<Content> content;
+
 //ゲーム内容の初期化処理
 GameMain::GameMain(){
     //sys::Models::GetInst()->push_back(SPXFileData(XFile::Load(_T("../../x/kabotha_sensi.x"))));
     //sys::Models::GetInst()->push_back(SPXFileData(XFile::Load(_T("../../x/tiger.x"))));
-	//sys::Models::GetInst()->push_back(SPXFileData(XFile::Load(_T("../../x/green_box.x"))));
-	sys::Models::GetInst()->push_back(SPXFileData(XFile::Load(_T("../../x/violin.x"))));
+	//sys::Models::GetInst()->push_back(SPXFileData(XFile::Load(_T("../../x/black_rock.x"))));
+	//sys::Models::GetInst()->push_back(SPXFileData(XFile::Load(_T("../../x/marble_black_box.x"))));
+	sys::Models::GetInst()->push_back(SPXFileData(XFile::Load(_T("../../x/code.x"))));
+	//sys::Models::GetInst()->push_back(SPXFileData(XFile::Load(_T("../../x/violin.x"))));
 	//sys::Models::GetInst()->push_back(SPXFileData(XFile::Load(_T("../../x/box3.x"))));
 	//sys::Models::GetInst()->push_back(SPXFileData(XFile::Load(_T("../../x/kame.x"))));
 
@@ -40,6 +47,15 @@ GameMain::GameMain(){
 	//フォントのテスト	
 	SP_TDEF(Font);
 	SPFont font = boost::make_shared<Font>( (Format(_T("MS ゴシック"))).str() );
+
+	//部分適用で名前簡略化
+	boost::function< Graphic::SPTexture (const String&) > loadGraphic = boost::bind(&Graphic::LoadGraphic, sys::Graphic::GetInst(), _1);
+
+	//コンテント初期化
+	content = boost::make_shared<Content>();
+
+	//コンテント登録
+	content->RegisterTexture(_T("test"), loadGraphic(_T("./test.png")) );
 }
 
 //ゲームの描画
@@ -81,7 +97,8 @@ void GameMain::Render(){
 
 		//sys::Device::GetInst()->SetTransform(D3DTS_WORLD, &world);
 //        D3DXVECTOR3 vEyePt(0.0f, 3.0f, -5.0f);
-		D3DXVECTOR3 vEyePt(0.0f, 3.0f, -4.0f);
+		//D3DXVECTOR3 vEyePt(0.0f, 3.0f, -4.0f);
+		D3DXVECTOR3 vEyePt(0.0f, 2.0f, -4.0f);
 		D3DXVECTOR3 vLookatPt(0.0f, 0.0f, 0.0f);
 		D3DXVECTOR3 vUpVec(0.0f, 1.0f, 0.0f);
 		D3DXMATRIXA16 view;
@@ -90,7 +107,7 @@ void GameMain::Render(){
 		D3DXMATRIXA16 proj;
 
 		//視野角　アスペクト比　最近接距離　最遠方距離
-		D3DXMatrixPerspectiveFovLH(&proj, D3DX_PI/ 4,1.0f,0.01f,100.0f);
+		D3DXMatrixPerspectiveFovLH(&proj, D3DX_PI/ 4, 4.0f/3.0f,0.01f,100.0f);
 
 		//sys::Device::GetInst()->SetTransform(D3DTS_WORLD, &worldRot);
 		//sys::Device::GetInst()->SetTransform(D3DTS_WORLD, &worldTrans);
@@ -145,7 +162,8 @@ void GameMain::Render(){
 			//テクスチャをセット
 			//for(DWORD i = 0; i < (*it)->textures_.size(); i++){
 			for(DWORD i = 0; i < size; i++){
-				sys::Device::GetInst()->SetTexture(0, (*it)->textures_.at(i).GetRef() );
+				//sys::Device::GetInst()->SetTexture(0, (*it)->textures_.at(i).GetRef() );
+				sys::Device::GetInst()->SetTexture(0, (*it)->textures_.at(i).get() );
 				(*it)->mesh_->DrawSubset(i);
 			}
 			 
@@ -175,6 +193,11 @@ void GameMain::Render(){
 //        this->dinfo_->g->DrawRect(rect6);
 //        this->dinfo_->g->DrawRect(rect7);
 
+
+		//画像の描画
+		const RECT texRect = {0, 0, 0, 0};
+		sys::Graphic::GetInst()->DrawGraphic(content->GetTexture(_T("test")), texRect);
+		
 		//描画終了関数を呼び出すと共に成功したかどうかテスト
 		EXPECT_HRESULT_SUCCEEDED(sys::Device::GetInst()->EndScene());
 

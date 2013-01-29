@@ -75,7 +75,8 @@ namespace espoir{
 			throw std::runtime_error("マテリアルの取得に失敗しました");
 
 		for(DWORD i = 0; i < xData->numMaterials_; i++){
-			typedef ComPtr<IDirect3DTexture9> SPTexture;
+			//typedef ComPtr<IDirect3DTexture9> SPTexture;
+			typedef boost::intrusive_ptr<IDirect3DTexture9> SPTexture;
 			
 			D3DMATERIAL9 material = materials[i].MatD3D;
 
@@ -127,7 +128,7 @@ namespace espoir{
 				//if(!texture->Name)
 				//	throw std::runtime_error("テクスチャ名が無効です");
 
-				const SPTexture spTexture(texture);
+				const SPTexture spTexture(texture, false);
 				//xData->textures_.push_back(spTexture);
 				xData->textures_.at(i) = spTexture;
 				

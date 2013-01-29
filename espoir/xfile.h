@@ -8,7 +8,8 @@ namespace espoir{
 
 //Xファイルから読みだしたデータを格納しておく構造体
 struct XFileData{
-	typedef ComPtr<IDirect3DTexture9> SPTexture;
+	//typedef ComPtr<IDirect3DTexture9> SPTexture;
+	typedef boost::intrusive_ptr<IDirect3DTexture9> SPTexture;
     typedef std::vector<SPTexture> TextureArray;
 
 	std::vector<D3DMATERIAL9> meshMaterials_;

@@ -59,12 +59,105 @@ void Graphic::DrawCircle(const RECT& rect)
 	}
 }
 
+//画像のロード
+Graphic::SPTexture Graphic::LoadGraphic(const String& filename)
+{
+	//ロードされた画像ファイル名を覚えておく
+	static std::vector<String> loadedName;
+
+	if(std::find( loadedName.begin(), loadedName.end(), filename) != loadedName.end())
+	{
+		//既にロード済みの画像データは無視する
+		SPTexture spTexture(NULL);
+		return spTexture;
+	}
+	
+	//ロードされたファイル名を保存する
+	loadedName.push_back(filename);
+
+	LPDIRECT3DTEXTURE9 texture = NULL;
+	if(FAILED(D3DXCreateTextureFromFile( sys::Device::GetInst().GetRef(), filename.c_str(), &texture )))
+	{
+		DOut dout;
+		dout << _T("画像の読み込みに失敗しました") << DSTM << std::endl;
+		dout << _T("ファイル名:") << filename << std::endl;
+		throw std::runtime_error("画像の読み込みに失敗しました");
+	}
+
+	//const ComPtr<IDirect3DTexture9> spTexture(texture);
+	SPTexture spTexture(texture, false);
+
+	return spTexture;
+}
+
 //四角形の描画
 void Graphic::DrawRect(){
-
 }
 
 void Graphic::SetRect(const RECT& rect){
+}
+
+//画像を指定の位置に描画
+void Graphic::DrawGraphic(const SPTexture& spTexture, const RECT& rect)
+{
+	if(!spTexture)
+	{
+		return;
+	}
+	const D3DXVECTOR3 vec3Center(0, 0, 0);
+	const D3DXVECTOR3 vec3Position(220, 170, 0);
+
+	typedef std::map<SPTexture, SPSprite> SpriteMap;
+
+	SPSprite spSprite;
+	static SpriteMap spriteMap;
+	if( spriteMap.find(spTexture) == spriteMap.end() )
+	{
+		//該当のテクスチャーデータが存在しない場合
+		
+		LPD3DXSPRITE sprite = NULL;
+
+		if(FAILED(D3DXCreateSprite(sys::Device::GetInst().GetRef(), &sprite)))
+		{
+			DOut dout;
+			dout << _T("スプライトの初期化に失敗しました") << DSTM;
+		}
+		spSprite = SPSprite(sprite, false);
+
+		//テクスデータをキーにスプライトを格納
+		spriteMap[spTexture] = spSprite;
+	}
+	else
+	{
+		//該当のテクスチャーデータが存在する場合
+		spSprite = spriteMap[spTexture];
+	}
+
+	
+	RECT lrect = rect;
+
+	//サイズの高さか幅が0なら画像サイズを自動取得
+	if(rect.bottom == 0 || rect.right == 0)
+	{
+		D3DSURFACE_DESC desc;
+		if(spTexture->GetLevelDesc(0, &desc) )
+		{
+			//画像サイズの取得に失敗
+		}
+		else
+		{
+			lrect.bottom = desc.Height;
+			lrect.right = desc.Width;
+		}
+	}
+
+	spSprite->Begin(D3DXSPRITE_ALPHABLEND);
+    spSprite->Draw( spTexture.get(),
+                   &lrect,
+                   &vec3Center,
+                   &vec3Position,
+                   0xFFFFFFFF);
+	spSprite->End();
 }
 
 Graphic::~Graphic(void)

@@ -284,6 +284,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\content.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\controlInfo.cpp"
 				>
 			</File>
@@ -403,6 +407,10 @@
 			</File>
 			<File
 				RelativePath=".\Console.h"
+				>
+			</File>
+			<File
+				RelativePath=".\content.h"
 				>
 			</File>
 			<File
