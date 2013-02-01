@@ -14,7 +14,7 @@ static void InitPresent(D3DPRESENT_PARAMETERS* d3dpp, const D3DDISPLAYMODE d3ddm
 		throw std::runtime_error("d3dppが空です");
 
 	d3dpp->BackBufferFormat = d3ddm.Format;
-//    d3dpp->BackBufferFormat = D3DFMT_UNKNOWN;
+    //d3dpp->BackBufferFormat = D3DFMT_UNKNOWN;
 	d3dpp->BackBufferCount = 1;
 	d3dpp->SwapEffect = D3DSWAPEFFECT_DISCARD;
     d3dpp->Windowed = TRUE;
@@ -25,6 +25,7 @@ static void InitPresent(D3DPRESENT_PARAMETERS* d3dpp, const D3DDISPLAYMODE d3ddm
 	d3dpp->MultiSampleQuality = D3DMULTISAMPLE_NONE;
 	d3dpp->EnableAutoDepthStencil = TRUE;
 	d3dpp->AutoDepthStencilFormat = D3DFMT_D16;
+
 	
 //    d3dpp->EnableAutoDepthStencil = TRUE;
 //    d3dpp->AutoDepthStencilFormat = D3DFMT_D16;
@@ -89,7 +90,7 @@ public:
 
 		//デバイスの作成 HAL
 		const HRESULT hResult = sys::Direct3D::GetInst()->CreateDevice(
-			D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, sys::Form::GetInst()->GetHandle(),
+		D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, sys::Form::GetInst()->GetHandle(),
 		D3DCREATE_SOFTWARE_VERTEXPROCESSING, &d3dpp, &tmp_d3Device);
 
 		//デバイス生成時のエラーチェック
@@ -98,7 +99,33 @@ public:
 		//zbufferの設定
         tmp_d3Device->SetRenderState(D3DRS_ZENABLE, TRUE);	
 
+		//ライティングの設定
+        D3DLIGHT9 light;
+
+        ZeroMemory(&light, sizeof(D3DLIGHT9) );
+        light.Type = D3DLIGHT_DIRECTIONAL;
+        light.Direction = D3DXVECTOR3(0, 0, 10);
+
+        light.Diffuse.r = 1.0f;
+        light.Diffuse.g = 1.0f;
+        light.Diffuse.b = 1.0f;
+		//light.Diffuse.a = 1.0f;
+
+        tmp_d3Device->SetLight( 0, &light );
+        tmp_d3Device->LightEnable( 0, true );
+
+        tmp_d3Device->SetRenderState( D3DRS_LIGHTING, TRUE ); 
+		//sys::Device::GetInst()->SetRenderState( D3DRS_AMBIENT, 0xff030303); 
+
 		//アンビエント
+		//D3DMATERIAL9 mtrl;
+		//ZeroMemory( &mtrl, sizeof(mtrl) );
+		//mtrl.Ambient.r = 0.75f;
+		//mtrl.Ambient.g = 0.0f;
+		//mtrl.Ambient.b = 0.0f;
+		//mtrl.Ambient.a = 0.0f;
+		//tmp_d3Device->SetMaterial( &mtrl );
+
 		tmp_d3Device->SetRenderState(D3DRS_AMBIENT, 0xffffffff );
 
 		const SPObjType obj = SPObjType(tmp_d3Device);

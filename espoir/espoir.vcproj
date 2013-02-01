@@ -384,6 +384,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\vertex.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\xfile.cpp"
 				>
 			</File>

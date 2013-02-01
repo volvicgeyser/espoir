@@ -13,31 +13,11 @@ static float modelZ = 0.0f;
 static float modelY = 0.0f;
 static float modelX = 0.0f;
 
-const int vertexSize = 3;
-
-//Z軸
-const static FLOAT z = 0.0f;
-
-const VertexImplF pt[] = {
-	//{100.0f, 10.0f, z, 1, 0xFFFF0000, 0, 0},
-	//{100.0f, 100.0f, z, 1, 0xFF0000FF, 0, 1},
-	//{10.0f, 10.0f, z, 1, 0xFF00FF00, 1, 1}//,
-	//{10.0f, 100.0f, z, 1, 0xFF0000FF, 1, 1}
-
-	    //{ 150.0f,  50.0f, z, 1.0f, 0xffff0000, }, // x, y, z, rhw, color
-        //{ 250.0f, 250.0f, z, 1.0f, 0xff00ff00, },
-        //{  50.0f, 250.0f, z, 1.0f, 0xff00ffff, },
-
-
-		{ 150.0f,  50.0f, z, 1.0f, 0xffffffff, }, // x, y, z, rhw, color
-        { 250.0f, 250.0f, z, 1.0f, 0xffffffff, },
-        {  50.0f, 250.0f, z, 1.0f, 0xffffffff, },
-};
 
 //static Graphic::SPTexture spTexture;
 static boost::shared_ptr<Content> content;
 
-static  boost::shared_ptr<Vertex> vertex;
+static const boost::shared_ptr<Vertex> vertex;
 
 //ゲーム内容の初期化処理
 GameMain::GameMain(){
@@ -54,21 +34,28 @@ GameMain::GameMain(){
 	//dout << "DirectInput初期化テスト" << std::endl;
 	//sys::Input::GetInst();
 
+	//Z軸
+	const LONG z = 1;
 
-//	const RECT rect = {100, 100, 10, 10};
+	const RECT rect = {10, 10, 100, 100};
 	//四角形のvertex
-//    const VertexImplF pt[4] = {
-//        {rect.left, rect.top, z, 1, 0xFFFF0000},
-//        {rect.left, rect.bottom, z, 1, 0xFF0000FF},
-//        {rect.right, rect.bottom, z, 1, 0xFF0000FF},
-//        {rect.right, rect.top, z, 1, 0xFF0000FF}
-//    };
+	const VertexImplL pt[4] = {
+		{rect.left, rect.top, z, 1, 0xFFFF0000},
+		{rect.left, rect.bottom, z, 1, 0xFF0000FF},
+		{rect.right, rect.bottom, z, 1, 0xFF0000FF},
+		{rect.right, rect.top, z, 1, 0xFF0000FF}
+	};
 
+	vertex = boost::make_shared<Vertex>();
 
-
+	//バーテックス情報の書き込み
+	VOID* pVertices;
+	vertex->vertexBuffer->Lock(0, sizeof(pt), (void**)&pVertices, 0);
+	memcpy(pVertices, pt, sizeof(pVertices));
+	vertex->vertexBuffer->Unlock();
 	//BOOST_ASSERT(vertex);
 
-	//RECT r = {10, 10, 100, 100};
+	RECT r = {10, 10, 100, 100};
 
 	//フォントのテスト	
 	SP_TDEF(Font);
@@ -82,28 +69,6 @@ GameMain::GameMain(){
 
 	//コンテント登録
 	content->RegisterTexture(_T("test"), loadGraphic(_T("./test.png")) );
-
-	//バーテックス情報の書き込み
-	vertex = boost::make_shared<Vertex>(vertexSize);
-
-	VOID* pVertices;
-	const HRESULT lockResult = vertex->vertexBuffer->Lock(0, sizeof(pt) , (void**)&pVertices, 0);
-	DOut dout;
-	dout << _T("sizeof(pt)") << sizeof(pt) << DSTM << std::endl;
-
-	if(SUCCEEDED(lockResult))
-	{
-		memcpy(pVertices, pt, sizeof(pt));
-		vertex->vertexBuffer->Unlock();
-	}
-	else
-	{
-		DOut dout;
-		dout << _T("バーテックス情報の書き込みに失敗しました") << DSTM << std::endl;
-	}
-
-
-
 }
 
 //ゲームの描画
@@ -112,7 +77,6 @@ void GameMain::Render(){
 //    const HRESULT hrClear = sys::Device::GetInst()->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(100, 100, 50), 1.0f, 0);
 	
 	const HRESULT hrClear = sys::Device::GetInst()->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(0x00, 0x00, 0xff), 1.0f, 0);
-	//const HRESULT hrClear = sys::Device::GetInst()->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(0x00, 0x00, 0xff), 1.0f, 0);
 	//正しく画面クリアされたかどうかtest
 	EXPECT_HRESULT_SUCCEEDED(hrClear);
 
@@ -143,6 +107,10 @@ void GameMain::Render(){
 		//×移動
 		D3DXMatrixMultiply(&world, &world, &worldTrans);
 
+
+		//sys::Device::GetInst()->SetTransform(D3DTS_WORLD, &world);
+//        D3DXVECTOR3 vEyePt(0.0f, 3.0f, -5.0f);
+		//D3DXVECTOR3 vEyePt(0.0f, 3.0f, -4.0f);
 		D3DXVECTOR3 vEyePt(0.0f, 2.0f, -4.0f);
 		D3DXVECTOR3 vLookatPt(0.0f, 0.0f, 0.0f);
 		D3DXVECTOR3 vUpVec(0.0f, 1.0f, 0.0f);
@@ -154,6 +122,8 @@ void GameMain::Render(){
 		//視野角　アスペクト比　最近接距離　最遠方距離
 		D3DXMatrixPerspectiveFovLH(&proj, D3DX_PI/ 4, 4.0f/3.0f,0.01f,100.0f);
 
+		//sys::Device::GetInst()->SetTransform(D3DTS_WORLD, &worldRot);
+		//sys::Device::GetInst()->SetTransform(D3DTS_WORLD, &worldTrans);
 		sys::Device::GetInst()->SetTransform(D3DTS_WORLD, &world);
 		sys::Device::GetInst()->SetTransform(D3DTS_VIEW, &view);
 		sys::Device::GetInst()->SetTransform(D3DTS_PROJECTION, &proj);
@@ -203,11 +173,13 @@ void GameMain::Render(){
 				sys::Device::GetInst()->SetMaterial( &(*it)->meshMaterials_.at(i) ); 
 			}
 			//テクスチャをセット
+			//for(DWORD i = 0; i < (*it)->textures_.size(); i++){
 			for(DWORD i = 0; i < size; i++){
+				//sys::Device::GetInst()->SetTexture(0, (*it)->textures_.at(i).GetRef() );
 				sys::Device::GetInst()->SetTexture(0, (*it)->textures_.at(i).get() );
 				(*it)->mesh_->DrawSubset(i);
 			}
-//             
+			 
 		}
 
 		//四角形のサイズ
@@ -237,32 +209,8 @@ void GameMain::Render(){
 
 		//画像の描画
 		const D3DXVECTOR3 pos(100, 100, 0);
-		//sys::Graphic::GetInst()->DrawGraphic(content->GetTexture(_T("test")), pos);
+		sys::Graphic::GetInst()->DrawGraphic(content->GetTexture(_T("test")), pos);
 		
-
-		//作成したプリミティブの描画
-
-		const HRESULT setSSResult = sys::Device::GetInst()->SetStreamSource(
-				0,
-				vertex->vertexBuffer.get(),
-				0,
-				sizeof(VertexImplF)
-				);
-
-		BOOST_ASSERT(SUCCEEDED(setSSResult));
-
-		const HRESULT setfvfResult = sys::Device::GetInst()->SetFVF(D3DFVF_CUSTOMVERTEX);
-		BOOST_ASSERT(SUCCEEDED(setfvfResult));
-
-		//const HRESULT drawPrimitiveResult = sys::Device::GetInst()->DrawPrimitive(
-		//		D3DPT_TRIANGLESTRIP,
-		//		0,
-		//		2);
-
-		const HRESULT drawPrimitiveResult = sys::Device::GetInst()->DrawPrimitive( D3DPT_TRIANGLELIST, 0, 1 );
-		//BOOST_ASSERT(drawPrimitiveResult != D3DERR_INVALIDCALL);
-		BOOST_ASSERT(SUCCEEDED(drawPrimitiveResult));
-
 		//描画終了関数を呼び出すと共に成功したかどうかテスト
 		EXPECT_HRESULT_SUCCEEDED(sys::Device::GetInst()->EndScene());
 
@@ -338,7 +286,7 @@ void GameMain::Update(){
 	const HRESULT devStateErr = sys::InputDevice::GetInst()->GetDeviceState(
 			max_key, keyState.begin());
 
-	const float speed = 0.2f;
+	const float speed = 0.1f;
 	if(SUCCEEDED(devStateErr)){
 		//Escキーで終了
 		if(keyState[DIK_ESCAPE]&0xf0) PostMessage(sys::Form::GetInst()->GetHandle(), WM_CLOSE, 0, 0);
@@ -362,14 +310,6 @@ void GameMain::Update(){
 #ifdef _DEBUG
 		if(keyState[DIK_D]){
 			//call debug menu
-		}
-		if(keyState[DIK_Z])
-		{
-//			z+=speed;
-		}
-		if(keyState[DIK_X])
-		{
-//			z-=speed;
 		}
 #endif
 	}
