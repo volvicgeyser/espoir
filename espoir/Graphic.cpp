@@ -98,14 +98,15 @@ void Graphic::SetRect(const RECT& rect){
 }
 
 //画像を指定の位置に描画
-void Graphic::DrawGraphic(const SPTexture& spTexture, const RECT& rect)
+void Graphic::DrawGraphic(const SPTexture& spTexture, const D3DXVECTOR3& vec3Position)
 {
 	if(!spTexture)
 	{
+		//テクスチャが無ければ処理終了
 		return;
 	}
 	const D3DXVECTOR3 vec3Center(0, 0, 0);
-	const D3DXVECTOR3 vec3Position(220, 170, 0);
+	//const D3DXVECTOR3 vec3Position(220, 170, 0);
 
 	typedef std::map<SPTexture, SPSprite> SpriteMap;
 
@@ -133,27 +134,33 @@ void Graphic::DrawGraphic(const SPTexture& spTexture, const RECT& rect)
 		spSprite = spriteMap[spTexture];
 	}
 
-	
-	RECT lrect = rect;
+	//RECT lrect = rect;
+	RECT rect = {0, 0, 0, 0};
 
 	//サイズの高さか幅が0なら画像サイズを自動取得
 	if(rect.bottom == 0 || rect.right == 0)
 	{
 		D3DSURFACE_DESC desc;
+
+		//読み込んだテクスチャの画像サイズを取得する
 		if(spTexture->GetLevelDesc(0, &desc) )
 		{
 			//画像サイズの取得に失敗
 		}
 		else
 		{
-			lrect.bottom = desc.Height;
-			lrect.right = desc.Width;
+			//lrect.bottom = desc.Height;
+			//lrect.right = desc.Width;
+
+			rect.bottom = desc.Height;
+			rect.right = desc.Width;
 		}
 	}
 
+	//スプライトの描画開始
 	spSprite->Begin(D3DXSPRITE_ALPHABLEND);
     spSprite->Draw( spTexture.get(),
-                   &lrect,
+                   &rect,
                    &vec3Center,
                    &vec3Position,
                    0xFFFFFFFF);

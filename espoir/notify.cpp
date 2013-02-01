@@ -9,16 +9,16 @@ namespace espoir{
 
 		//バルーンとタスクトレイの設定
 		//ZeroMemory(&notifyData, sizeof(NOTIFYICONDATA));
-		notifyData = boost::shared_ptr<NOTIFYICONDATA>(new NOTIFYICONDATA(), NotifyDeleter() );
-		notifyData->cbSize = sizeof(NOTIFYICONDATA);
-		notifyData->uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP | NIF_INFO;
-		notifyData->uID = 0;
-		notifyData->uCallbackMessage = WM_MYNOTIFY;
-		notifyData->uTimeout = 1000;
-		notifyData->hWnd = sys::Form::GetInst()->GetHandle();
-		notifyData->hIcon = (HICON)LoadIcon(NULL, IDI_APPLICATION);
+		this->notifyData = boost::shared_ptr<NOTIFYICONDATA>(new NOTIFYICONDATA(), NotifyDeleter() );
+		this->notifyData->cbSize = sizeof(NOTIFYICONDATA);
+		this->notifyData->uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP | NIF_INFO;
+		this->notifyData->uID = 0;
+		this->notifyData->uCallbackMessage = WM_MYNOTIFY;
+		this->notifyData->uTimeout = 1000;
+		this->notifyData->hWnd = sys::Form::GetInst()->GetHandle();
+		this->notifyData->hIcon = (HICON)LoadIcon(NULL, IDI_APPLICATION);
 
-		if(!notifyData->hWnd){
+		if(!this->notifyData->hWnd){
 			throw std::runtime_error("ウィンドウハンドルがnullです");
 		}
 		_tcscpy_s(notifyData->szInfoTitle, _T("espoirが起動しました"));

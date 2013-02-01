@@ -44,7 +44,7 @@ struct Vertex{
 
 		if(this->vertexBuffer)
 			throw std::runtime_error("‘¶Ý‚µ‚Ü‚·");
-		this->vertexBuffer = SPVertexBuffer(tmp_vertexBuf);
+		this->vertexBuffer = SPVertexBuffer(tmp_vertexBuf, false);
 
 	}
 };

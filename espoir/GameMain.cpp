@@ -44,6 +44,11 @@ GameMain::GameMain(){
 		{rect.right, rect.top, z, 1, 0xFF0000FF}
 	};
 
+
+	RECT r = {10, 10, 100, 100};
+	Vertex v(r);
+
+
 	//フォントのテスト	
 	SP_TDEF(Font);
 	SPFont font = boost::make_shared<Font>( (Format(_T("MS ゴシック"))).str() );
@@ -195,8 +200,8 @@ void GameMain::Render(){
 
 
 		//画像の描画
-		const RECT texRect = {0, 0, 0, 0};
-		sys::Graphic::GetInst()->DrawGraphic(content->GetTexture(_T("test")), texRect);
+		const D3DXVECTOR3 pos(100, 100, 0);
+		sys::Graphic::GetInst()->DrawGraphic(content->GetTexture(_T("test")), pos);
 		
 		//描画終了関数を呼び出すと共に成功したかどうかテスト
 		EXPECT_HRESULT_SUCCEEDED(sys::Device::GetInst()->EndScene());

@@ -34,7 +34,7 @@ public:
 
 	SPTexture LoadGraphicFromCache(const String& filename);
 
-	void DrawGraphic(const SPTexture& spTexture, const RECT& rect);
+	void DrawGraphic(const SPTexture& spTexture, const D3DXVECTOR3& vec3Position);
 
 	~Graphic(void);
 };
